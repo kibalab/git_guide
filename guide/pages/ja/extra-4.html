@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>補足 4. こんな変わった仕組みを作ったのは誰？</title>
+    <link rel="stylesheet" href="../../styles/guide.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="wrap topbar-inner">
+        <a class="home-link" href="./index.html">猫でもわかるGitの使い方</a>
+        <div class="topbar-tools">
+          <nav class="lang-switch" aria-label="言語選択">
+            <a href="../extra-4.html">한국어</a>
+            <a class="is-active" href="./extra-4.html">日本語</a>
+          </nav>
+          <nav class="top-links">
+            <a href="./extra-3.html">前へ</a>
+            <a href="./index.html">目次</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main class="wrap page">
+      <article class="doc">
+        <h1>補足 4. こんな変わった仕組みを作ったのは誰？</h1>
+
+        <p>
+          Git を作った人は <span class="strong">リーナス・トーバルズ（Linus Torvalds）</span>です。
+          聞き慣れない用語や独特な感覚のせいで「いったい誰がこんな仕組みを作ったんだ」と思うかもしれませんが、
+          その背景を知ると Git の性格も少し理解しやすくなります。
+        </p>
+
+        <section class="profile-split">
+          <figure class="profile-photo">
+            <img src="../../assets/images/linus.webp" alt="リーナス・トーバルズの写真" />
+            <figcaption class="caption">
+              Git を作ったリーナス・トーバルズ
+            </figcaption>
+          </figure>
+
+          <div class="profile-content">
+            <h2>リーナス・トーバルズとは誰か</h2>
+            <p>
+              リーナス・トーバルズはフィンランド出身のソフトウェア開発者で、
+              <span class="strong">Linux カーネル</span>を作った人物として最もよく知られています。
+              とても大きな規模の開発を長く扱ってきたので、
+              道具を作るときも「大勢が同時に作業しても耐えられるか」をとても重視するタイプです。
+            </p>
+            <p>
+              GitHub のようなサービスが先にあったのではなく、
+              まず Git が作られ、そのあとで Git を使いやすくするためのサービスやクライアントが増えていきました。
+              つまり、リーナスが作ったのはウェブサイトではなく、<span class="strong">記録を保存して統合する仕組みそのもの</span>に近いものです。
+            </p>
+          </div>
+        </section>
+
+        <h2>なぜ Git を作ったのか</h2>
+        <p>
+          2005 年ごろ、Linux カーネルのような非常に大きなプロジェクトを複数人で同時に進めるために、
+          高速で信頼できる記録管理ツールが必要になりました。
+          それまで使っていた道具を継続しにくくなったため、
+          リーナスは短い期間で自分の手で新しい道具を作り始めました。
+        </p>
+        <p>
+          そのため Git は最初から「入門者にやさしく教える道具」よりも、
+          <span class="strong">大規模な共同作業で記録を安全に残し、素早く統合する道具</span>として設計されました。
+          今わたしたちが感じる独特な使い心地も、かなりここから来ています。
+        </p>
+
+        <h2>だから Git はなぜこういう形なのか</h2>
+        <ul>
+          <li>ローカル記録保存先を強く見る理由: ネットワークがなくても作業記録とブランチを十分扱える必要があったからです。</li>
+          <li>ブランチと Merge が重要な理由: 複数人が同時に分かれて作業し、あとでまた統合することが日常だったからです。</li>
+          <li>用語や操作感がやや無骨な理由: 見た目のきれいさより、速度、安定性、記録の信頼性が先だったからです。</li>
+          <li>履歴を厳密に扱う理由: 「誰が何をいつ変えたか」を信頼できないと、大きなプロジェクトは保てないからです。</li>
+        </ul>
+
+        <div class="tip">
+          <h3>一言でまとめると</h3>
+          <p>
+            Git は最初から誰にでもやさしい学習ツールとして生まれたのではなく、
+            <span class="strong">大きなプロジェクトの共同作業に耐えるためのエンジニアリングツール</span>として生まれました。
+          </p>
+        </div>
+
+        <h2>アート職の立場で覚えておくとよい点</h2>
+        <p>
+          Git が最初はよくわからず、少し変に感じられるのは自然なことです。
+          この道具は文書編集ソフトのようにやわらかく親切に設計されたのではなく、
+          <span class="strong">複雑な共同作業を壊さず守ること</span>を優先した仕組みだからです。
+        </p>
+        <p>
+          だから Git の内部原理を全部深く掘る必要まではありませんが、
+          なぜローカルとリモートが分かれていて、なぜブランチを分け、なぜ Merge やコンフリクトを重く見るのかは理解しておく価値があります。
+          そこだけでも分かれば、「いま自分が何をしているのか」がかなりはっきりします。
+        </p>
+
+        <div class="bottom-nav">
+          <a href="./extra-3.html">補足3へ</a>
+          <a href="./index.html">目次へ</a>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-credit">
+  <span class="site-credit-text">制作者: KIBA_</span>
+  <span class="site-credit-links">
+    <a class="site-credit-link" href="https://x.com/kjh030529" target="_blank" rel="noreferrer" aria-label="KIBA_ X">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M18.244 2H21l-6.56 7.5L22.2 22h-6.078l-4.76-7.29L4.8 22H2.04l7.02-8.02L1.8 2h6.233l4.303 6.6L18.244 2Zm-1.067 18h1.528L6.922 3.894H5.283L17.177 20Z" />
+      </svg>
+    </a>
+    <a class="site-credit-link" href="mailto:kjh030529@gmail.com" aria-label="KIBA_ Gmail">
+  <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4.5 7.5 12 13l7.5-5.5" />
+    <path d="M4.5 7.5v9a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1v-9" />
+    <path d="M4.5 16.5 9.75 11.75" />
+    <path d="M19.5 16.5 14.25 11.75" />
+  </svg>
+</a>
+  </span>
+</footer>
+    <script src="../../../scripts/language-preference.js"></script>
+    <script src="../../scripts/glossary.js"></script>
+  </body>
+</html>
+
+
+
+

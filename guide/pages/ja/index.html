@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>猫でもわかるGitの使い方</title>
+    <link rel="stylesheet" href="../../styles/guide.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="wrap topbar-inner">
+        <a class="home-link" href="./index.html">猫でもわかるGitの使い方</a>
+        <div class="topbar-tools">
+          <nav class="lang-switch" aria-label="言語選択">
+            <a href="../index.html">한국어</a>
+            <a class="is-active" href="./index.html">日本語</a>
+          </nav>
+          <nav class="top-links">
+            <a href="./chapter-1.html">第1章</a>
+            <a href="./chapter-2.html">第2章</a>
+            <a href="./chapter-3.html">第3章</a>
+            <a href="./chapter-4.html">第4章</a>
+            <a href="./chapter-5.html">第5章</a>
+            <a href="./chapter-6.html">第6章</a>
+            <a href="./extra-1.html">補足</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main class="wrap page">
+      <article class="doc">
+        <figure class="hero-banner">
+          <img src="../../assets/images/thumb.jpg" alt="猫でもわかるGitの使い方 バナー" />
+          <figcaption class="hero-banner-note">Irua(@kitsuneAnCr)さんの家族猫、コンイ</figcaption>
+        </figure>
+        <h1>猫でもわかるGitの使い方</h1>
+        <p>
+          この文書は、<span class="strong">アート職の入門者</span>に向けて作った Git ガイドです。
+          難しい表現は省略し、本当に必要な用語だけを順番に紹介します。
+        </p>
+        <p>
+          目的は <span class="strong">Git の概念と仕組み</span>を理解することです。
+          特定の Git クライアントやコマンドの操作手順そのものは扱いません。
+        </p>
+        <p>
+          それぞれの組織で使っている Git 環境のルールを理解しやすくし、
+          毎日行っている Commit、Push、Pull、Merge が実際には何をしているのかをつかんで、
+          共同作業を少しでも進めやすくすることに焦点を当てています。
+        </p>
+        <p>
+          各章は独立したページになっていて、理解を助けるために
+          操作できる Git グラフの図も用意しています。
+        </p>
+        <p>
+          Gitを少しでも上手に扱えるようにする小さな助けになればと思います。
+        </p>
+
+        <section class="index-section" aria-labelledby="index-main">
+          <h2 id="index-main">目次</h2>
+          <p>前で定義した概念を、後ろの章でも自然に使えるように順番を組んでいます。</p>
+          <ol class="index-cards">
+            <li>
+              <a class="index-card" href="./chapter-1.html">
+                <span class="index-card-no">第1章</span>
+                <span class="index-card-body">
+                  <span class="index-card-title">ローカル/リモートリポジトリの定義</span>
+                  <span class="index-card-desc">Git と GitHub の違いを分けて考え、ローカルとリモートの記録保存先の関係を理解します。</span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a class="index-card" href="./chapter-2.html">
+                <span class="index-card-no">第2章</span>
+                <span class="index-card-body">
+                  <span class="index-card-title">履歴と追跡単位（ファイル/行）</span>
+                  <span class="index-card-desc">人が読めるファイルを基準に、履歴や行単位の比較がどう見えるのかをつかみます。</span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a class="index-card" href="./chapter-3.html">
+                <span class="index-card-no">第3章</span>
+                <span class="index-card-body">
+                  <span class="index-card-title">HEAD とブランチ</span>
+                  <span class="index-card-desc">HEAD、ブランチ、Checkout の役割と、ブランチ名の付け方を整理します。</span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a class="index-card" href="./chapter-4.html">
+                <span class="index-card-no">第4章</span>
+                <span class="index-card-body">
+                  <span class="index-card-title">Commit、Push、Fetch</span>
+                  <span class="index-card-desc">Commit の単位と、Push、Fetch が保存先どうしで何を変えるのかを図で確認します。</span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a class="index-card" href="./chapter-5.html">
+                <span class="index-card-no">第5章</span>
+                <span class="index-card-body">
+                  <span class="index-card-title">Merge、Pull、コンフリクト</span>
+                  <span class="index-card-desc">Merge と Pull の流れ、そしてコンフリクトがなぜ起きてどう読めばよいのかを理解します。</span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a class="index-card" href="./chapter-6.html">
+                <span class="index-card-no">第6章</span>
+                <span class="index-card-body">
+                  <span class="index-card-title">Pull Request (PR)</span>
+                  <span class="index-card-desc">レビューとマージ依頼の流れを見ながら、作業を締める順番を整理します。</span>
+                </span>
+              </a>
+            </li>
+          </ol>
+        </section>
+
+        <section class="index-section" aria-labelledby="index-extra">
+          <h2 id="index-extra">補足</h2>
+          <p>実務でよくぶつかる運用テーマは、別枠でまとめてすぐ見返せるようにしました。</p>
+          <ol class="index-cards">
+            <li>
+              <a class="index-card" href="./extra-1.html">
+                <span class="index-card-no">補足 1</span>
+                <span class="index-card-body">
+                  <span class="index-card-title">コミットメッセージの書き方</span>
+                  <span class="index-card-desc">あとから読み返しても意味が通るコミットメッセージの基準を整理します。</span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a class="index-card" href="./extra-2.html">
+                <span class="index-card-no">補足 2</span>
+                <span class="index-card-body">
+                  <span class="index-card-title">ブランチ運用戦略</span>
+                  <span class="index-card-desc">ブランチをどんな作業単位で分け、いつ片づけるのか代表的なやり方を紹介します。</span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a class="index-card" href="./extra-3.html">
+                <span class="index-card-no">補足 3</span>
+                <span class="index-card-body">
+                  <span class="index-card-title">コンフリクト解決戦略</span>
+                  <span class="index-card-desc">衝突が起きたとき、何を残して何を捨てるかを判断する順番を整理します。</span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a class="index-card" href="./extra-4.html">
+                <span class="index-card-no">補足 4</span>
+                <span class="index-card-body">
+                  <span class="index-card-title">こんな変わった仕組みを作ったのは誰？</span>
+                  <span class="index-card-desc">Git を作ったリーナス・トーバルズと、Git がこういう性格になった背景を短く紹介します。</span>
+                </span>
+              </a>
+            </li>
+          </ol>
+        </section>
+
+        <p class="index-note">
+          おすすめの順番: まず第1章から第6章まで読み、そのあと必要に応じて補足を確認してください。
+        </p>
+      </article>
+    </main>
+
+    <footer class="site-credit">
+  <span class="site-credit-text">制作者: KIBA_</span>
+  <span class="site-credit-links">
+    <a class="site-credit-link" href="https://x.com/kjh030529" target="_blank" rel="noreferrer" aria-label="KIBA_ X">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M18.244 2H21l-6.56 7.5L22.2 22h-6.078l-4.76-7.29L4.8 22H2.04l7.02-8.02L1.8 2h6.233l4.303 6.6L18.244 2Zm-1.067 18h1.528L6.922 3.894H5.283L17.177 20Z" />
+      </svg>
+    </a>
+    <a class="site-credit-link" href="mailto:kjh030529@gmail.com" aria-label="KIBA_ Gmail">
+  <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4.5 7.5 12 13l7.5-5.5" />
+    <path d="M4.5 7.5v9a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1v-9" />
+    <path d="M4.5 16.5 9.75 11.75" />
+    <path d="M19.5 16.5 14.25 11.75" />
+  </svg>
+</a>
+  </span>
+</footer>
+    <script src="../../scripts/glossary.js"></script>
+  </body>
+</html>
+
+

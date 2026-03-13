@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>第2章. 履歴と追跡単位（ファイル/行）</title>
+    <link rel="stylesheet" href="../../styles/guide.css" />
+    <style>
+      .code-sample .line-highlight-blue {
+        display: block;
+        margin: 0 -12px;
+        padding: 0 12px;
+        background: rgba(64, 103, 146, 0.22);
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="wrap topbar-inner">
+        <a class="home-link" href="./index.html">猫でもわかるGitの使い方</a>
+        <div class="topbar-tools">
+          <nav class="lang-switch" aria-label="言語選択">
+            <a href="../chapter-2.html">한국어</a>
+            <a class="is-active" href="./chapter-2.html">日本語</a>
+          </nav>
+          <nav class="top-links">
+            <a href="./chapter-1.html">前の章</a>
+            <a href="./chapter-3.html">次の章</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main class="wrap page">
+      <article class="doc">
+        <h1>第2章. 履歴と追跡単位（ファイル/行）</h1>
+
+        <p>
+          <span class="strong">履歴</span>とは、作業がどのように変わってきたかを並べた時間表です。
+          「何が変わったのか」をあとから見返せるようにしてくれます。
+        </p>
+
+        <p>
+          Git はふつう <span class="strong">ファイル</span>単位で変更を見て、
+          その中では <span class="strong">行</span>単位で何が違うのかを見せてくれます。
+        </p>
+
+        <p>
+          なぜ行単位で見られるのでしょうか。テキストファイルは、人が読める文字を
+          <span class="strong">1 行ずつ並べて保存</span>しているからです。
+          ここでいうテキストファイルとは、<span class="strong">メモ帳で開いたときに人が読めるファイル</span>のことです。
+          だから「3 行目が変わった」といった比較がしやすくなります。
+        </p>
+
+        <p>
+          逆に、画像ファイルのように人がすぐ行単位で読めない形式は、
+          「このファイル全体が変わったか」を中心に見ることが多くなります。
+        </p>
+
+        <section class="figure">
+          <h3>図 2-1. 同じファイルの行が変わっていく履歴</h3>
+          <div class="graph-frame"><div id="graph-2a"></div></div>
+          <p class="caption">
+            同じファイルでも何度も修正すると、行単位の変更が時間順に積み重なります。 コミットの円をクリックすると、そのコミットのファイルごとのDiffをすぐに確認できます。
+          </p>
+        </section>
+
+        <h2>行単位で見る感覚</h2>
+        <div class="code-sample">[Assets/Prefabs/UI/LoginButton.prefab - 変更前]
+m_Name: LoginButton
+m_AnchoredPosition: {x: 0, y: -96}
+<span class="line-highlight-blue">m_Text: Start</span>
+
+[Assets/Prefabs/UI/LoginButton.prefab - 変更後]
+m_Name: LoginButton
+m_AnchoredPosition: {x: 0, y: -96}
+<span class="line-highlight-blue">m_Text: Enter Game</span></div>
+
+        <p>
+          このように 3 行目が変わると、Git はその変化の起きた場所を中心に記録します。
+          だから後で「誰が、いつ、どの行を変えたのか」を追いやすくなります。
+        </p>
+
+        <div class="bottom-nav">
+          <a href="./chapter-1.html">第1章へ</a>
+          <a href="./chapter-3.html">第3章へ</a>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-credit">
+  <span class="site-credit-text">制作者: KIBA_</span>
+  <span class="site-credit-links">
+    <a class="site-credit-link" href="https://x.com/kjh030529" target="_blank" rel="noreferrer" aria-label="KIBA_ X">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M18.244 2H21l-6.56 7.5L22.2 22h-6.078l-4.76-7.29L4.8 22H2.04l7.02-8.02L1.8 2h6.233l4.303 6.6L18.244 2Zm-1.067 18h1.528L6.922 3.894H5.283L17.177 20Z" />
+      </svg>
+    </a>
+    <a class="site-credit-link" href="mailto:kjh030529@gmail.com" aria-label="KIBA_ Gmail">
+  <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4.5 7.5 12 13l7.5-5.5" />
+    <path d="M4.5 7.5v9a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1v-9" />
+    <path d="M4.5 16.5 9.75 11.75" />
+    <path d="M19.5 16.5 14.25 11.75" />
+  </svg>
+</a>
+  </span>
+</footer>
+    <script src="../../../scripts/git-graph-visualizer.js"></script>
+    <script>
+      const graph2a = new GitGraphVisualizer("#graph-2a", {
+        columnGap: 160,
+        laneGap: 80,
+        routeSpacing: 20,
+        showBranchNames: true,
+        showCommitNames: true,
+        showHeadLabels: true,
+        showTags: false,
+        showHoverTimeGuide: true,
+        padding: { top: 70, right: 50, bottom: 52, left: 170 }
+      });
+
+      graph2a.setData({
+        head: "main",
+        branches: [{ name: "main", color: "#df5a4f" }],
+        commits: [
+          {
+            id: "h0",
+            name: "Unity LoginScene の下書きを保存",
+            branch: "main",
+            branches: ["main"],
+            parents: [],
+            changes: [
+              {
+                path: "Assets/Scenes/LoginScene.unity",
+                status: "added",
+                diff: [
+                  "+--- !u!1 &100100",
+                  "+GameObject:",
+                  "+  m_Name: LoginCanvas",
+                  "+  m_Component:",
+                  "+  - component: {fileID: 22400011}",
+                  "+--- !u!224 &22400011",
+                  "+RectTransform:",
+                  "+  m_AnchoredPosition: {x: 0, y: 0}"
+                ]
+              }
+            ]
+          },
+          {
+            id: "h1",
+            name: "LoginButton の位置を調整",
+            branch: "main",
+            parents: ["h0"],
+            changes: [
+              {
+                path: "Assets/Prefabs/UI/LoginButton.prefab",
+                status: "modified",
+                diff: [
+                  " m_Name: LoginButton",
+                  "-m_AnchoredPosition: {x: 0, y: -120}",
+                  "+m_AnchoredPosition: {x: 0, y: -96}",
+                  " m_Text: Start"
+                ]
+              }
+            ]
+          },
+          {
+            id: "h2",
+            name: "ログイン文言のスクリプトを修正",
+            branch: "main",
+            parents: ["h1"],
+            changes: [
+              {
+                path: "Assets/Scripts/UI/LoginView.cs",
+                status: "modified",
+                diff: [
+                  " public void Bind()",
+                  " {",
+                  "-    title.text = \"LOGIN\";",
+                  "+    title.text = \"WELCOME\";",
+                  " }"
+                ]
+              }
+            ]
+          },
+          {
+            id: "h3",
+            name: "ボタン文言を Enter Game に変更",
+            branch: "main",
+            branches: ["main"],
+            parents: ["h2"],
+            changes: [
+              {
+                path: "Assets/Prefabs/UI/LoginButton.prefab",
+                status: "modified",
+                diff: [
+                  " m_Name: LoginButton",
+                  " m_AnchoredPosition: {x: 0, y: -96}",
+                  "-m_Text: Start",
+                  "+m_Text: Enter Game"
+                ]
+              }
+            ]
+          }
+        ]
+      });
+    </script>
+    <script src="../../../scripts/language-preference.js"></script>
+    <script src="../../scripts/glossary.js"></script>
+  </body>
+</html>
+
+
+
+
+

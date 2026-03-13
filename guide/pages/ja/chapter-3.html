@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>第3章. HEAD とブランチ</title>
+    <link rel="stylesheet" href="../../styles/guide.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="wrap topbar-inner">
+        <a class="home-link" href="./index.html">猫でもわかるGitの使い方</a>
+        <div class="topbar-tools">
+          <nav class="lang-switch" aria-label="言語選択">
+            <a href="../chapter-3.html">한국어</a>
+            <a class="is-active" href="./chapter-3.html">日本語</a>
+          </nav>
+          <nav class="top-links">
+            <a href="./chapter-2.html">前の章</a>
+            <a href="./chapter-4.html">次の章</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main class="wrap page">
+      <article class="doc">
+        <h1>第3章. HEAD とブランチ</h1>
+
+        <p>
+          <span class="strong">ブランチ</span>は、作業の道筋を分けるための印です。
+          大きな道（main）から新しい道（feature）を一時的に分けて作業できるようにしてくれます。
+        </p>
+
+        <p>
+          <span class="strong">HEAD</span> は「いま自分が立っている道の先端」を指す目印です。
+          今どこで作業しているのかを知らせる矢印だと考えれば十分です。
+        </p>
+
+        <h2>なぜブランチが必要なのか</h2>
+        <ul>
+          <li>安定した main を守りながら、作業を隔離した状態で新しい案を安全に試せます。</li>
+          <li>複数人が同じプロジェクトを同時に触っても、衝突の危険を下げやすくなります。</li>
+          <li>問題が起きても作業の道を分けてあるので、戻しやすくなります。</li>
+        </ul>
+
+        <section class="figure">
+          <h3>図 3-1. HEAD が feature ブランチを指している状態</h3>
+          <div class="graph-frame"><div id="graph-3a"></div></div>
+          <p class="caption">
+            今の作業位置（HEAD）が feature/login-bg の上にあれば、新しいコミットもその道に積まれていきます。
+          </p>
+        </section>
+
+        <section class="figure">
+          <h3>図 3-2. 作業後に main へ戻った状態</h3>
+          <div class="graph-frame"><div id="graph-3b"></div></div>
+          <p class="caption">
+            作業が終わったら main に戻して統合し、HEAD も main に置き直して次の作業を始めます。
+          </p>
+        </section>
+
+        <h2>Checkout とは？</h2>
+        <p>
+          <span class="strong">Checkout</span> は「いま作業するブランチを切り替える動き」です。
+          Checkout をすると HEAD は新しいブランチを指すようになります。
+        </p>
+        <p>
+          たとえば main から feature/login-bg に Checkout すると、その次からのコミットは feature/login-bg に積まれます。
+          もう一度 main に Checkout すれば、main の続きとして作業します。
+        </p>
+
+        <h2>おすすめのブランチ名ルール</h2>
+        <ul>
+          <li>形式: <span class="strong">カテゴリ/作業名</span></li>
+          <li>カテゴリ例: <span class="strong">feature</span>, <span class="strong">fix</span>, <span class="strong">refactor</span>, <span class="strong">chore</span>, <span class="strong">docs</span>, <span class="strong">hotfix</span></li>
+          <li>例: <span class="strong">feature/login-bg</span>, <span class="strong">fix/button-align</span>, <span class="strong">refactor/ui-layout</span></li>
+          <li>名前の条件: すべて小文字、空白の代わりにハイフン（-）を使う、<span class="strong">特殊文字は禁止</span>（区切り用の <span class="strong">/</span> は除く）</li>
+          <li>1 本のブランチには 1 つの目的だけを入れる</li>
+        </ul>
+        <p>カテゴリはだいたい次の基準で選びます。</p>
+        <ul>
+          <li><span class="strong">feature</span>: 新しい機能や新しい画面を追加するとき</li>
+          <li><span class="strong">fix</span>: 動作不良、崩れた UI、間違った値などを直すとき</li>
+          <li><span class="strong">refactor</span>: 機能はそのままで構造だけ整理するとき</li>
+          <li><span class="strong">chore</span>: ビルド設定、フォルダ整理、依存関係更新などの保守作業</li>
+          <li><span class="strong">docs</span>: 説明文書、コメント、ガイド文言を直すとき</li>
+          <li><span class="strong">hotfix</span>: 本番の問題を緊急で直すとき</li>
+        </ul>
+
+        <div class="bottom-nav">
+          <a href="./chapter-2.html">第2章へ</a>
+          <a href="./chapter-4.html">第4章へ</a>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-credit">
+  <span class="site-credit-text">制作者: KIBA_</span>
+  <span class="site-credit-links">
+    <a class="site-credit-link" href="https://x.com/kjh030529" target="_blank" rel="noreferrer" aria-label="KIBA_ X">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M18.244 2H21l-6.56 7.5L22.2 22h-6.078l-4.76-7.29L4.8 22H2.04l7.02-8.02L1.8 2h6.233l4.303 6.6L18.244 2Zm-1.067 18h1.528L6.922 3.894H5.283L17.177 20Z" />
+      </svg>
+    </a>
+    <a class="site-credit-link" href="mailto:kjh030529@gmail.com" aria-label="KIBA_ Gmail">
+  <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4.5 7.5 12 13l7.5-5.5" />
+    <path d="M4.5 7.5v9a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1v-9" />
+    <path d="M4.5 16.5 9.75 11.75" />
+    <path d="M19.5 16.5 14.25 11.75" />
+  </svg>
+</a>
+  </span>
+</footer>
+    <script src="../../../scripts/git-graph-visualizer.js"></script>
+    <script>
+      const baseOpt = {
+        columnGap: 158,
+        laneGap: 86,
+        routeSpacing: 20,
+        showBranchNames: true,
+        showCommitNames: true,
+        showHeadLabels: true,
+        showDiffInspector: false,
+        showTags: false,
+        showHoverTimeGuide: true,
+        padding: { top: 74, right: 52, bottom: 58, left: 178 }
+      };
+
+      const graph3a = new GitGraphVisualizer("#graph-3a", baseOpt);
+      graph3a.setData({
+        head: "feature/login-bg",
+        branches: [
+          { name: "main", color: "#df5a4f" },
+          { name: "feature/login-bg", color: "#2f8dff" }
+        ],
+        commits: [
+          { id: "b0", name: "プロジェクト開始", branch: "main", branches: ["main"], parents: [] },
+          { id: "b1", name: "基本画面", branch: "main", parents: ["b0"] },
+          { id: "b2", name: "背景案", branch: "feature/login-bg", branches: ["feature/login-bg"], parents: ["b1"] },
+          { id: "b3", name: "明るさ調整", branch: "feature/login-bg", branches: ["feature/login-bg"], parents: ["b2"] },
+          { id: "b4", name: "緊急文言", branch: "main", branches: ["main"], parents: ["b1"] }
+        ]
+      });
+
+      const graph3b = new GitGraphVisualizer("#graph-3b", baseOpt);
+      graph3b.setData({
+        head: "main",
+        branches: [
+          { name: "main", color: "#df5a4f" },
+          { name: "feature/login-bg", color: "#2f8dff" }
+        ],
+        commits: [
+          { id: "m0", name: "プロジェクト開始", branch: "main", branches: ["main"], parents: [] },
+          { id: "m1", name: "基本画面", branch: "main", parents: ["m0"] },
+          { id: "m2", name: "背景ラフ", branch: "feature/login-bg", branches: ["feature/login-bg"], parents: ["m1"] },
+          { id: "m3", name: "明るさ調整", branch: "feature/login-bg", branches: ["feature/login-bg"], parents: ["m2"] },
+          { id: "m4", name: "main に統合", branch: "main", branches: ["main"], parents: ["m1", "m3"] }
+        ]
+      });
+    </script>
+    <script src="../../../scripts/language-preference.js"></script>
+    <script src="../../scripts/glossary.js"></script>
+  </body>
+</html>
+
+
+
+

@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>第1章. ローカル/リモートリポジトリの定義</title>
+    <link rel="stylesheet" href="../../styles/guide.css" />
+    <style>
+      .code-sample.code-sample-lines {
+        white-space: normal;
+      }
+
+      .code-sample.code-sample-lines > div {
+        white-space: pre;
+      }
+
+      .code-sample .line-highlight-blue {
+        display: block;
+        margin: 0 -12px;
+        padding: 0 12px;
+        background: rgba(64, 103, 146, 0.22);
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="wrap topbar-inner">
+        <a class="home-link" href="./index.html">猫でもわかるGitの使い方</a>
+        <div class="topbar-tools">
+          <nav class="lang-switch" aria-label="言語選択">
+            <a href="../chapter-1.html">한국어</a>
+            <a class="is-active" href="./chapter-1.html">日本語</a>
+          </nav>
+          <nav class="top-links">
+            <a href="./index.html">目次</a>
+            <a href="./chapter-2.html">次の章</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main class="wrap page">
+      <article class="doc">
+        <h1>第1章. ローカル/リモートリポジトリの定義</h1>
+
+        <p>
+          <span class="strong">リポジトリ</span>は、作業の記録を保管する <span class="strong">記録保存先</span>です。
+          記録保存先は、まず 2 種類に分けて考えるとわかりやすくなります。
+        </p>
+        <ul>
+          <li><span class="strong">ローカルリポジトリ</span>: 自分のパソコンの中にある記録保存先</li>
+          <li><span class="strong">リモートリポジトリ</span>: インターネット上のどこかにある記録保存先</li>
+        </ul>
+
+        <p>
+          大事なのは、<span class="strong">Git</span> と <span class="strong">GitHub</span> は同じ意味ではないということです。
+          Git は記録を扱うシステムで、GitHub はそのリモート記録保存先を置いておくサービスのひとつです。
+          （Bitbucket のようなサービスもあります。）
+        </p>
+
+        <p>
+          実務では、ローカル側でリモート記録保存先の名前をふつう <span class="strong">origin</span> にしておくことが多いです。
+          そのため <span class="strong">origin/main</span> のような表現をよく見られます。
+        </p>
+
+        <p>
+          もうひとつ重要なのは、ローカルとリモートが <span class="strong">常に自動で同じ動きをするわけではない</span> という点です。
+          互いに独立した記録保存先なので、自分で送るか受け取るかしない限り内容はそろいません。
+        </p>
+
+        <h2>ローカルの記録はどこに保存されるのか</h2>
+        <p>
+          ローカルリポジトリの中核となる記録は、プロジェクトフォルダ内の <span class="strong">.git</span> フォルダに保存されます。
+          このフォルダがあれば、「このフォルダは Git の記録保存先だ」と考えることができます。
+        </p>
+        <div class="code-sample code-sample-lines">
+          <div>my-project/</div>
+          <div class="line-highlight-blue">  .git/        ← Git の記録（履歴、ブランチ情報など）</div>
+          <div>  art/</div>
+          <div>  ui/</div>
+          <div>  README.md</div>
+        </div>
+
+        <section class="figure">
+          <h3>図 1-1. 同僚にコミットを共有する流れ (1)</h3>
+          <div class="graph-frame"><div id="graph-1a"></div></div>
+          <p class="caption">
+            流れはふつう <span class="strong">保存 → アップロード → ダウンロード</span> の順です。
+            矢印と点線の向きを見れば、データがどちらへ動くかをそのまま読めます。
+          </p>
+        </section>
+
+        <div class="bottom-nav">
+          <a href="./index.html">目次へ</a>
+          <a href="./chapter-2.html">第2章へ</a>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-credit">
+  <span class="site-credit-text">制作者: KIBA_</span>
+  <span class="site-credit-links">
+    <a class="site-credit-link" href="https://x.com/kjh030529" target="_blank" rel="noreferrer" aria-label="KIBA_ X">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M18.244 2H21l-6.56 7.5L22.2 22h-6.078l-4.76-7.29L4.8 22H2.04l7.02-8.02L1.8 2h6.233l4.303 6.6L18.244 2Zm-1.067 18h1.528L6.922 3.894H5.283L17.177 20Z" />
+      </svg>
+    </a>
+    <a class="site-credit-link" href="mailto:kjh030529@gmail.com" aria-label="KIBA_ Gmail">
+  <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4.5 7.5 12 13l7.5-5.5" />
+    <path d="M4.5 7.5v9a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1v-9" />
+    <path d="M4.5 16.5 9.75 11.75" />
+    <path d="M19.5 16.5 14.25 11.75" />
+  </svg>
+</a>
+  </span>
+</footer>
+    <script src="../../../scripts/git-graph-visualizer.js"></script>
+    <script>
+      const common = {
+        columnGap: 150,
+        laneGap: 74,
+        showRepoTitles: true,
+        showBranchNames: true,
+        showCommitNames: true,
+        showHeadLabels: true,
+        showDiffInspector: false,
+        showTags: false,
+        showHoverTimeGuide: true,
+        padding: { top: 54, right: 44, bottom: 50, left: 160 }
+      };
+
+      const graph1a = new GitGraphVisualizer("#graph-1a", {
+        ...common,
+        multiRepoGap: 82
+      });
+
+      graph1a.setData({
+        repositories: [
+          {
+            id: "local",
+            name: "自分のPC（ローカル）",
+            head: "main",
+            branches: [{ name: "main", color: "#df5a4f" }],
+            commits: [
+              { id: "c0", name: "はじめの状態", branch: "main", branches: ["main"], parents: [] },
+              { id: "c1", name: "基本画面", branch: "main", parents: ["c0"] },
+              { id: "s2", name: "保存: ボタン位置を調整", branch: "main", branches: ["main"], parents: ["c1"] }
+            ]
+          },
+          {
+            id: "remote",
+            name: "origin（リモート）",
+            head: "main",
+            branches: [{ name: "main", color: "#df5a4f" }],
+            commits: [
+              { id: "c0", name: "はじめの状態", branch: "main", branches: ["main"], parents: [] },
+              { id: "c1", name: "基本画面", branch: "main", parents: ["c0"] },
+              { id: "s2", name: "アップロード済みの保存", branch: "main", branches: ["main"], parents: ["c1"] }
+            ]
+          },
+          {
+            id: "teammate",
+            name: "別の人のPC（ローカル）",
+            head: "main",
+            branches: [{ name: "main", color: "#df5a4f" }],
+            commits: [
+              { id: "c0", name: "はじめの状態", branch: "main", branches: ["main"], parents: [] },
+              { id: "c1", name: "基本画面", branch: "main", parents: ["c0"] },
+              { id: "s2", name: "ダウンロード完了", branch: "main", branches: ["main"], parents: ["c1"] }
+            ]
+          }
+        ],
+        relations: [
+          {
+            from: { repo: "local", commit: "s2" },
+            to: { repo: "remote", commit: "s2" },
+            label: "アップロード",
+            color: "#2563eb"
+          },
+          {
+            from: { repo: "remote", commit: "s2" },
+            to: { repo: "teammate", commit: "s2" },
+            label: "ダウンロード",
+            color: "#0f766e"
+          }
+        ]
+      });
+    </script>
+    <script src="../../../scripts/language-preference.js"></script>
+    <script src="../../scripts/glossary.js"></script>
+  </body>
+</html>
+
+
+
+
+
+

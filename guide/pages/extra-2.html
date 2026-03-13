@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>번외 2. 브렌치 운용 전략</title>
+    <link rel="stylesheet" href="../styles/guide.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="wrap topbar-inner">
+        <a class="home-link" href="./index.html">고양이도 이해하는 Git 사용법</a>
+        <div class="topbar-tools">
+          <nav class="lang-switch" aria-label="언어 선택">
+            <a class="is-active" href="./extra-2.html">한국어</a>
+            <a href="./ja/extra-2.html">日本語</a>
+          </nav>
+          <nav class="top-links">
+          <a href="./extra-1.html">이전</a>
+          <a href="./extra-3.html">다음</a>
+        </nav>
+        </div>
+      </div>
+    </header>
+
+    <main class="wrap page">
+      <article class="doc">
+        <h1>번외 2. 브렌치 운용 전략</h1>
+
+        <p>
+          브렌치 전략의 핵심은 어렵지 않습니다.
+          <span class="strong">작업을 작게 나누고, 빨리 합치는 것</span>입니다.
+        </p>
+        <p>
+          팀마다 이름은 다를 수 있지만, 실제로는 이 공통 원칙 위에
+          Git Flow, GitHub Flow, GitLab Flow, TBD 같은 운영 규칙을 얹어서 쓰는 경우가 많습니다.
+        </p>
+
+        <h2>모든 전략에 깔린 기본 습관</h2>
+        <ol>
+          <li>기준 길(main)을 항상 안정적으로 유지한다.</li>
+          <li>작업마다 짧은 브렌치를 하나씩 만든다.</li>
+          <li>완료되면 빠르게 main으로 합친다.</li>
+          <li>긴급 수정은 별도 브렌치에서 바로 처리한다.</li>
+        </ol>
+        <p>
+          어떤 전략을 고르더라도, 브렌치가 너무 오래 열려 있으면 결국
+          <span class="strong">서로 다른 방향으로 멀어지고</span> 다시 합칠 때 비용이 커집니다.
+          아래 두 패턴은 많은 팀이 공통으로 지키려는 기본 습관입니다.
+        </p>
+        <p>
+          GitHub Flow와 TBD는 이 습관이 더 직접적으로 드러나는 편이고,
+          Git Flow도 브렌치 종류가 더 많을 뿐 안쪽 운영 감각은 크게 다르지 않습니다.
+        </p>
+
+        <section class="figure">
+          <h3>그림 B2-1. 짧은 작업 브렌치를 빠르게 합치는 패턴</h3>
+          <div class="graph-frame"><div id="graph-e2a"></div></div>
+          <p class="caption">
+            브렌치가 오래 열려 있지 않으면 충돌 위험이 크게 줄어듭니다.
+          </p>
+        </section>
+
+        <section class="figure">
+          <h3>그림 B2-2. 긴급 수정 브렌치 운영</h3>
+          <div class="graph-frame"><div id="graph-e2b"></div></div>
+          <p class="caption">
+            긴급 수정은 짧게 처리하고 main으로 먼저 반영한 뒤, 필요한 길에 다시 나눠 보냅니다.
+          </p>
+        </section>
+
+        <h2>대표 전략 비교</h2>
+        <p>
+          아래 전략들은 정답 경쟁이 아니라, 팀의 배포 속도와 검수 방식에 따라 무게가 달라지는 운영 방식입니다.
+          탭을 눌러 각 전략의 설명과 그래프 예시를 같이 확인해 보세요.
+        </p>
+        
+        <div class="tab-strip" role="tablist" aria-label="브렌치 전략 비교">
+          <button type="button" class="tab-button" id="tab-gitflow" role="tab" aria-selected="true" aria-controls="panel-gitflow" tabindex="0" data-strategy="gitflow">
+            Git Flow
+          </button>
+          <button type="button" class="tab-button" id="tab-githubflow" role="tab" aria-selected="false" aria-controls="panel-githubflow" tabindex="-1" data-strategy="githubflow">
+            GitHub Flow
+          </button>
+          <button type="button" class="tab-button" id="tab-gitlabflow" role="tab" aria-selected="false" aria-controls="panel-gitlabflow" tabindex="-1" data-strategy="gitlabflow">
+            GitLab Flow
+          </button>
+          <button type="button" class="tab-button" id="tab-tbd" role="tab" aria-selected="false" aria-controls="panel-tbd" tabindex="-1" data-strategy="tbd">
+            TBD
+          </button>
+        </div>
+
+        <div class="tab-panels">
+          <section id="panel-gitflow" class="tab-panel is-active" role="tabpanel" aria-labelledby="tab-gitflow">
+            <h3>Git Flow</h3>
+            <p class="tab-panel-intro">
+              <span class="strong">main과 develop</span>처럼 오래 유지되는 기준 길을 두고,
+              기능 작업은 develop 쪽으로 모은 뒤 배포 직전에 release로 다듬는 방식입니다.
+            </p>
+            <ul>
+              <li>배포 주기가 분명하고, 아트 검수나 QA 기간을 따로 두는 팀에 잘 맞습니다.</li>
+              <li>기능 작업, 배포 준비, 긴급 수정의 길이 명확히 나뉘어 있어 역할 구분이 쉽습니다.</li>
+              <li>대신 브렌치 수가 많아져서 작은 팀이나 빠른 반복 작업에는 다소 무겁게 느껴질 수 있습니다.</li>
+            </ul>
+            <section class="figure">
+              <h3>그림 B2-3. Git Flow 예시</h3>
+              <div class="graph-frame"><div id="graph-e2c"></div></div>
+              <p class="caption">
+                feature는 develop으로, release는 배포 준비용으로, hotfix는 main 기준 긴급 수정용으로 따로 움직입니다.
+              </p>
+            </section>
+          </section>
+
+          <section id="panel-githubflow" class="tab-panel" role="tabpanel" aria-labelledby="tab-githubflow" hidden>
+          <h3>GitHub Flow</h3>
+          <p class="tab-panel-intro">
+            <span class="strong">main 하나를 중심</span>으로 짧은 작업 브렌치를 만들고,
+            리뷰가 가능한 한 묶음으로 정리한 뒤 PR을 거쳐 main으로 합치는 방식입니다.
+          </p>
+          <ul>
+            <li>핵심은 <span class="strong">브렌치 하나가 리뷰 가능한 작업 묶음</span>이 된다는 점입니다.</li>
+            <li>작고 자주 합치는 팀, 배포를 자주 하는 팀, 도구가 main 중심으로 맞춰진 팀에 잘 맞습니다.</li>
+            <li>대신 main이 늘 배포 가능한 상태에 가깝도록 관리해야 하고, 리뷰가 너무 늦어지면 브렌치가 쉽게 길어집니다.</li>
+          </ul>
+          <section class="figure">
+            <h3>그림 B2-4. GitHub Flow 예시</h3>
+            <div class="graph-frame"><div id="graph-e2d"></div></div>
+            <p class="caption">
+              feature 브렌치가 리뷰 한 묶음 동안 살아 있다가, PR이 끝나면 main으로 합쳐지는 패턴입니다.
+            </p>
+          </section>
+        </section>
+
+          <section id="panel-gitlabflow" class="tab-panel" role="tabpanel" aria-labelledby="tab-gitlabflow" hidden>
+          <h3>GitLab Flow</h3>
+          <p class="tab-panel-intro">
+            <span class="strong">main에서 작업을 모으되, staging이나 production 같은 환경 브렌치</span>를 따로 두고
+            어느 결과가 검수 중인지, 어느 결과가 실제 서비스 중인지 구분해서 운영하는 방식입니다.
+          </p>
+          <ul>
+            <li>핵심은 <span class="strong">작업 브렌치뿐 아니라 배포 환경 자체도 브렌치로 추적</span>한다는 점입니다.</li>
+            <li>내부 검수 빌드와 실제 운영 빌드를 분리해야 하는 팀, 환경별 승인 절차가 있는 팀에 잘 맞습니다.</li>
+            <li>대신 환경 브렌치끼리 무엇이 먼저 올라갔는지 규칙이 흐트러지면 관리가 금방 복잡해질 수 있습니다.</li>
+          </ul>
+          <section class="figure">
+            <h3>그림 B2-5. GitLab Flow 예시</h3>
+            <div class="graph-frame"><div id="graph-e2f"></div></div>
+            <p class="caption">
+              feature를 main에 모은 뒤, staging으로 검수 빌드를 만들고, 확인이 끝나면 production으로 올리는 패턴입니다.
+            </p>
+          </section>
+        </section>
+
+          <section id="panel-tbd" class="tab-panel" role="tabpanel" aria-labelledby="tab-tbd" hidden>
+          <h3>TBD</h3>
+          <p class="tab-panel-intro">
+            TBD는 <span class="strong">Trunk Based Development</span>의 줄임말입니다.
+            앞에서 본 기본 습관을 가장 강하게 적용해서, trunk(main)에 아주 자주 다시 합치는 방식입니다.
+          </p>
+          <ul>
+            <li>핵심은 <span class="strong">브렌치를 거의 머물지 않는 임시 통로처럼</span> 쓰거나, 팀에 따라 아예 생략할 수도 있다는 점입니다.</li>
+            <li>작업을 매우 작게 쪼개고 하루 안에 여러 번 trunk로 돌아올 수 있는 팀에 잘 맞습니다.</li>
+            <li>대신 미완성 작업을 그대로 드러내지 않도록 노출 조절과 빠른 검증 습관이 함께 있어야 합니다.</li>
+          </ul>
+          <section class="figure">
+            <h3>그림 B2-6. TBD 예시</h3>
+            <div class="graph-frame"><div id="graph-e2e"></div></div>
+            <p class="caption">
+              한두 개 커밋 단위의 아주 짧은 작업이 몇 시간 안에 main으로 돌아오는 흐름입니다.
+            </p>
+          </section>
+        </section>
+        </div>
+
+        <div class="bottom-nav">
+          <a href="./extra-1.html">번외 1로</a>
+          <a href="./extra-3.html">번외 3으로</a>
+          <a href="./index.html">목차로</a>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-credit">
+  <span class="site-credit-text">만든사람: KIBA_</span>
+  <span class="site-credit-links">
+    <a class="site-credit-link" href="https://x.com/kjh030529" target="_blank" rel="noreferrer" aria-label="KIBA_ X">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M18.244 2H21l-6.56 7.5L22.2 22h-6.078l-4.76-7.29L4.8 22H2.04l7.02-8.02L1.8 2h6.233l4.303 6.6L18.244 2Zm-1.067 18h1.528L6.922 3.894H5.283L17.177 20Z" />
+      </svg>
+    </a>
+    <a class="site-credit-link" href="mailto:kjh030529@gmail.com" aria-label="KIBA_ Gmail">
+  <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4.5 7.5 12 13l7.5-5.5" />
+    <path d="M4.5 7.5v9a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1v-9" />
+    <path d="M4.5 16.5 9.75 11.75" />
+    <path d="M19.5 16.5 14.25 11.75" />
+  </svg>
+</a>
+  </span>
+</footer>
+    <script src="../../scripts/git-graph-visualizer.js"></script>
+    <script>
+      const sharedGraphOptions = {
+        columnGap: 154,
+        laneGap: 82,
+        routeSpacing: 20,
+        showBranchNames: true,
+        showCommitNames: true,
+        showHeadLabels: true,
+        showDiffInspector: false,
+        showHoverTimeGuide: true,
+        padding: { top: 76, right: 52, bottom: 56, left: 186 }
+      };
+
+      const graphE2a = new GitGraphVisualizer("#graph-e2a", {
+        ...sharedGraphOptions,
+        showTags: false
+      });
+
+      graphE2a.setData({
+        head: "main",
+        branches: [
+          { name: "main", color: "#df5a4f" },
+          { name: "feature/ui-banner", color: "#2f8dff" },
+          { name: "feature/sound", color: "#1ea86b" }
+        ],
+        commits: [
+          { id: "t0", name: "기준점", branch: "main", branches: ["main"], parents: [] },
+          { id: "t1", name: "기본 씬", branch: "main", parents: ["t0"] },
+          { id: "u2", name: "배너 시안", branch: "feature/ui-banner", branches: ["feature/ui-banner"], parents: ["t1"] },
+          { id: "u3", name: "배너 합치기", branch: "main", parents: ["t1", "u2"] },
+          { id: "s2", name: "효과음 조정", branch: "feature/sound", branches: ["feature/sound"], parents: ["u3"] },
+          { id: "s3", name: "효과음 합치기", branch: "main", branches: ["main"], parents: ["u3", "s2"] }
+        ]
+      });
+
+      const graphE2b = new GitGraphVisualizer("#graph-e2b", {
+        ...sharedGraphOptions,
+        showTags: true,
+        padding: { top: 76, right: 52, bottom: 60, left: 186 }
+      });
+
+      graphE2b.setData({
+        head: "main",
+        branches: [
+          { name: "main", color: "#df5a4f" },
+          { name: "hotfix/ui-block", color: "#ea9a14" }
+        ],
+        commits: [
+          { id: "h0", name: "기준점", branch: "main", branches: ["main"], parents: [] },
+          { id: "h1", name: "일반 작업", branch: "main", parents: ["h0"] },
+          { id: "h2", name: "긴급 수정", branch: "hotfix/ui-block", branches: ["hotfix/ui-block"], parents: ["h1"] },
+          { id: "h3", name: "긴급 수정 main 반영", branch: "main", branches: ["main"], tags: ["urgent"], parents: ["h1", "h2"] }
+        ]
+      });
+
+      const strategyGraphFactories = {
+        gitflow() {
+          const graph = new GitGraphVisualizer("#graph-e2c", {
+            columnGap: 122,
+            laneGap: 76,
+            routeSpacing: 18,
+            showBranchNames: true,
+            showCommitNames: true,
+            showHeadLabels: true,
+            showDiffInspector: false,
+            showTags: true,
+            showHoverTimeGuide: true,
+            padding: { top: 78, right: 64, bottom: 62, left: 208 }
+          });
+
+          graph.setData({
+            head: "develop",
+            branches: [
+              { name: "main", color: "#df5a4f" },
+              { name: "develop", color: "#1ea86b" },
+              { name: "feature/login-panel", color: "#2f8dff" },
+              { name: "release/1.2", color: "#ea9a14" },
+              { name: "hotfix/login-safe-area", color: "#8b5cf6" }
+            ],
+            commits: [
+              { id: "gf0", name: "1.1 UI 출고 기준", branch: "main", branches: ["main"], parents: [] },
+              { id: "gf1", name: "다음 빌드 아트 기준", branch: "develop", branches: ["develop"], parents: ["gf0"] },
+              { id: "gf2", name: "로비 배너 시안 시작", branch: "feature/login-panel", branches: ["feature/login-panel"], parents: ["gf1"] },
+              { id: "gf3", name: "배너 목업 정리", branch: "feature/login-panel", parents: ["gf2"] },
+              { id: "gf4", name: "배너 시안 develop 반영", branch: "develop", branches: ["develop"], parents: ["gf1", "gf3"] },
+              { id: "gf5", name: "행사 빌드 release 분기", branch: "release/1.2", branches: ["release/1.2"], parents: ["gf4"] },
+              { id: "gf6", name: "QA용 아이콘/정렬 수정", branch: "release/1.2", parents: ["gf5"] },
+              { id: "gf7", name: "행사 UI 1.2 배포", branch: "main", branches: ["main"], tags: ["v1.2"], parents: ["gf0", "gf6"] },
+              { id: "gf8", name: "release 수정 develop 반영", branch: "develop", branches: ["develop"], parents: ["gf4", "gf6"] },
+              { id: "gf9", name: "로그인 잘림 hotfix 분기", branch: "hotfix/login-safe-area", branches: ["hotfix/login-safe-area"], parents: ["gf7"] },
+              { id: "gf10", name: "노치 여백 긴급 수정", branch: "hotfix/login-safe-area", parents: ["gf9"] },
+              { id: "gf11", name: "긴급 수정 배포", branch: "main", branches: ["main"], tags: ["hotfix"], parents: ["gf7", "gf10"] },
+              { id: "gf12", name: "hotfix develop 반영", branch: "develop", branches: ["develop"], parents: ["gf8", "gf10"] }
+            ]
+          });
+        },
+        githubflow() {
+          const graph = new GitGraphVisualizer("#graph-e2d", {
+            columnGap: 126,
+            laneGap: 78,
+            routeSpacing: 18,
+            showBranchNames: true,
+            showCommitNames: true,
+            showHeadLabels: true,
+            showDiffInspector: false,
+            showTags: false,
+            showHoverTimeGuide: true,
+            padding: { top: 76, right: 56, bottom: 58, left: 194 }
+          });
+
+          graph.setData({
+            head: "main",
+            branches: [
+              { name: "main", color: "#df5a4f" },
+              { name: "feature/login-panel", color: "#2f8dff" },
+              { name: "feature/banner-copy", color: "#1ea86b" }
+            ],
+            commits: [
+              { id: "gh0", name: "배포 가능한 UI 기준", branch: "main", branches: ["main"], parents: [] },
+              { id: "gh1", name: "공통 로그인 프리팹 정리", branch: "main", parents: ["gh0"] },
+              { id: "gh2", name: "로그인 패널 시안", branch: "feature/login-panel", branches: ["feature/login-panel"], parents: ["gh1"] },
+              { id: "gh3", name: "리뷰 코멘트 반영", branch: "feature/login-panel", parents: ["gh2"] },
+              { id: "gh4", name: "아이콘 정리", branch: "feature/login-panel", parents: ["gh3"] },
+              { id: "gh5", name: "로그인 패널 머지", branch: "main", branches: ["main"], parents: ["gh1", "gh4"] },
+              { id: "gh6", name: "이벤트 배너 문구 수정", branch: "feature/banner-copy", branches: ["feature/banner-copy"], parents: ["gh5"] },
+              { id: "gh7", name: "검수 의견 반영", branch: "feature/banner-copy", parents: ["gh6"] },
+              { id: "gh8", name: "배너 문구 머지", branch: "main", branches: ["main"], parents: ["gh5", "gh7"] }
+            ]
+          });
+        },
+        gitlabflow() {
+          const graph = new GitGraphVisualizer("#graph-e2f", {
+            columnGap: 124,
+            laneGap: 74,
+            routeSpacing: 18,
+            showBranchNames: true,
+            showCommitNames: true,
+            showHeadLabels: true,
+            showDiffInspector: false,
+            showTags: true,
+            showHoverTimeGuide: true,
+            padding: { top: 78, right: 64, bottom: 60, left: 206 }
+          });
+
+          graph.setData({
+            head: "main",
+            branches: [
+              { name: "production", color: "#df5a4f" },
+              { name: "staging", color: "#1ea86b" },
+              { name: "main", color: "#2f8dff" },
+              { name: "feature/event-lobby", color: "#ea9a14" }
+            ],
+            commits: [
+              { id: "gl0", name: "현재 운영 UI", branch: "production", branches: ["production"], tags: ["live"], parents: [] },
+              { id: "gl1", name: "main 통합 기준", branch: "main", branches: ["main"], parents: ["gl0"] },
+              { id: "gl2", name: "검수 서버 기준", branch: "staging", branches: ["staging"], parents: ["gl1"] },
+              { id: "gl3", name: "행사 로비 시안", branch: "feature/event-lobby", branches: ["feature/event-lobby"], parents: ["gl1"] },
+              { id: "gl4", name: "배너/아이콘 정리", branch: "feature/event-lobby", parents: ["gl3"] },
+              { id: "gl5", name: "행사 시안 main 반영", branch: "main", branches: ["main"], parents: ["gl1", "gl4"] },
+              { id: "gl6", name: "검수 빌드 갱신", branch: "staging", branches: ["staging"], tags: ["qa"], parents: ["gl2", "gl5"] },
+              { id: "gl7", name: "운영 반영", branch: "production", branches: ["production"], tags: ["prod"], parents: ["gl0", "gl6"] }
+            ]
+          });
+        },
+        tbd() {
+          const graph = new GitGraphVisualizer("#graph-e2e", {
+            columnGap: 134,
+            laneGap: 76,
+            routeSpacing: 18,
+            showBranchNames: true,
+            showCommitNames: true,
+            showHeadLabels: true,
+            showDiffInspector: false,
+            showTags: false,
+            showHoverTimeGuide: true,
+            padding: { top: 76, right: 56, bottom: 58, left: 194 }
+          });
+
+          graph.setData({
+            head: "main",
+            branches: [
+              { name: "main", color: "#df5a4f" },
+              { name: "task/login-copy", color: "#2f8dff" },
+              { name: "task/safe-area", color: "#1ea86b" },
+              { name: "task/button-tint", color: "#ea9a14" }
+            ],
+            commits: [
+              { id: "tb0", name: "오늘 작업 기준", branch: "main", branches: ["main"], parents: [] },
+              { id: "tb1", name: "공통 앵커 정리", branch: "main", parents: ["tb0"] },
+              { id: "tb2", name: "버튼 문구 한 줄 수정", branch: "task/login-copy", branches: ["task/login-copy"], parents: ["tb1"] },
+              { id: "tb3", name: "오전 바로 합치기", branch: "main", branches: ["main"], parents: ["tb1", "tb2"] },
+              { id: "tb4", name: "세이프 에어리어 한 줄 보정", branch: "task/safe-area", branches: ["task/safe-area"], parents: ["tb3"] },
+              { id: "tb5", name: "오후 바로 합치기", branch: "main", branches: ["main"], parents: ["tb3", "tb4"] },
+              { id: "tb6", name: "버튼 틴트 한 단계 조정", branch: "task/button-tint", branches: ["task/button-tint"], parents: ["tb5"] },
+              { id: "tb7", name: "당일 마지막 합치기", branch: "main", branches: ["main"], parents: ["tb5", "tb6"] }
+            ]
+          });
+        }
+      };
+
+      const renderedStrategyGraphs = {};
+      const strategyTabs = Array.from(document.querySelectorAll("[data-strategy]"));
+      const strategyPanels = Array.from(document.querySelectorAll(".tab-panel"));
+
+      function renderStrategyGraph(strategy) {
+        if (renderedStrategyGraphs[strategy]) return;
+        strategyGraphFactories[strategy]();
+        renderedStrategyGraphs[strategy] = true;
+      }
+
+      function activateStrategyTab(strategy) {
+        strategyTabs.forEach((tab) => {
+          const isActive = tab.dataset.strategy === strategy;
+          tab.setAttribute("aria-selected", isActive ? "true" : "false");
+          tab.tabIndex = isActive ? 0 : -1;
+        });
+
+        strategyPanels.forEach((panel) => {
+          const isActive = panel.id === `panel-${strategy}`;
+          panel.hidden = !isActive;
+          panel.classList.toggle("is-active", isActive);
+        });
+
+        renderStrategyGraph(strategy);
+      }
+
+      strategyTabs.forEach((tab, index) => {
+        tab.addEventListener("click", () => {
+          activateStrategyTab(tab.dataset.strategy);
+          tab.focus();
+        });
+
+        tab.addEventListener("keydown", (event) => {
+          const key = event.key;
+          if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(key)) return;
+          event.preventDefault();
+
+          let nextIndex = index;
+          if (key === "ArrowRight") nextIndex = (index + 1) % strategyTabs.length;
+          if (key === "ArrowLeft") nextIndex = (index - 1 + strategyTabs.length) % strategyTabs.length;
+          if (key === "Home") nextIndex = 0;
+          if (key === "End") nextIndex = strategyTabs.length - 1;
+
+          const nextTab = strategyTabs[nextIndex];
+          activateStrategyTab(nextTab.dataset.strategy);
+          nextTab.focus();
+        });
+      });
+
+      activateStrategyTab("gitflow");
+    </script>
+    <script src="../../scripts/language-preference.js"></script>
+    <script src="../scripts/glossary.js"></script>
+  </body>
+</html>
+
+

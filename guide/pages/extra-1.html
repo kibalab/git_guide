@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>번외 1. 커밋메시지 작성 전략</title>
+    <link rel="stylesheet" href="../styles/guide.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="wrap topbar-inner">
+        <a class="home-link" href="./index.html">고양이도 이해하는 Git 사용법</a>
+        <div class="topbar-tools">
+          <nav class="lang-switch" aria-label="언어 선택">
+            <a class="is-active" href="./extra-1.html">한국어</a>
+            <a href="./ja/extra-1.html">日本語</a>
+          </nav>
+          <nav class="top-links">
+          <a href="./chapter-6.html">이전</a>
+          <a href="./extra-2.html">다음</a>
+        </nav>
+        </div>
+      </div>
+    </header>
+
+    <main class="wrap page">
+      <article class="doc">
+        <h1>번외 1. 커밋메시지 작성 전략</h1>
+
+        <p>
+          커밋메시지는 나중의 나와 동료를 위한 메모입니다.
+          짧지만 정확해야 합니다.
+        </p>
+
+        <h2>좋은 커밋메시지의 기준</h2>
+        <ul>
+          <li>무엇을 바꿨는지 한 줄로 바로 알 수 있다.</li>
+          <li>가능하면 왜 바꿨는지 짧게 덧붙인다.</li>
+          <li>한 커밋의 목적과 메시지가 정확히 맞는다.</li>
+        </ul>
+
+        <p>
+          예: "버튼 그림자 강도 20% 낮춤", "튜토리얼 배경 이미지 교체"
+        </p>
+
+        <section class="figure">
+          <h3>그림 B1-1. 메시지만 읽어도 흐름이 보이게 만들기</h3>
+          <div class="graph-frame"><div id="graph-e1"></div></div>
+          <p class="caption">
+            커밋 이름이 명확하면, 히스토리 자체가 작업 보고서처럼 읽힙니다.
+          </p>
+        </section>
+
+        <h2>피하면 좋은 메시지</h2>
+        <ul>
+          <li>"수정", "작업", "변경"처럼 너무 넓은 단어만 쓰기</li>
+          <li>여러 작업을 한 문장에 뭉뚱그려 쓰기</li>
+          <li>"이 코드 누가 짰어!!"와 같이 작업 내용과 무관한 감정 문장만 남기기</li>
+        </ul>
+
+        <div class="bottom-nav">
+          <a href="./extra-2.html">번외 2로</a>
+          <a href="./index.html">목차로</a>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-credit">
+  <span class="site-credit-text">만든사람: KIBA_</span>
+  <span class="site-credit-links">
+    <a class="site-credit-link" href="https://x.com/kjh030529" target="_blank" rel="noreferrer" aria-label="KIBA_ X">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M18.244 2H21l-6.56 7.5L22.2 22h-6.078l-4.76-7.29L4.8 22H2.04l7.02-8.02L1.8 2h6.233l4.303 6.6L18.244 2Zm-1.067 18h1.528L6.922 3.894H5.283L17.177 20Z" />
+      </svg>
+    </a>
+    <a class="site-credit-link" href="mailto:kjh030529@gmail.com" aria-label="KIBA_ Gmail">
+  <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4.5 7.5 12 13l7.5-5.5" />
+    <path d="M4.5 7.5v9a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1v-9" />
+    <path d="M4.5 16.5 9.75 11.75" />
+    <path d="M19.5 16.5 14.25 11.75" />
+  </svg>
+</a>
+  </span>
+</footer>
+    <script src="../../scripts/git-graph-visualizer.js"></script>
+    <script>
+      const graphE1 = new GitGraphVisualizer("#graph-e1", {
+        columnGap: 162,
+        laneGap: 84,
+        routeSpacing: 20,
+        showBranchNames: true,
+        showCommitNames: true,
+        showHeadLabels: true,
+        showDiffInspector: false,
+        showTags: false,
+        showHoverTimeGuide: true,
+        padding: { top: 72, right: 50, bottom: 56, left: 176 }
+      });
+
+      graphE1.setData({
+        head: "main",
+        branches: [{ name: "main", color: "#df5a4f" }],
+        commits: [
+          { id: "s0", name: "기본 UI 파일 배치", branch: "main", branches: ["main"], parents: [] },
+          { id: "s1", name: "로그인 버튼 간격 12px 조정", branch: "main", parents: ["s0"] },
+          { id: "s2", name: "튜토리얼 배경 이미지 교체", branch: "main", parents: ["s1"] },
+          { id: "s3", name: "오탈자 2건 수정", branch: "main", branches: ["main"], parents: ["s2"] }
+        ]
+      });
+    </script>
+    <script src="../../scripts/language-preference.js"></script>
+    <script src="../scripts/glossary.js"></script>
+  </body>
+</html>
+
+

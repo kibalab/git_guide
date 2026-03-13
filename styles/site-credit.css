@@ -1,0 +1,45 @@
+.site-credit {
+  margin: 24px 0 0;
+  padding: 18px 0 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  color: #6b7280;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.site-credit-text {
+  letter-spacing: 0.04em;
+}
+
+.site-credit-links {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.site-credit-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  color: #6b7280;
+  text-decoration: none;
+}
+
+.site-credit-link:hover,
+.site-credit-link:focus-visible {
+  color: #1d4ed8;
+  outline: none;
+}
+
+.site-credit-link svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+  fill: currentColor;
+}

@@ -1,0 +1,693 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>第6章. Pull Request (PR)</title>
+    <link rel="stylesheet" href="../../styles/guide.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="wrap topbar-inner">
+        <a class="home-link" href="./index.html">猫でもわかるGitの使い方</a>
+        <div class="topbar-tools">
+          <nav class="lang-switch" aria-label="言語選択">
+            <a href="../chapter-6.html">한국어</a>
+            <a class="is-active" href="./chapter-6.html">日本語</a>
+          </nav>
+          <nav class="top-links">
+            <a href="./chapter-5.html">前の章</a>
+            <a href="./extra-1.html">補足</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main class="wrap page">
+      <article class="doc">
+        <h1>第6章. Pull Request (PR)</h1>
+
+        <p>
+          <span class="strong">Pull Request (PR)</span> は、
+          「自分のブランチ作業を基準ブランチ（main）に取り込んでよいかレビューを依頼する段階」です。
+        </p>
+        <p>
+          第5章で見た Merge / Pull の流れの上に、チームのレビュー手順を載せたものが PR だと考えると理解しやすくなります。
+        </p>
+
+        <p>
+          ふつうの流れは次のとおりです。
+        </p>
+        <ol>
+          <li>ローカルブランチの作業をリモートへ Push する。</li>
+          <li>PR を開いて変更内容を説明する。</li>
+          <li>レビューを受け、修正が必要なら同じブランチに追加 Commit する。</li>
+          <li>承認されたら main に Merge する。</li>
+        </ol>
+
+        <p>
+          要点は「PR は統合前にもう一度確認するための安全装置」だということです。
+          作業品質、うっかりミス、入れ忘れたファイルをここでかなり拾えます。
+        </p>
+
+        <section class="tip">
+          <h3>この章のグラフを見るコツ</h3>
+          <ul>
+            <li>グラフは段階スライドです。上部の <span class="strong">← / → / Play</span> で流れを進めてください。</li>
+            <li>この章は流れの理解に集中できるよう、履歴ウィンドウを隠しています。</li>
+          </ul>
+        </section>
+
+        <section class="figure">
+          <h3>図 6-1. Push → PR → レビュー反映 → Merge → Fetch → Pull</h3>
+          <div class="graph-frame"><div id="graph-5a"></div></div>
+          <p class="caption">
+            段階ボタンで PR の流れを順番に再生できます。
+            <span class="strong">origin/main</span> と <span class="strong">origin/feature/login-ui</span> は
+            自分の local 側にあるリモート基準点で、最後の段階で Fetch と Pull の違いも確認できます。
+          </p>
+        </section>
+
+        <h2>PR Merge 後の整理ルーティン（推奨）</h2>
+        <p>
+          下のグラフ（図 6-2）は、PR Merge 直後の整理ルーティンを段階ごとに見せています。
+          ボタンで進めながら、ブランチがどう片づいていくか確認してみてください。
+        </p>
+        <section class="figure">
+          <h3>図 6-2. Merge 後のブランチ整理ルーティン（削除 → checkout main → Pull → 新しいブランチ）</h3>
+          <div class="graph-frame"><div id="graph-5b"></div></div>
+          <p class="caption">
+            リモートの作業ブランチを消し、main に戻って Pull で最新化したあと、
+            次の作業ブランチを新しく作る流れです。
+          </p>
+        </section>
+        <ol>
+          <li>リモートで Merge 済みの作業ブランチを削除する。</li>
+          <li>main に Checkout する。</li>
+          <li>Pull で main を最新状態に合わせる。</li>
+          <li>ローカル作業ブランチを削除する。</li>
+          <li>次の作業は新しいブランチで始める。</li>
+        </ol>
+
+        <section class="tip">
+          <h3>なぜこうするのか</h3>
+          <ul>
+            <li>終わったブランチを片づけることで、ブランチ一覧が見やすくなります。</li>
+            <li>次の作業を常に最新の main から始められるので、不要な衝突を減らせます。</li>
+            <li>作業単位が分かれるため、PR レビューの範囲が明確になります。</li>
+            <li>間違った基準点から作業を続けてしまうミスを減らせます。</li>
+          </ul>
+        </section>
+
+        <div class="bottom-nav">
+          <a href="./chapter-5.html">第5章へ</a>
+          <a href="./extra-1.html">補足1へ</a>
+          <a href="./index.html">目次へ</a>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-credit">
+  <span class="site-credit-text">制作者: KIBA_</span>
+  <span class="site-credit-links">
+    <a class="site-credit-link" href="https://x.com/kjh030529" target="_blank" rel="noreferrer" aria-label="KIBA_ X">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M18.244 2H21l-6.56 7.5L22.2 22h-6.078l-4.76-7.29L4.8 22H2.04l7.02-8.02L1.8 2h6.233l4.303 6.6L18.244 2Zm-1.067 18h1.528L6.922 3.894H5.283L17.177 20Z" />
+      </svg>
+    </a>
+    <a class="site-credit-link" href="mailto:kjh030529@gmail.com" aria-label="KIBA_ Gmail">
+  <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4.5 7.5 12 13l7.5-5.5" />
+    <path d="M4.5 7.5v9a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1v-9" />
+    <path d="M4.5 16.5 9.75 11.75" />
+    <path d="M19.5 16.5 14.25 11.75" />
+  </svg>
+</a>
+  </span>
+</footer>
+    <script src="../../../scripts/git-graph-visualizer.js"></script>
+    <script>
+      const graph5a = new GitGraphVisualizer("#graph-5a", {
+        columnGap: 146,
+        laneGap: 74,
+        showRepoTitles: true,
+        showBranchNames: true,
+        showCommitNames: true,
+        showHeadLabels: true,
+        showDiffInspector: false,
+        showTags: false,
+        showHoverTimeGuide: true,
+        padding: { top: 58, right: 44, bottom: 52, left: 170 },
+        multiRepoGap: 78,
+        stagePlayInterval: 1400
+      });
+
+      const prBranches = [
+        { name: "main", color: "#df5a4f" },
+        { name: "feature/login-ui", color: "#2f8dff" }
+      ];
+
+      const localBaseCommits = [
+        { id: "p0", name: "開始", branch: "main", branches: ["main"], parents: [] },
+        { id: "p1", name: "基本画面", branch: "main", parents: ["p0"] },
+        {
+          id: "p3",
+          name: "入力欄の整列",
+          branch: "feature/login-ui",
+          branches: ["feature/login-ui"],
+          parents: ["p1"],
+          changes: [
+            { path: "ui/login.css", status: "modified", diff: ["-.field { margin-bottom: 8px; }", "+.field { margin-bottom: 14px; }"] }
+          ]
+        }
+      ];
+
+      const reviewedCommit = {
+        id: "p4",
+        name: "レビュー反映: ボタンのコントラスト調整",
+        branch: "feature/login-ui",
+        branches: ["feature/login-ui"],
+        parents: ["p3"],
+        changes: [
+          { path: "ui/login.css", status: "modified", diff: ["-.login-btn { color: #9ca3af; }", "+.login-btn { color: #ffffff; }"] }
+        ]
+      };
+
+      const mergedCommit = {
+        id: "p5",
+        name: "PR マージ完了",
+        branch: "main",
+        branches: ["main"],
+        tags: ["merged"],
+        parents: ["p1", "p4"],
+        changes: [
+          { path: "ui/login.html", status: "modified", diff: ["-<h1>Login</h1>", "+<h1>Welcome Back</h1>"] },
+          { path: "ui/login.css", status: "modified", diff: ["-.field { margin-bottom: 8px; }", "+.field { margin-bottom: 14px; }"] },
+          { path: "ui/login.css", status: "modified", diff: ["-.login-btn { color: #9ca3af; }", "+.login-btn { color: #ffffff; }"] }
+        ]
+      };
+
+      const remoteBaseCommits = [
+        { id: "p0", name: "開始", branch: "main", branches: ["main"], parents: [] },
+        { id: "p1", name: "基本画面", branch: "main", branches: ["main"], parents: ["p0"] },
+        {
+          id: "p3",
+          name: "入力欄の整列",
+          branch: "feature/login-ui",
+          branches: ["feature/login-ui"],
+          parents: ["p1"],
+          changes: [
+            { path: "ui/login.css", status: "modified", diff: ["-.field { margin-bottom: 8px; }", "+.field { margin-bottom: 14px; }"] }
+          ]
+        }
+      ];
+
+      graph5a.setData({
+        stageOptions: {
+          intervalMs: 1400,
+          loop: true
+        },
+        stages: [
+          {
+            label: "1) feature ブランチをプッシュ",
+            data: {
+              repositories: [
+                {
+                  id: "local",
+                  name: "自分のローカル",
+                  head: "feature/login-ui",
+                  branches: prBranches,
+                  branchHeads: {
+                    "main": "p1",
+                    "origin/main": "p1",
+                    "feature/login-ui": "p3",
+                    "origin/feature/login-ui": "p3"
+                  },
+                  commits: localBaseCommits
+                },
+                {
+                  id: "remote",
+                  name: "GitHub リモート",
+                  head: "main",
+                  branches: prBranches,
+                  branchHeads: {
+                    "main": "p1",
+                    "feature/login-ui": "p3"
+                  },
+                  commits: remoteBaseCommits
+                }
+              ],
+              relations: [
+                {
+                  from: { repo: "local", commit: "p3" },
+                  to: { repo: "remote", commit: "p3" },
+                  label: "プッシュ",
+                  color: "#2563eb"
+                }
+              ]
+            }
+          },
+          {
+            label: "2) PR を作成",
+            data: {
+              repositories: [
+                {
+                  id: "local",
+                  name: "自分のローカル",
+                  head: "feature/login-ui",
+                  branches: prBranches,
+                  branchHeads: {
+                    "main": "p1",
+                    "origin/main": "p1",
+                    "feature/login-ui": "p3",
+                    "origin/feature/login-ui": "p3"
+                  },
+                  commits: localBaseCommits
+                },
+                {
+                  id: "remote",
+                  name: "GitHub リモート",
+                  head: "main",
+                  branches: prBranches,
+                  branchHeads: {
+                    "main": "p1",
+                    "feature/login-ui": "p3"
+                  },
+                  commits: remoteBaseCommits
+                }
+              ],
+              relations: [
+                {
+                  from: { repo: "local", commit: "p3" },
+                  to: { repo: "remote", commit: "p3" },
+                  label: "プッシュ",
+                  color: "#2563eb"
+                },
+                {
+                  from: { repo: "remote", commit: "p3" },
+                  to: { repo: "remote", commit: "p1" },
+                  label: "PR を作成",
+                  color: "#7c3aed"
+                }
+              ]
+            }
+          },
+          {
+            label: "3) レビュー反映後に PR を更新",
+            data: {
+              repositories: [
+                {
+                  id: "local",
+                  name: "自分のローカル",
+                  head: "feature/login-ui",
+                  branches: prBranches,
+                  branchHeads: {
+                    "main": "p1",
+                    "origin/main": "p1",
+                    "feature/login-ui": "p4",
+                    "origin/feature/login-ui": "p4"
+                  },
+                  commits: localBaseCommits.concat([reviewedCommit])
+                },
+                {
+                  id: "remote",
+                  name: "GitHub リモート",
+                  head: "main",
+                  branches: prBranches,
+                  branchHeads: {
+                    "main": "p1",
+                    "feature/login-ui": "p4"
+                  },
+                  commits: remoteBaseCommits.concat([reviewedCommit])
+                }
+              ],
+              relations: [
+                {
+                  from: { repo: "local", commit: "p4" },
+                  to: { repo: "remote", commit: "p4" },
+                  label: "プッシュ",
+                  color: "#2563eb"
+                },
+                {
+                  from: { repo: "remote", commit: "p4" },
+                  to: { repo: "remote", commit: "p1" },
+                  label: "PR を更新",
+                  color: "#7c3aed"
+                }
+              ]
+            }
+          },
+          {
+            label: "4) レビュー承認後にリモート main へマージ完了",
+            data: {
+              repositories: [
+                {
+                  id: "local",
+                  name: "自分のローカル",
+                  head: "feature/login-ui",
+                  branches: prBranches,
+                  branchHeads: {
+                    "main": "p1",
+                    "origin/main": "p1",
+                    "feature/login-ui": "p4",
+                    "origin/feature/login-ui": "p4"
+                  },
+                  commits: localBaseCommits.concat([reviewedCommit])
+                },
+                {
+                  id: "remote",
+                  name: "GitHub リモート",
+                  head: "main",
+                  branches: prBranches,
+                  branchHeads: {
+                    "main": "p5",
+                    "feature/login-ui": "p4"
+                  },
+                  commits: remoteBaseCommits.concat([reviewedCommit, mergedCommit])
+                }
+              ],
+              relations: [
+                {
+                  from: { repo: "remote", commit: "p4" },
+                  to: { repo: "remote", commit: "p5" },
+                  label: "マージ",
+                  color: "#16a34a"
+                }
+              ]
+            }
+          },
+          {
+            label: "5) フェッチ: origin/main を更新",
+            data: {
+              repositories: [
+                {
+                  id: "local",
+                  name: "自分のローカル",
+                  head: "feature/login-ui",
+                  branches: prBranches,
+                  branchHeads: {
+                    "main": "p1",
+                    "origin/main": "p5",
+                    "feature/login-ui": "p4",
+                    "origin/feature/login-ui": "p4"
+                  },
+                  commits: localBaseCommits.concat([reviewedCommit, mergedCommit])
+                },
+                {
+                  id: "remote",
+                  name: "GitHub リモート",
+                  head: "main",
+                  branches: prBranches,
+                  branchHeads: {
+                    "main": "p5",
+                    "feature/login-ui": "p4"
+                  },
+                  commits: remoteBaseCommits.concat([reviewedCommit, mergedCommit])
+                }
+              ],
+              relations: [
+                {
+                  from: { repo: "remote", commit: "p5" },
+                  to: { repo: "local", commit: "p5" },
+                  label: "フェッチ",
+                  color: "#0d9488"
+                }
+              ]
+            }
+          },
+          {
+            label: "6) プル: ローカル main を更新",
+            data: {
+              repositories: [
+                {
+                  id: "local",
+                  name: "自分のローカル",
+                  head: "main",
+                  branches: prBranches,
+                  branchHeads: {
+                    "main": "p5",
+                    "origin/main": "p5",
+                    "feature/login-ui": "p4",
+                    "origin/feature/login-ui": "p4"
+                  },
+                  commits: localBaseCommits.concat([reviewedCommit, mergedCommit])
+                },
+                {
+                  id: "remote",
+                  name: "GitHub リモート",
+                  head: "main",
+                  branches: prBranches,
+                  branchHeads: {
+                    "main": "p5",
+                    "feature/login-ui": "p4"
+                  },
+                  commits: remoteBaseCommits.concat([reviewedCommit, mergedCommit])
+                }
+              ],
+              relations: [
+                {
+                  from: { repo: "remote", commit: "p5" },
+                  to: { repo: "local", commit: "p5" },
+                  label: "プル",
+                  color: "#2563eb"
+                }
+              ]
+            }
+          }
+        ]
+      });
+
+      const graph5b = new GitGraphVisualizer("#graph-5b", {
+        columnGap: 146,
+        laneGap: 74,
+        showRepoTitles: true,
+        showBranchNames: true,
+        showCommitNames: true,
+        showHeadLabels: true,
+        showDiffInspector: false,
+        showTags: false,
+        showHoverTimeGuide: true,
+        padding: { top: 58, right: 44, bottom: 52, left: 170 },
+        multiRepoGap: 78,
+        stagePlayInterval: 1400
+      });
+
+      const cleanupBranchesBase = [
+        { name: "main", color: "#df5a4f" },
+        { name: "feature/login-ui", color: "#2f8dff" }
+      ];
+      const cleanupBranchesWithNext = cleanupBranchesBase.concat([
+        { name: "feature/next-task", color: "#1ea86b" }
+      ]);
+
+      const cleanupLocalBeforePullCommits = localBaseCommits.concat([reviewedCommit]);
+      const cleanupLocalAfterPullCommits = localBaseCommits.concat([reviewedCommit, mergedCommit]);
+      const cleanupRemoteCommits = remoteBaseCommits.concat([reviewedCommit, mergedCommit]);
+
+      graph5b.setData({
+        stageOptions: {
+          intervalMs: 1400,
+          loop: true
+        },
+        stages: [
+          {
+            label: "1) マージ直後: まだ feature ブランチ上",
+            data: {
+              repositories: [
+                {
+                  id: "local",
+                  name: "自分のローカル",
+                  head: "feature/login-ui",
+                  branches: cleanupBranchesBase,
+                  branchHeads: {
+                    "main": "p1",
+                    "origin/main": "p1",
+                    "feature/login-ui": "p4"
+                  },
+                  commits: cleanupLocalBeforePullCommits
+                },
+                {
+                  id: "remote",
+                  name: "GitHub リモート",
+                  head: "main",
+                  branches: cleanupBranchesBase,
+                  branchHeads: {
+                    "main": "p5",
+                    "feature/login-ui": "p4"
+                  },
+                  commits: cleanupRemoteCommits
+                }
+              ]
+            }
+          },
+          {
+            label: "2) リモート feature ブランチ削除",
+            data: {
+              repositories: [
+                {
+                  id: "local",
+                  name: "自分のローカル",
+                  head: "feature/login-ui",
+                  branches: cleanupBranchesBase,
+                  branchHeads: {
+                    "main": "p1",
+                    "origin/main": "p1",
+                    "feature/login-ui": "p4"
+                  },
+                  commits: cleanupLocalBeforePullCommits
+                },
+                {
+                  id: "remote",
+                  name: "GitHub リモート",
+                  head: "main",
+                  branches: cleanupBranchesBase,
+                  branchHeads: {
+                    "main": "p5"
+                  },
+                  commits: cleanupRemoteCommits
+                }
+              ],
+              relations: [
+                {
+                  from: { repo: "local", commit: "p4" },
+                  to: { repo: "remote", commit: "p4" },
+                  label: "リモートブランチ削除",
+                  color: "#dc2626"
+                }
+              ]
+            }
+          },
+          {
+            label: "3) main に切り替え",
+            data: {
+              repositories: [
+                {
+                  id: "local",
+                  name: "自分のローカル",
+                  head: "main",
+                  branches: cleanupBranchesBase,
+                  branchHeads: {
+                    "main": "p1",
+                    "origin/main": "p1",
+                    "feature/login-ui": "p4"
+                  },
+                  commits: cleanupLocalBeforePullCommits
+                },
+                {
+                  id: "remote",
+                  name: "GitHub リモート",
+                  head: "main",
+                  branches: cleanupBranchesBase,
+                  branchHeads: {
+                    "main": "p5"
+                  },
+                  commits: cleanupRemoteCommits
+                }
+              ]
+            }
+          },
+          {
+            label: "4) プルで main を更新",
+            data: {
+              repositories: [
+                {
+                  id: "local",
+                  name: "自分のローカル",
+                  head: "main",
+                  branches: cleanupBranchesBase,
+                  branchHeads: {
+                    "main": "p5",
+                    "origin/main": "p5",
+                    "feature/login-ui": "p4"
+                  },
+                  commits: cleanupLocalAfterPullCommits
+                },
+                {
+                  id: "remote",
+                  name: "GitHub リモート",
+                  head: "main",
+                  branches: cleanupBranchesBase,
+                  branchHeads: {
+                    "main": "p5"
+                  },
+                  commits: cleanupRemoteCommits
+                }
+              ],
+              relations: [
+                {
+                  from: { repo: "remote", commit: "p5" },
+                  to: { repo: "local", commit: "p5" },
+                  label: "プル",
+                  color: "#2563eb"
+                }
+              ]
+            }
+          },
+          {
+            label: "5) ローカル feature ブランチ削除",
+            data: {
+              repositories: [
+                {
+                  id: "local",
+                  name: "自分のローカル",
+                  head: "main",
+                  branches: cleanupBranchesBase,
+                  branchHeads: {
+                    "main": "p5",
+                    "origin/main": "p5"
+                  },
+                  commits: cleanupLocalAfterPullCommits
+                },
+                {
+                  id: "remote",
+                  name: "GitHub リモート",
+                  head: "main",
+                  branches: cleanupBranchesBase,
+                  branchHeads: {
+                    "main": "p5"
+                  },
+                  commits: cleanupRemoteCommits
+                }
+              ]
+            }
+          },
+          {
+            label: "6) 新しい作業ブランチを作成",
+            data: {
+              repositories: [
+                {
+                  id: "local",
+                  name: "自分のローカル",
+                  head: "feature/next-task",
+                  branches: cleanupBranchesWithNext,
+                  branchHeads: {
+                    "main": "p5",
+                    "origin/main": "p5",
+                    "feature/next-task": "p5"
+                  },
+                  commits: cleanupLocalAfterPullCommits
+                },
+                {
+                  id: "remote",
+                  name: "GitHub リモート",
+                  head: "main",
+                  branches: cleanupBranchesBase,
+                  branchHeads: {
+                    "main": "p5"
+                  },
+                  commits: cleanupRemoteCommits
+                }
+              ]
+            }
+          }
+        ]
+      });
+    </script>
+    <script src="../../../scripts/language-preference.js"></script>
+    <script src="../../scripts/glossary.js"></script>
+  </body>
+</html>
+
+
+
+

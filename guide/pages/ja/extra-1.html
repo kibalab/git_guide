@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>補足 1. コミットメッセージの書き方</title>
+    <link rel="stylesheet" href="../../styles/guide.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="wrap topbar-inner">
+        <a class="home-link" href="./index.html">猫でもわかるGitの使い方</a>
+        <div class="topbar-tools">
+          <nav class="lang-switch" aria-label="言語選択">
+            <a href="../extra-1.html">한국어</a>
+            <a class="is-active" href="./extra-1.html">日本語</a>
+          </nav>
+          <nav class="top-links">
+            <a href="./chapter-6.html">前へ</a>
+            <a href="./extra-2.html">次へ</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main class="wrap page">
+      <article class="doc">
+        <h1>補足 1. コミットメッセージの書き方</h1>
+
+        <p>
+          コミットメッセージは、未来の自分と同僚のためのメモです。
+          短くても、何をしたかは正確に伝わる必要があります。
+        </p>
+
+        <h2>よいコミットメッセージの基準</h2>
+        <ul>
+          <li>何を変えたのかが 1 行でわかる。</li>
+          <li>できれば、なぜ変えたのかを短く添える。</li>
+          <li>1 つの Commit の目的とメッセージが正しく対応している。</li>
+        </ul>
+
+        <p>
+          例: 「ボタンの影の強さを 20% 下げる」「チュートリアル背景画像を差し替え」
+        </p>
+
+        <section class="figure">
+          <h3>図 B1-1. メッセージだけでも流れが読めるようにする</h3>
+          <div class="graph-frame"><div id="graph-e1"></div></div>
+          <p class="caption">
+            Commit 名が明確だと、履歴そのものが作業報告のように読めます。
+          </p>
+        </section>
+
+        <h2>避けたほうがよいメッセージ</h2>
+        <ul>
+          <li>「修正」「作業」「変更」のように広すぎる単語だけで済ませる</li>
+          <li>複数の作業を 1 文にまとめて書く</li>
+          <li>「このコード誰が書いたんだ!!」のように作業内容と関係ない感情だけを残す</li>
+        </ul>
+
+        <div class="bottom-nav">
+          <a href="./extra-2.html">補足2へ</a>
+          <a href="./index.html">目次へ</a>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-credit">
+  <span class="site-credit-text">制作者: KIBA_</span>
+  <span class="site-credit-links">
+    <a class="site-credit-link" href="https://x.com/kjh030529" target="_blank" rel="noreferrer" aria-label="KIBA_ X">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M18.244 2H21l-6.56 7.5L22.2 22h-6.078l-4.76-7.29L4.8 22H2.04l7.02-8.02L1.8 2h6.233l4.303 6.6L18.244 2Zm-1.067 18h1.528L6.922 3.894H5.283L17.177 20Z" />
+      </svg>
+    </a>
+    <a class="site-credit-link" href="mailto:kjh030529@gmail.com" aria-label="KIBA_ Gmail">
+  <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4.5 7.5 12 13l7.5-5.5" />
+    <path d="M4.5 7.5v9a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1v-9" />
+    <path d="M4.5 16.5 9.75 11.75" />
+    <path d="M19.5 16.5 14.25 11.75" />
+  </svg>
+</a>
+  </span>
+</footer>
+    <script src="../../../scripts/git-graph-visualizer.js"></script>
+    <script>
+      const graphE1 = new GitGraphVisualizer("#graph-e1", {
+        columnGap: 162,
+        laneGap: 84,
+        routeSpacing: 20,
+        showBranchNames: true,
+        showCommitNames: true,
+        showHeadLabels: true,
+        showDiffInspector: false,
+        showTags: false,
+        showHoverTimeGuide: true,
+        padding: { top: 72, right: 50, bottom: 56, left: 176 }
+      });
+
+      graphE1.setData({
+        head: "main",
+        branches: [{ name: "main", color: "#df5a4f" }],
+        commits: [
+          { id: "s0", name: "基本UIファイルを配置", branch: "main", branches: ["main"], parents: [] },
+          { id: "s1", name: "ログインボタンの間隔を 12px に調整", branch: "main", parents: ["s0"] },
+          { id: "s2", name: "チュートリアル背景画像を差し替え", branch: "main", parents: ["s1"] },
+          { id: "s3", name: "誤字 2 件を修正", branch: "main", branches: ["main"], parents: ["s2"] }
+        ]
+      });
+    </script>
+    <script src="../../../scripts/language-preference.js"></script>
+    <script src="../../scripts/glossary.js"></script>
+  </body>
+</html>
+
+
+
+

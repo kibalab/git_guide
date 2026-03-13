@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>고양이도 이해하는 Git 사용법</title>
+    <link rel="stylesheet" href="../styles/guide.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="wrap topbar-inner">
+        <a class="home-link" href="./index.html">고양이도 이해하는 Git 사용법</a>
+        <div class="topbar-tools">
+          <nav class="lang-switch" aria-label="언어 선택">
+            <a class="is-active" href="./index.html">한국어</a>
+            <a href="./ja/index.html">日本語</a>
+          </nav>
+          <nav class="top-links">
+          <a href="./chapter-1.html">1장</a>
+          <a href="./chapter-2.html">2장</a>
+          <a href="./chapter-3.html">3장</a>
+          <a href="./chapter-4.html">4장</a>
+          <a href="./chapter-5.html">5장</a>
+          <a href="./chapter-6.html">6장</a>
+          <a href="./extra-1.html">번외</a>
+        </nav>
+        </div>
+      </div>
+    </header>
+
+    <main class="wrap page">
+      <article class="doc">
+        <figure class="hero-banner">
+          <img src="../assets/images/thumb.jpg" alt="고양이도 이해하는 Git 사용법 배너" />
+          <figcaption class="hero-banner-note">이루아(@kitsuneAnCr)의 가족 고양이 콩이</figcaption>
+        </figure>
+        <h1>고양이도 이해하는 Git 사용법</h1>
+        <p>
+          이 문서는 <span class="strong">아트 직군 입문자</span>를 위해 만든 Git 설명서입니다.
+          어려운 말은 줄이고, 꼭 필요한 용어만 단계적으로 소개합니다.
+        </p>
+        <p>
+          이 문서는 <span class="strong">Git의 개념과 원리</span>를 이해하는것이 목적이며,
+          특정 Git 클라이언트나 명령어를 직접 사용하는 방법은 다루지 않습니다.
+        </p>
+        <p>
+          각 조직에서 쓰는 Git 환경 안에서 규칙을 더 쉽게 이해하고,
+          매일 하고 있는 커밋, 푸시, 풀, 머지 같은 행동이 실제로 무엇을 의미하는지 파악해
+          협업을 더 수월하게 만드는 데 초점을 맞춥니다.
+        </p>
+        <p>
+          각 장은 독립 페이지로 되어 있고, 이해를 돕기위해 상호작용이 가능한 Git 그래프 렌더러로 시각자료를 제공합니다.
+        </p>
+        <p>
+          모두가 Git을 편하게 다룰수 있도록, 이 안내서가 작은 도움이 되길 바랍니다.
+        </p>
+
+        <section class="index-section" aria-labelledby="index-main">
+          <h2 id="index-main">목차</h2>
+          <p>앞에서 정의한 개념을 뒤에서 자연스럽게 이어서 쓰도록 구성했습니다.</p>
+          <ol class="index-cards">
+            <li>
+              <a class="index-card" href="./chapter-1.html">
+                <span class="index-card-no">1장</span>
+                <span class="index-card-body">
+                  <span class="index-card-title">로컬/리모트 레포지토리 정의</span>
+                  <span class="index-card-desc">Git과 GitHub를 구분하고 로컬과 리모트 기록 저장소의 관계를 이해합니다.</span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a class="index-card" href="./chapter-2.html">
+                <span class="index-card-no">2장</span>
+                <span class="index-card-body">
+                  <span class="index-card-title">히스토리, 추적단위(파일/라인) 정의</span>
+                  <span class="index-card-desc">사람이 읽을 수 있는 파일을 기준으로 히스토리와 줄 단위 비교가 어떻게 보이는지 익힙니다.</span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a class="index-card" href="./chapter-3.html">
+                <span class="index-card-no">3장</span>
+                <span class="index-card-body">
+                  <span class="index-card-title">HEAD, 브렌치 정의</span>
+                  <span class="index-card-desc">HEAD, 브렌치, Checkout의 역할과 브렌치 이름을 정하는 기준을 정리합니다.</span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a class="index-card" href="./chapter-4.html">
+                <span class="index-card-no">4장</span>
+                <span class="index-card-body">
+                  <span class="index-card-title">커밋, Push, Fetch 정의</span>
+                  <span class="index-card-desc">커밋 단위와 Push, Fetch가 기록 저장소 사이에서 무엇을 바꾸는지 시각적으로 봅니다.</span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a class="index-card" href="./chapter-5.html">
+                <span class="index-card-no">5장</span>
+                <span class="index-card-body">
+                  <span class="index-card-title">Merge, Pull, 컨플릭트</span>
+                  <span class="index-card-desc">Merge와 Pull의 흐름, 그리고 컨플릭트가 왜 생기고 어떻게 읽어야 하는지 이해합니다.</span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a class="index-card" href="./chapter-6.html">
+                <span class="index-card-no">6장</span>
+                <span class="index-card-body">
+                  <span class="index-card-title">Pull Request (PR)</span>
+                  <span class="index-card-desc">검토와 머지 요청 흐름을 보고, 작업을 마무리할 때 어떤 순서가 좋은지 정리합니다.</span>
+                </span>
+              </a>
+            </li>
+          </ol>
+        </section>
+
+        <section class="index-section" aria-labelledby="index-extra">
+          <h2 id="index-extra">번외</h2>
+          <p>실무에서 자주 부딪히는 운영 방식은 따로 묶어서 바로 찾아볼 수 있게 정리했습니다.</p>
+          <ol class="index-cards">
+            <li>
+              <a class="index-card" href="./extra-1.html">
+                <span class="index-card-no">번외 1</span>
+                <span class="index-card-body">
+                  <span class="index-card-title">커밋메시지 작성 전략</span>
+                  <span class="index-card-desc">나중에 다시 읽어도 이해되는 커밋 메시지를 남기는 기준을 정리합니다.</span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a class="index-card" href="./extra-2.html">
+                <span class="index-card-no">번외 2</span>
+                <span class="index-card-body">
+                  <span class="index-card-title">브렌치 운용 전략</span>
+                  <span class="index-card-desc">브렌치를 어떤 작업 단위로 나누고 언제 정리하는지 대표적인 방식을 소개합니다.</span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a class="index-card" href="./extra-3.html">
+                <span class="index-card-no">번외 3</span>
+                <span class="index-card-body">
+                  <span class="index-card-title">컨플릭트 해결 전략</span>
+                  <span class="index-card-desc">충돌이 났을 때 무엇을 남기고 무엇을 버릴지 판단하는 순서를 정리합니다.</span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a class="index-card" href="./extra-4.html">
+                <span class="index-card-no">번외 4</span>
+                <span class="index-card-body">
+                  <span class="index-card-title">이런 이상한 시스템은 누가 만들었나요</span>
+                  <span class="index-card-desc">Git을 만든 리누스 토르발즈와 Git이 이런 성격을 가지게 된 배경을 짧게 소개합니다.</span>
+                </span>
+              </a>
+            </li>
+          </ol>
+        </section>
+
+        <p class="index-note">
+          추천 순서: 1장부터 6장까지 먼저 읽고, 번외는 실무 전에 체크하세요.
+        </p>
+      </article>
+    </main>
+
+    <footer class="site-credit">
+  <span class="site-credit-text">만든사람: KIBA_</span>
+  <span class="site-credit-links">
+    <a class="site-credit-link" href="https://x.com/kjh030529" target="_blank" rel="noreferrer" aria-label="KIBA_ X">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M18.244 2H21l-6.56 7.5L22.2 22h-6.078l-4.76-7.29L4.8 22H2.04l7.02-8.02L1.8 2h6.233l4.303 6.6L18.244 2Zm-1.067 18h1.528L6.922 3.894H5.283L17.177 20Z" />
+      </svg>
+    </a>
+    <a class="site-credit-link" href="mailto:kjh030529@gmail.com" aria-label="KIBA_ Gmail">
+  <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4.5 7.5 12 13l7.5-5.5" />
+    <path d="M4.5 7.5v9a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1v-9" />
+    <path d="M4.5 16.5 9.75 11.75" />
+    <path d="M19.5 16.5 14.25 11.75" />
+  </svg>
+</a>
+  </span>
+</footer>
+    <script src="../../scripts/language-preference.js"></script>
+    <script src="../scripts/glossary.js"></script>
+  </body>
+</html>
+
+
+

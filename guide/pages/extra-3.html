@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>번외 3. 컨플릭트 해결 전략</title>
+    <link rel="stylesheet" href="../styles/guide.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="wrap topbar-inner">
+        <a class="home-link" href="./index.html">고양이도 이해하는 Git 사용법</a>
+        <div class="topbar-tools">
+          <nav class="lang-switch" aria-label="언어 선택">
+            <a class="is-active" href="./extra-3.html">한국어</a>
+            <a href="./ja/extra-3.html">日本語</a>
+          </nav>
+          <nav class="top-links">
+          <a href="./extra-2.html">이전</a>
+          <a href="./extra-4.html">다음</a>
+        </nav>
+        </div>
+      </div>
+    </header>
+
+    <main class="wrap page">
+      <article class="doc">
+        <h1>번외 3. 컨플릭트 해결 전략</h1>
+
+        <p>
+          컨플릭트는 실패가 아니라, "같은 부분을 둘 다 바꿨다"는 신호입니다.
+          중요한 것은 빠르게 진정하고, 기준에 맞게 하나로 정리하는 것입니다.
+        </p>
+
+        <section class="figure">
+          <h3>그림 B3-1. 같은 줄을 서로 다르게 수정한 상태</h3>
+          <div class="graph-frame"><div id="graph-e3a"></div></div>
+          <p class="caption">
+            feature와 main이 같은 지점을 다르게 바꾸면 자동 합치기가 어려울 수 있습니다.
+          </p>
+        </section>
+
+        <section class="figure">
+          <h3>그림 B3-2. 합의 후 해결 커밋을 남긴 상태</h3>
+          <div class="graph-frame"><div id="graph-e3b"></div></div>
+          <p class="caption">
+            팀이 선택한 결과를 반영해 해결 커밋을 남기면, 같은 문제를 다시 추적하기 쉽습니다.
+          </p>
+        </section>
+
+        <h2>실전 해결 순서</h2>
+        <ol>
+          <li>누가 무엇을 바꿨는지 줄 단위로 먼저 확인한다.</li>
+          <li>디자인 기준(톤, 규칙, 우선순위)에 맞는 쪽을 고른다.</li>
+          <li>필요하면 두 결과를 섞어 더 나은 최종본으로 만든다.</li>
+          <li>해결 내용을 짧은 커밋메시지로 남긴다.</li>
+          <li>다음 작업에서 같은 충돌이 줄도록 브렌치를 짧게 운영한다.</li>
+        </ol>
+
+        <div class="bottom-nav">
+          <a href="./extra-2.html">번외 2로</a>
+          <a href="./extra-4.html">번외 4로</a>
+          <a href="./index.html">목차로</a>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-credit">
+  <span class="site-credit-text">만든사람: KIBA_</span>
+  <span class="site-credit-links">
+    <a class="site-credit-link" href="https://x.com/kjh030529" target="_blank" rel="noreferrer" aria-label="KIBA_ X">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M18.244 2H21l-6.56 7.5L22.2 22h-6.078l-4.76-7.29L4.8 22H2.04l7.02-8.02L1.8 2h6.233l4.303 6.6L18.244 2Zm-1.067 18h1.528L6.922 3.894H5.283L17.177 20Z" />
+      </svg>
+    </a>
+    <a class="site-credit-link" href="mailto:kjh030529@gmail.com" aria-label="KIBA_ Gmail">
+  <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4.5 7.5 12 13l7.5-5.5" />
+    <path d="M4.5 7.5v9a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1v-9" />
+    <path d="M4.5 16.5 9.75 11.75" />
+    <path d="M19.5 16.5 14.25 11.75" />
+  </svg>
+</a>
+  </span>
+</footer>
+    <script src="../../scripts/git-graph-visualizer.js"></script>
+    <script>
+      const graphE3a = new GitGraphVisualizer("#graph-e3a", {
+        columnGap: 160,
+        laneGap: 84,
+        routeSpacing: 21,
+        showBranchNames: true,
+        showCommitNames: true,
+        showHeadLabels: true,
+        showDiffInspector: false,
+        showTags: false,
+        showHoverTimeGuide: true,
+        padding: { top: 76, right: 52, bottom: 58, left: 180 }
+      });
+
+      graphE3a.setData({
+        head: "main",
+        branches: [
+          { name: "main", color: "#df5a4f" },
+          { name: "feature/title-copy", color: "#2f8dff" }
+        ],
+        commits: [
+          { id: "q0", name: "원본 타이틀", branch: "main", branches: ["main"], parents: [] },
+          { id: "q1", name: "기준 문구", branch: "main", parents: ["q0"] },
+          { id: "q2", name: "main 문구 수정", branch: "main", branches: ["main"], parents: ["q1"] },
+          { id: "f2", name: "feature 문구 수정", branch: "feature/title-copy", branches: ["feature/title-copy"], parents: ["q1"] }
+        ]
+      });
+
+      const graphE3b = new GitGraphVisualizer("#graph-e3b", {
+        columnGap: 160,
+        laneGap: 84,
+        routeSpacing: 21,
+        showBranchNames: true,
+        showCommitNames: true,
+        showHeadLabels: true,
+        showDiffInspector: false,
+        showTags: true,
+        showHoverTimeGuide: true,
+        padding: { top: 76, right: 52, bottom: 62, left: 180 }
+      });
+
+      graphE3b.setData({
+        head: "main",
+        branches: [
+          { name: "main", color: "#df5a4f" },
+          { name: "feature/title-copy", color: "#2f8dff" }
+        ],
+        commits: [
+          { id: "r0", name: "원본 타이틀", branch: "main", branches: ["main"], parents: [] },
+          { id: "r1", name: "기준 문구", branch: "main", parents: ["r0"] },
+          { id: "r2", name: "main 문구 수정", branch: "main", parents: ["r1"] },
+          { id: "r3", name: "feature 문구 수정", branch: "feature/title-copy", branches: ["feature/title-copy"], parents: ["r1"] },
+          { id: "r4", name: "컨플릭트 해결 문구 반영", branch: "main", branches: ["main"], tags: ["resolved"], parents: ["r2", "r3"] }
+        ]
+      });
+    </script>
+    <script src="../../scripts/language-preference.js"></script>
+    <script src="../scripts/glossary.js"></script>
+  </body>
+</html>
+
+

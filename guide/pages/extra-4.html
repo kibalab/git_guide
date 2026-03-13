@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>번외 4. 이런 이상한 시스템은 누가 만들었나요</title>
+    <link rel="stylesheet" href="../styles/guide.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="wrap topbar-inner">
+        <a class="home-link" href="./index.html">고양이도 이해하는 Git 사용법</a>
+        <div class="topbar-tools">
+          <nav class="lang-switch" aria-label="언어 선택">
+            <a class="is-active" href="./extra-4.html">한국어</a>
+            <a href="./ja/extra-4.html">日本語</a>
+          </nav>
+          <nav class="top-links">
+          <a href="./extra-3.html">이전</a>
+          <a href="./index.html">목차</a>
+        </nav>
+        </div>
+      </div>
+    </header>
+
+    <main class="wrap page">
+      <article class="doc">
+        <h1>번외 4. 이런 이상한 시스템은 누가 만들었나요</h1>
+
+        <p>
+          Git을 만든 사람은 <span class="strong">리누스 토르발즈(Linus Torvalds)</span>입니다.
+          낯선 용어와 독특한 감각 때문에 "도대체 누가 이런 시스템을 만들었지?"라는 생각이 들 수 있는데,
+          그 배경을 알면 Git의 성격도 조금 더 이해하기 쉬워집니다.
+        </p>
+
+        <section class="profile-split">
+          <figure class="profile-photo">
+            <img src="../assets/images/linus.webp" alt="리누스 토르발즈 사진" />
+            <figcaption class="caption">
+              Git을 만든 리누스 토르발즈
+            </figcaption>
+          </figure>
+
+          <div class="profile-content">
+            <h2>리누스 토르발즈는 누구인가</h2>
+            <p>
+              리누스 토르발즈는 핀란드 출신의 소프트웨어 개발자로,
+              <span class="strong">리눅스 커널</span>을 만든 사람으로 가장 널리 알려져 있습니다.
+              아주 큰 규모의 개발을 오랫동안 다뤄 왔기 때문에,
+              도구를 만들 때도 "많은 사람이 동시에 작업해도 버틸 것인가"를 매우 중요하게 보는 편입니다.
+            </p>
+            <p>
+              GitHub 같은 서비스가 먼저 있었던 것이 아니라,
+              먼저 Git이 만들어졌고 그 뒤에 Git을 더 편하게 쓰기 위한 여러 서비스와 클라이언트가 생겼습니다.
+              즉, 리누스가 만든 것은 웹사이트가 아니라 <span class="strong">기록을 저장하고 합치는 방식 자체</span>에 가깝습니다.
+            </p>
+          </div>
+        </section>
+
+        <h2>왜 Git을 만들었나</h2>
+        <p>
+          2005년 무렵, 리눅스 커널처럼 매우 큰 프로젝트를 여러 사람이 동시에 작업할 때 쓸 수 있는
+          빠르고 믿을 만한 기록 관리 도구가 필요했습니다.
+          기존에 쓰던 도구를 계속 쓰기 어려워지자,
+          리누스는 짧은 시간 안에 직접 새 도구를 만들기 시작했습니다.
+        </p>
+        <p>
+          그래서 Git은 처음부터 "입문자가 친절하게 배우는 도구"보다
+          <span class="strong">대규모 협업에서 기록을 안전하게 남기고 빠르게 합치는 도구</span>를 목표로 설계됐습니다.
+          지금 우리가 느끼는 독특한 사용감도 여기에서 많이 나옵니다.
+        </p>
+
+        <h2>그래서 Git이 왜 이렇게 생겼나</h2>
+        <ul>
+          <li>로컬 기록 저장소를 강하게 보는 이유: 네트워크가 없어도 작업 기록과 브렌치를 충분히 다룰 수 있어야 했습니다.</li>
+          <li>브렌치와 Merge가 중요한 이유: 여러 사람이 동시에 갈라져 작업하고 다시 합치는 일이 일상이었기 때문입니다.</li>
+          <li>용어와 사용감이 다소 투박한 이유: 예쁜 인터페이스보다 속도, 안정성, 기록의 신뢰성이 먼저였습니다.</li>
+          <li>히스토리를 엄격하게 다루는 이유: "누가 무엇을 언제 바꿨는지"를 믿을 수 있어야 큰 프로젝트를 유지할 수 있기 때문입니다.</li>
+        </ul>
+
+        <div class="tip">
+          <h3>한 줄로 정리하면</h3>
+          <p>
+            Git은 처음부터 모두에게 친절한 학습 도구로 태어난 것이 아니라,
+            <span class="strong">큰 프로젝트 협업을 버티기 위한 엔지니어링 도구</span>로 태어났습니다.
+          </p>
+        </div>
+
+        <h2>아트 직군 입장에서 기억하면 좋은 점</h2>
+        <p>
+          Git이 처음에는 낯설고 다소 이상하게 느껴지는 것이 자연스럽습니다.
+          이 도구는 문서 편집기처럼 부드럽고 친절하게 설계된 것이 아니라,
+          <span class="strong">복잡한 협업을 망가지지 않게 지키는 것</span>을 우선한 시스템이기 때문입니다.
+        </p>
+        <p>
+          그래서 우리는 Git의 모든 내부 원리를 깊게 파고들 필요는 없지만,
+          왜 로컬과 리모트가 따로 있고, 왜 브렌치를 나누고, 왜 Merge와 컨플릭트를 중요하게 보는지는 이해할 필요가 있습니다.
+          그 부분만 이해해도 "지금 내가 무엇을 하고 있는가"가 훨씬 또렷해집니다.
+        </p>
+
+        <div class="bottom-nav">
+          <a href="./extra-3.html">번외 3으로</a>
+          <a href="./index.html">목차로</a>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-credit">
+  <span class="site-credit-text">만든사람: KIBA_</span>
+  <span class="site-credit-links">
+    <a class="site-credit-link" href="https://x.com/kjh030529" target="_blank" rel="noreferrer" aria-label="KIBA_ X">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M18.244 2H21l-6.56 7.5L22.2 22h-6.078l-4.76-7.29L4.8 22H2.04l7.02-8.02L1.8 2h6.233l4.303 6.6L18.244 2Zm-1.067 18h1.528L6.922 3.894H5.283L17.177 20Z" />
+      </svg>
+    </a>
+    <a class="site-credit-link" href="mailto:kjh030529@gmail.com" aria-label="KIBA_ Gmail">
+  <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4.5 7.5 12 13l7.5-5.5" />
+    <path d="M4.5 7.5v9a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1v-9" />
+    <path d="M4.5 16.5 9.75 11.75" />
+    <path d="M19.5 16.5 14.25 11.75" />
+  </svg>
+</a>
+  </span>
+</footer>
+    <script src="../../scripts/language-preference.js"></script>
+    <script src="../scripts/glossary.js"></script>
+  </body>
+</html>
+
+

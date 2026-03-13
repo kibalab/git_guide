@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>5장. 머지, 풀, 컨플릭트</title>
+    <link rel="stylesheet" href="../styles/guide.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="wrap topbar-inner">
+        <a class="home-link" href="./index.html">고양이도 이해하는 Git 사용법</a>
+        <div class="topbar-tools">
+          <nav class="lang-switch" aria-label="언어 선택">
+            <a class="is-active" href="./chapter-5.html">한국어</a>
+            <a href="./ja/chapter-5.html">日本語</a>
+          </nav>
+          <nav class="top-links">
+          <a href="./chapter-4.html">이전 장</a>
+          <a href="./chapter-6.html">다음 장</a>
+        </nav>
+        </div>
+      </div>
+    </header>
+
+    <main class="wrap page">
+      <article class="doc">
+        <h1>5장. 머지, 풀, 컨플릭트</h1>
+
+        <p>
+          <span class="strong">머지(Merge)</span>는 따로 작업하던 브렌치를 다시 한 길로 합치는 행동입니다.
+        </p>
+
+        <p>
+          <span class="strong">풀(Pull)</span>은 한 번에 2가지를 하는 동작입니다.
+          즉 <span class="strong">Pull = Fetch + Merge</span>입니다.
+        </p>
+
+        <p>
+          <span class="strong">컨플릭트(conflict)</span>는 같은 부분을 서로 다르게 고쳐서,
+          Git이 자동으로 어느 쪽을 남겨야 할지 판단하지 못할 때 발생합니다.
+        </p>
+
+        <h2>4장에서 이어서: Fetch 다음에는?</h2>
+        <p>
+          4장에서 본 흐름처럼, 먼저 Fetch로 <span class="strong">origin/main</span>이 최신으로 갱신됩니다.
+          이때 내 작업 위치(HEAD)는 보통 <span class="strong">main</span>에 그대로 있습니다.
+        </p>
+        <p>
+          그다음 단계가 Merge입니다. 즉 <span class="strong">main</span>에 <span class="strong">origin/main</span>을 합칩니다.
+          이 Merge 단계에서 같은 줄을 다르게 고쳤다면 컨플릭트가 발생할 수 있습니다.
+        </p>
+
+        <section class="figure">
+          <h3>그림 5-1. 브렌치 머지</h3>
+          <div class="graph-frame"><div id="graph-5a"></div></div>
+          <p class="caption">
+            feature에서 작업한 내용을 main으로 합치면 머지 커밋이 생깁니다.
+          </p>
+        </section>
+
+        <section class="figure">
+          <h3>그림 5-2. Pull 시나리오 A: 내 로컬 변경이 없는 경우</h3>
+          <div class="graph-frame"><div id="graph-5b"></div></div>
+          <p class="caption">
+            Fetch로 origin/main만 먼저 앞선 뒤, Pull 하면 main이 빠르게 같은 지점으로 이동합니다.</br>
+            이 경우에는 별도 Merge 커밋이 생기지 않습니다. (이걸 "fast-forward" 라고 불러요)
+          </p>
+        </section>
+
+        <section class="figure">
+          <h3>그림 5-3. Pull 시나리오 B: 내 로컬 변경이 있는 경우</h3>
+          <div class="graph-frame"><div id="graph-5c"></div></div>
+          <p class="caption">
+            내 main에도 커밋이 있으면 Pull 과정에서 Merge 단계가 필요합니다.</br>
+            origin/main은 그대로 표시되고, Fetch로 받은 원격 변경은 origin/main의 분기로 나타납니다.</br>
+            같은 줄을 다르게 고쳤다면 컨플릭트를 해결한 뒤 Merge 커밋으로 마무리됩니다.
+          </p>
+        </section>
+
+        <h2>컨플릭트가 났을 때 기본 순서</h2>
+        <ol>
+          <li>무엇이 서로 다른지 줄 단위로 확인한다.</li>
+          <li>팀 기준에 맞는 최종 문장을 고른다.</li>
+          <li>고른 내용으로 정리한 뒤 다시 커밋한다.</li>
+          <li>작업자가 이해할 수 있는 짧은 설명을 남긴다.</li>
+        </ol>
+        <p>
+          여기까지 이해했다면, 다음 장에서 "이 머지 과정을 팀 검토 절차(PR)로 운영하면 어떻게 되는지"를 이어서 볼 수 있습니다.
+        </p>
+
+        <div class="bottom-nav">
+          <a href="./chapter-4.html">4장으로</a>
+          <a href="./chapter-6.html">6장으로</a>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-credit">
+  <span class="site-credit-text">만든사람: KIBA_</span>
+  <span class="site-credit-links">
+    <a class="site-credit-link" href="https://x.com/kjh030529" target="_blank" rel="noreferrer" aria-label="KIBA_ X">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M18.244 2H21l-6.56 7.5L22.2 22h-6.078l-4.76-7.29L4.8 22H2.04l7.02-8.02L1.8 2h6.233l4.303 6.6L18.244 2Zm-1.067 18h1.528L6.922 3.894H5.283L17.177 20Z" />
+      </svg>
+    </a>
+    <a class="site-credit-link" href="mailto:kjh030529@gmail.com" aria-label="KIBA_ Gmail">
+  <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4.5 7.5 12 13l7.5-5.5" />
+    <path d="M4.5 7.5v9a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1v-9" />
+    <path d="M4.5 16.5 9.75 11.75" />
+    <path d="M19.5 16.5 14.25 11.75" />
+  </svg>
+</a>
+  </span>
+</footer>
+    <script src="../../scripts/git-graph-visualizer.js"></script>
+    <script>
+      const graph5a = new GitGraphVisualizer("#graph-5a", {
+        columnGap: 160,
+        laneGap: 84,
+        routeSpacing: 21,
+        showBranchNames: true,
+        showCommitNames: true,
+        showHeadLabels: true,
+        showDiffInspector: false,
+        showTags: false,
+        showHoverTimeGuide: true,
+        padding: { top: 74, right: 54, bottom: 58, left: 175 }
+      });
+
+      graph5a.setData({
+        head: "main",
+        branches: [
+          { name: "main", color: "#df5a4f" },
+          { name: "feature/ui", color: "#2f8dff" }
+        ],
+        commits: [
+          { id: "m0", name: "기본 씬", branch: "main", branches: ["main"], parents: [] },
+          { id: "m1", name: "메뉴 배치", branch: "main", parents: ["m0"] },
+          {
+            id: "f2",
+            name: "UI 시안",
+            branch: "feature/ui",
+            branches: ["feature/ui"],
+            parents: ["m1"],
+            changes: [
+              { path: "ui/menu.txt", status: "modified", diff: ["-START", "+BEGIN"] }
+            ]
+          },
+          {
+            id: "f3",
+            name: "버튼 정렬",
+            branch: "feature/ui",
+            branches: ["feature/ui"],
+            parents: ["f2"],
+            changes: [
+              { path: "ui/menu.css", status: "modified", diff: ["-.menu-btn { margin: 6px; }", "+.menu-btn { margin: 10px; }"] }
+            ]
+          },
+          {
+            id: "m4",
+            name: "main 문구 수정",
+            branch: "main",
+            parents: ["m1"],
+            changes: [
+              { path: "ui/menu.txt", status: "modified", diff: ["-START", "+PLAY"] }
+            ]
+          },
+          {
+            id: "m5",
+            name: "feature를 main에 머지",
+            branch: "main",
+            branches: ["main"],
+            parents: ["m4", "f3"],
+            changes: [
+              { path: "ui/menu.txt", status: "modified", diff: ["-PLAY", "+BEGIN PLAY"] },
+              { path: "ui/menu.css", status: "modified", diff: ["-.menu-btn { margin: 6px; }", "+.menu-btn { margin: 10px; }"] }
+            ]
+          }
+        ]
+      });
+
+      const graph5b = new GitGraphVisualizer("#graph-5b", {
+        columnGap: 154,
+        laneGap: 84,
+        routeSpacing: 21,
+        showBranchNames: true,
+        showCommitNames: true,
+        showHeadLabels: true,
+        showDiffInspector: false,
+        showTags: false,
+        showHoverTimeGuide: true,
+        padding: { top: 74, right: 54, bottom: 58, left: 182 },
+        stagePlayInterval: 1500
+      });
+
+      graph5b.setData({
+        stageOptions: {
+          intervalMs: 1500,
+          loop: true
+        },
+        stages: [
+          {
+            label: "1) Fetch 완료",
+            data: {
+              head: "main",
+              branches: [
+                { name: "main", color: "#df5a4f" },
+                { name: "origin/main", color: "#2f8dff" }
+              ],
+              commits: [
+                { id: "c0", name: "원본", branch: "main", branches: ["main", "origin/main"], parents: [] },
+                { id: "c1", name: "기준점", branch: "main", branches: ["main"], parents: ["c0"] },
+                { id: "r2", name: "Fetch로 받은 원격 변경(origin/main)", branch: "origin/main", branches: ["origin/main"], parents: ["c1"] }
+              ]
+            }
+          },
+          {
+            label: "2) Pull 완료 (fast-forward)",
+            data: {
+              head: "main",
+              branches: [
+                { name: "main", color: "#df5a4f" },
+                { name: "origin/main", color: "#2f8dff" }
+              ],
+              commits: [
+                { id: "c0", name: "원본", branch: "main", branches: ["main", "origin/main"], parents: [] },
+                { id: "c1", name: "기준점", branch: "main", parents: ["c0"] },
+                { id: "r2", name: "원격 변경(main과 origin/main 동일)", branch: "origin/main", branches: ["main", "origin/main"], parents: ["c1"] }
+              ]
+            }
+          }
+        ]
+      });
+
+      const graph5c = new GitGraphVisualizer("#graph-5c", {
+        columnGap: 154,
+        laneGap: 84,
+        routeSpacing: 21,
+        showBranchNames: true,
+        showCommitNames: true,
+        showHeadLabels: true,
+        showDiffInspector: false,
+        showTags: false,
+        showHoverTimeGuide: true,
+        padding: { top: 74, right: 54, bottom: 58, left: 182 },
+        stagePlayInterval: 1500
+      });
+
+      graph5c.setData({
+        stageOptions: {
+          intervalMs: 1500,
+          loop: true
+        },
+        stages: [
+          {
+            label: "1) Fetch 완료 (원격 변경은 익명 분기)",
+            data: {
+              head: "main",
+              branches: [
+                { name: "main", color: "#df5a4f" },
+                { name: "origin/main", color: "#2f8dff" }
+              ],
+              commits: [
+                { id: "c0", name: "원본", branch: "main", branches: ["main", "origin/main"], parents: [] },
+                { id: "c1", name: "배너 문구", branch: "main", branches: ["main"], parents: ["c0"] },
+                { id: "l2", name: "내 로컬 변경(main)", branch: "main", parents: ["c1"] },
+                { id: "r2", name: "Fetch로 받은 원격 변경(origin/main)", branch: "origin/main", branches: ["origin/main"], laneKey: "anon-remote-fetch", parents: ["c1"] }
+              ]
+            }
+          },
+          {
+            label: "2) Pull 완료 (Merge)",
+            data: {
+              head: "main",
+              branches: [
+                { name: "main", color: "#df5a4f" },
+                { name: "origin/main", color: "#2f8dff" }
+              ],
+              commits: [
+                { id: "c0", name: "원본", branch: "main", branches: ["main", "origin/main"], parents: [] },
+                { id: "c1", name: "배너 문구", branch: "main", parents: ["c0"] },
+                { id: "l2", name: "내 로컬 변경(main)", branch: "main", parents: ["c1"] },
+                { id: "r2", name: "Fetch로 받은 원격 변경(origin/main)", branch: "origin/main", branches: ["origin/main"], laneKey: "anon-remote-fetch", parents: ["c1"] },
+                {
+                  id: "m3",
+                  name: "컨플릭트 해결 후 Merge",
+                  branch: "main",
+                  branches: ["main"],
+                  parents: ["l2", "r2"]
+                }
+              ]
+            }
+          }
+        ]
+      });
+    </script>
+    <script src="../../scripts/language-preference.js"></script>
+    <script src="../scripts/glossary.js"></script>
+  </body>
+</html>
+
+

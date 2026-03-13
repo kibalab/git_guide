@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>補足 3. コンフリクト解決戦略</title>
+    <link rel="stylesheet" href="../../styles/guide.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="wrap topbar-inner">
+        <a class="home-link" href="./index.html">猫でもわかるGitの使い方</a>
+        <div class="topbar-tools">
+          <nav class="lang-switch" aria-label="言語選択">
+            <a href="../extra-3.html">한국어</a>
+            <a class="is-active" href="./extra-3.html">日本語</a>
+          </nav>
+          <nav class="top-links">
+            <a href="./extra-2.html">前へ</a>
+            <a href="./extra-4.html">次へ</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main class="wrap page">
+      <article class="doc">
+        <h1>補足 3. コンフリクト解決戦略</h1>
+
+        <p>
+          コンフリクトは失敗ではなく、「同じ場所を両方が変えた」という合図です。
+          大事なのは、落ち着いて基準に沿った 1 つの結果へ整理することです。
+        </p>
+
+        <section class="figure">
+          <h3>図 B3-1. 同じ行を別々に修正した状態</h3>
+          <div class="graph-frame"><div id="graph-e3a"></div></div>
+          <p class="caption">
+            feature と main が同じ場所を別々に変えると、自動統合が難しくなることがあります。
+          </p>
+        </section>
+
+        <section class="figure">
+          <h3>図 B3-2. 合意のあと解決 Commit を残した状態</h3>
+          <div class="graph-frame"><div id="graph-e3b"></div></div>
+          <p class="caption">
+            チームが選んだ結果を反映して解決 Commit を残しておくと、同じ問題をあとから追いやすくなります。
+          </p>
+        </section>
+
+        <h2>実戦での解決手順</h2>
+        <ol>
+          <li>誰が何を変えたのかを、まず行単位で確認する。</li>
+          <li>デザイン基準（トーン、ルール、優先順位）に合う側を選ぶ。</li>
+          <li>必要なら両方を混ぜて、よりよい最終版にまとめる。</li>
+          <li>解決内容を短いコミットメッセージで残す。</li>
+          <li>次の作業で同じ衝突が減るよう、ブランチを短く運用する。</li>
+        </ol>
+
+        <div class="bottom-nav">
+          <a href="./extra-2.html">補足2へ</a>
+          <a href="./extra-4.html">補足4へ</a>
+          <a href="./index.html">目次へ</a>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-credit">
+  <span class="site-credit-text">制作者: KIBA_</span>
+  <span class="site-credit-links">
+    <a class="site-credit-link" href="https://x.com/kjh030529" target="_blank" rel="noreferrer" aria-label="KIBA_ X">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M18.244 2H21l-6.56 7.5L22.2 22h-6.078l-4.76-7.29L4.8 22H2.04l7.02-8.02L1.8 2h6.233l4.303 6.6L18.244 2Zm-1.067 18h1.528L6.922 3.894H5.283L17.177 20Z" />
+      </svg>
+    </a>
+    <a class="site-credit-link" href="mailto:kjh030529@gmail.com" aria-label="KIBA_ Gmail">
+  <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4.5 7.5 12 13l7.5-5.5" />
+    <path d="M4.5 7.5v9a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1v-9" />
+    <path d="M4.5 16.5 9.75 11.75" />
+    <path d="M19.5 16.5 14.25 11.75" />
+  </svg>
+</a>
+  </span>
+</footer>
+    <script src="../../../scripts/git-graph-visualizer.js"></script>
+    <script>
+      const graphE3a = new GitGraphVisualizer("#graph-e3a", {
+        columnGap: 160,
+        laneGap: 84,
+        routeSpacing: 21,
+        showBranchNames: true,
+        showCommitNames: true,
+        showHeadLabels: true,
+        showDiffInspector: false,
+        showTags: false,
+        showHoverTimeGuide: true,
+        padding: { top: 76, right: 52, bottom: 58, left: 180 }
+      });
+
+      graphE3a.setData({
+        head: "main",
+        branches: [
+          { name: "main", color: "#df5a4f" },
+          { name: "feature/title-copy", color: "#2f8dff" }
+        ],
+        commits: [
+          { id: "q0", name: "元のタイトル", branch: "main", branches: ["main"], parents: [] },
+          { id: "q1", name: "基準文言", branch: "main", parents: ["q0"] },
+          { id: "q2", name: "main 文言修正", branch: "main", branches: ["main"], parents: ["q1"] },
+          { id: "f2", name: "feature 文言修正", branch: "feature/title-copy", branches: ["feature/title-copy"], parents: ["q1"] }
+        ]
+      });
+
+      const graphE3b = new GitGraphVisualizer("#graph-e3b", {
+        columnGap: 160,
+        laneGap: 84,
+        routeSpacing: 21,
+        showBranchNames: true,
+        showCommitNames: true,
+        showHeadLabels: true,
+        showDiffInspector: false,
+        showTags: true,
+        showHoverTimeGuide: true,
+        padding: { top: 76, right: 52, bottom: 62, left: 180 }
+      });
+
+      graphE3b.setData({
+        head: "main",
+        branches: [
+          { name: "main", color: "#df5a4f" },
+          { name: "feature/title-copy", color: "#2f8dff" }
+        ],
+        commits: [
+          { id: "r0", name: "元のタイトル", branch: "main", branches: ["main"], parents: [] },
+          { id: "r1", name: "基準文言", branch: "main", parents: ["r0"] },
+          { id: "r2", name: "main 文言修正", branch: "main", parents: ["r1"] },
+          { id: "r3", name: "feature 文言修正", branch: "feature/title-copy", branches: ["feature/title-copy"], parents: ["r1"] },
+          { id: "r4", name: "コンフリクト解決文言を反映", branch: "main", branches: ["main"], tags: ["resolved"], parents: ["r2", "r3"] }
+        ]
+      });
+    </script>
+    <script src="../../../scripts/language-preference.js"></script>
+    <script src="../../scripts/glossary.js"></script>
+  </body>
+</html>
+
+
+
+

@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>1장. 로컬/리모트 레포지토리 정의</title>
+    <link rel="stylesheet" href="../styles/guide.css" />
+    <style>
+      .code-sample.code-sample-lines {
+        white-space: normal;
+      }
+
+      .code-sample.code-sample-lines > div {
+        white-space: pre;
+      }
+
+      .code-sample .line-highlight-blue {
+        display: block;
+        margin: 0 -12px;
+        padding: 0 12px;
+        background: rgba(64, 103, 146, 0.22);
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="wrap topbar-inner">
+        <a class="home-link" href="./index.html">고양이도 이해하는 Git 사용법</a>
+        <div class="topbar-tools">
+          <nav class="lang-switch" aria-label="언어 선택">
+            <a class="is-active" href="./chapter-1.html">한국어</a>
+            <a href="./ja/chapter-1.html">日本語</a>
+          </nav>
+          <nav class="top-links">
+          <a href="./index.html">목차</a>
+          <a href="./chapter-2.html">다음 장</a>
+        </nav>
+        </div>
+      </div>
+    </header>
+
+    <main class="wrap page">
+      <article class="doc">
+        <h1>1장. 로컬/리모트 레포지토리 정의</h1>
+
+        <p>
+          <span class="strong">레포지토리</span>는 작업 기록을 보관하는 <span class="strong">기록 저장소</span>입니다.
+          기록 저장소는 보통 두 종류로 나눠서 생각하면 쉽습니다.
+        </p>
+        <ul>
+          <li><span class="strong">로컬 레포지토리</span>: 내 컴퓨터 안의 기록 저장소</li>
+          <li><span class="strong">리모트 레포지토리</span>: 인터넷 어딘가에 있는 기록 저장소</li>
+        </ul>
+
+        <p>
+          중요한 점은 <span class="strong">Git</span>과 <span class="strong">GitHub</span>는 같은 말이 아니라는 것입니다.
+          Git은 기록을 다루는 방식이고, GitHub는 리모트 기록 저장소를 올려두는 서비스 중 하나입니다.
+          (Bitbucket 같은 다른 서비스도 가능합니다.)
+        </p>
+
+        <p>
+          실무에서는 로컬에서 리모트 기록 저장소의 이름을 보통 <span class="strong">origin</span>으로 둡니다.
+          그래서 <span class="strong">origin/main</span> 같은 표현을 자주 보게 됩니다.
+        </p>
+
+        <p>
+          또 하나의 핵심: 로컬과 리모트는 <span class="strong">항상 자동으로 같이 움직이지 않습니다</span>.
+          서로 독립된 기록 저장소라서, 내가 보내거나 받아야만 내용이 맞춰집니다.
+        </p>
+
+        <h2>로컬 기록은 어디에 저장될까?</h2>
+        <p>
+          로컬 레포지토리의 핵심 기록은 프로젝트 폴더 안의 <span class="strong">.git</span> 폴더에 저장됩니다.
+          이 폴더가 있으면 "이 폴더는 Git 기록 저장소다"라고 볼 수 있습니다.
+        </p>
+        <div class="code-sample code-sample-lines">
+          <div>my-project/</div>
+          <div class="line-highlight-blue">  .git/        ← Git 기록(히스토리, 브렌치 정보 등)</div>
+          <div>  art/</div>
+          <div>  ui/</div>
+          <div>  README.md</div>
+        </div>
+
+        <section class="figure">
+          <h3>그림 1-1. 동료에게 커밋을 공유하는 과정 (1)</h3>
+          <div class="graph-frame"><div id="graph-1a"></div></div>
+          <p class="caption">
+            흐름은 보통 <span class="strong">저장 → 업로드 → 다운로드</span> 순서입니다.
+            화살표와 점선 흐름 방향으로 데이터가 이동하는 길을 바로 읽을 수 있습니다.
+          </p>
+        </section>
+
+        <div class="bottom-nav">
+          <a href="./index.html">목차로</a>
+          <a href="./chapter-2.html">2장으로</a>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-credit">
+  <span class="site-credit-text">만든사람: KIBA_</span>
+  <span class="site-credit-links">
+    <a class="site-credit-link" href="https://x.com/kjh030529" target="_blank" rel="noreferrer" aria-label="KIBA_ X">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M18.244 2H21l-6.56 7.5L22.2 22h-6.078l-4.76-7.29L4.8 22H2.04l7.02-8.02L1.8 2h6.233l4.303 6.6L18.244 2Zm-1.067 18h1.528L6.922 3.894H5.283L17.177 20Z" />
+      </svg>
+    </a>
+    <a class="site-credit-link" href="mailto:kjh030529@gmail.com" aria-label="KIBA_ Gmail">
+  <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4.5 7.5 12 13l7.5-5.5" />
+    <path d="M4.5 7.5v9a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1v-9" />
+    <path d="M4.5 16.5 9.75 11.75" />
+    <path d="M19.5 16.5 14.25 11.75" />
+  </svg>
+</a>
+  </span>
+</footer>
+    <script src="../../scripts/git-graph-visualizer.js"></script>
+    <script>
+      const common = {
+        columnGap: 150,
+        laneGap: 74,
+        showRepoTitles: true,
+        showBranchNames: true,
+        showCommitNames: true,
+        showHeadLabels: true,
+        showDiffInspector: false,
+        showTags: false,
+        showHoverTimeGuide: true,
+        padding: { top: 54, right: 44, bottom: 50, left: 160 }
+      };
+
+      const graph1a = new GitGraphVisualizer("#graph-1a", {
+        ...common,
+        multiRepoGap: 82
+      });
+
+      graph1a.setData({
+        repositories: [
+          {
+            id: "local",
+            name: "내 컴퓨터 (local)",
+            head: "main",
+            branches: [{ name: "main", color: "#df5a4f" }],
+            commits: [
+              { id: "c0", name: "처음 시작", branch: "main", branches: ["main"], parents: [] },
+              { id: "c1", name: "기본 화면", branch: "main", parents: ["c0"] },
+              { id: "s2", name: "저장: 버튼 위치 조정", branch: "main", branches: ["main"], parents: ["c1"] }
+            ]
+          },
+          {
+            id: "remote",
+            name: "origin (remote)",
+            head: "main",
+            branches: [{ name: "main", color: "#df5a4f" }],
+            commits: [
+              { id: "c0", name: "처음 시작", branch: "main", branches: ["main"], parents: [] },
+              { id: "c1", name: "기본 화면", branch: "main", parents: ["c0"] },
+              { id: "s2", name: "업로드된 저장", branch: "main", branches: ["main"], parents: ["c1"] }
+            ]
+          },
+          {
+            id: "teammate",
+            name: "다른 사람 컴퓨터 (local)",
+            head: "main",
+            branches: [{ name: "main", color: "#df5a4f" }],
+            commits: [
+              { id: "c0", name: "처음 시작", branch: "main", branches: ["main"], parents: [] },
+              { id: "c1", name: "기본 화면", branch: "main", parents: ["c0"] },
+              { id: "s2", name: "다운로드 완료", branch: "main", branches: ["main"], parents: ["c1"] }
+            ]
+          }
+        ],
+        relations: [
+          {
+            from: { repo: "local", commit: "s2" },
+            to: { repo: "remote", commit: "s2" },
+            label: "업로드",
+            color: "#2563eb"
+          },
+          {
+            from: { repo: "remote", commit: "s2" },
+            to: { repo: "teammate", commit: "s2" },
+            label: "다운로드",
+            color: "#0f766e"
+          }
+        ]
+      });
+    </script>
+    <script src="../../scripts/language-preference.js"></script>
+    <script src="../scripts/glossary.js"></script>
+  </body>
+</html>
+
+
+

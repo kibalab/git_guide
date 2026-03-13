@@ -1,0 +1,691 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>6장. Pull Request (PR)</title>
+    <link rel="stylesheet" href="../styles/guide.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="wrap topbar-inner">
+        <a class="home-link" href="./index.html">고양이도 이해하는 Git 사용법</a>
+        <div class="topbar-tools">
+          <nav class="lang-switch" aria-label="언어 선택">
+            <a class="is-active" href="./chapter-6.html">한국어</a>
+            <a href="./ja/chapter-6.html">日本語</a>
+          </nav>
+          <nav class="top-links">
+          <a href="./chapter-5.html">이전 장</a>
+          <a href="./extra-1.html">번외</a>
+        </nav>
+        </div>
+      </div>
+    </header>
+
+    <main class="wrap page">
+      <article class="doc">
+        <h1>6장. Pull Request (PR)</h1>
+
+        <p>
+          <span class="strong">Pull Request (PR)</span>는
+          "내 브렌치 작업을 기준 브렌치(main)에 합쳐도 되는지 검토 요청"하는 단계입니다.
+        </p>
+        <p>
+          5장에서 본 Merge/Pull 흐름 위에, 팀 검토 절차를 올린 형태가 PR이라고 생각하면 이해가 쉽습니다.
+        </p>
+
+        <p>
+          보통 흐름은 이렇습니다.
+        </p>
+        <ol>
+          <li>로컬 브렌치 작업을 리모트에 Push한다.</li>
+          <li>PR을 열고 변경 내용을 설명한다.</li>
+          <li>리뷰를 받고 수정이 필요하면 같은 브렌치에 추가 커밋한다.</li>
+          <li>승인되면 main에 머지한다.</li>
+        </ol>
+
+        <p>
+          핵심은 "PR은 합치기 전에 한 번 더 확인하는 안전 장치"라는 점입니다.
+          작업 품질, 실수, 빠진 파일을 여기서 많이 잡아냅니다.
+        </p>
+
+        <section class="tip">
+          <h3>이 장 그래프 사용 팁</h3>
+          <ul>
+            <li>그래프는 단계 슬라이드입니다. 상단의 <span class="strong">← / → / Play</span>로 흐름을 넘겨 보세요.</li>
+            <li>이 장은 흐름 이해에 집중하도록 히스토리 창을 숨겼습니다.</li>
+          </ul>
+        </section>
+
+        <section class="figure">
+          <h3>그림 6-1. Push → PR → 리뷰 반영 → Merge → Fetch → Pull</h3>
+          <div class="graph-frame"><div id="graph-5a"></div></div>
+          <p class="caption">
+            단계 버튼으로 PR 과정을 순서대로 재생할 수 있습니다.
+            <span class="strong">origin/main</span>, <span class="strong">origin/feature/login-ui</span>는
+            내 local의 리모트 기준점이며, 마지막 단계에서 Fetch와 Pull 차이를 확인할 수 있습니다.
+          </p>
+        </section>
+
+        <h2>PR 머지 후 정리 루틴(추천)</h2>
+        <p>
+          아래 그래프(그림 6-2)는 PR 머지 직후 정리 루틴을 단계로 보여줍니다.
+          버튼으로 넘기면서 브렌치가 어떻게 정리되는지 확인해 보세요.
+        </p>
+        <section class="figure">
+          <h3>그림 6-2. 머지 후 브렌치 정리 루틴(삭제 → checkout main → Pull → 새 브렌치)</h3>
+          <div class="graph-frame"><div id="graph-5b"></div></div>
+          <p class="caption">
+            리모트 작업 브렌치를 지우고, main으로 돌아와 Pull로 최신화를 맞춘 뒤,
+            다음 작업 브렌치를 새로 만드는 흐름입니다.
+          </p>
+        </section>
+        <ol>
+          <li>리모트에서 머지된 작업 브렌치를 삭제한다.</li>
+          <li>main으로 체크아웃한다.</li>
+          <li>Pull로 main을 최신 상태로 맞춘다.</li>
+          <li>로컬 작업 브렌치를 삭제한다.</li>
+          <li>다음 작업은 새 브렌치로 시작한다.</li>
+        </ol>
+
+        <section class="tip">
+          <h3>왜 이렇게 하는가</h3>
+          <ul>
+            <li>끝난 브렌치를 치워서 브렌치 목록이 깔끔해집니다.</li>
+            <li>다음 작업을 항상 최신 main에서 시작해 불필요한 충돌을 줄일 수 있습니다.</li>
+            <li>작업 단위가 분리되어 PR 리뷰 범위가 명확해집니다.</li>
+            <li>잘못된 기준점에서 이어 작업하는 실수를 줄일 수 있습니다.</li>
+          </ul>
+        </section>
+
+        <div class="bottom-nav">
+          <a href="./chapter-5.html">5장으로</a>
+          <a href="./extra-1.html">번외 1로</a>
+          <a href="./index.html">목차로</a>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-credit">
+  <span class="site-credit-text">만든사람: KIBA_</span>
+  <span class="site-credit-links">
+    <a class="site-credit-link" href="https://x.com/kjh030529" target="_blank" rel="noreferrer" aria-label="KIBA_ X">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M18.244 2H21l-6.56 7.5L22.2 22h-6.078l-4.76-7.29L4.8 22H2.04l7.02-8.02L1.8 2h6.233l4.303 6.6L18.244 2Zm-1.067 18h1.528L6.922 3.894H5.283L17.177 20Z" />
+      </svg>
+    </a>
+    <a class="site-credit-link" href="mailto:kjh030529@gmail.com" aria-label="KIBA_ Gmail">
+  <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4.5 7.5 12 13l7.5-5.5" />
+    <path d="M4.5 7.5v9a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1v-9" />
+    <path d="M4.5 16.5 9.75 11.75" />
+    <path d="M19.5 16.5 14.25 11.75" />
+  </svg>
+</a>
+  </span>
+</footer>
+    <script src="../../scripts/git-graph-visualizer.js"></script>
+    <script>
+      const graph5a = new GitGraphVisualizer("#graph-5a", {
+        columnGap: 146,
+        laneGap: 74,
+        showRepoTitles: true,
+        showBranchNames: true,
+        showCommitNames: true,
+        showHeadLabels: true,
+        showDiffInspector: false,
+        showTags: false,
+        showHoverTimeGuide: true,
+        padding: { top: 58, right: 44, bottom: 52, left: 170 },
+        multiRepoGap: 78,
+        stagePlayInterval: 1400
+      });
+
+      const prBranches = [
+        { name: "main", color: "#df5a4f" },
+        { name: "feature/login-ui", color: "#2f8dff" }
+      ];
+
+      const localBaseCommits = [
+        { id: "p0", name: "시작", branch: "main", branches: ["main"], parents: [] },
+        { id: "p1", name: "기본 화면", branch: "main", parents: ["p0"] },
+        {
+          id: "p3",
+          name: "입력창 정렬",
+          branch: "feature/login-ui",
+          branches: ["feature/login-ui"],
+          parents: ["p1"],
+          changes: [
+            { path: "ui/login.css", status: "modified", diff: ["-.field { margin-bottom: 8px; }", "+.field { margin-bottom: 14px; }"] }
+          ]
+        }
+      ];
+
+      const reviewedCommit = {
+        id: "p4",
+        name: "리뷰 반영: 버튼 대비 수정",
+        branch: "feature/login-ui",
+        branches: ["feature/login-ui"],
+        parents: ["p3"],
+        changes: [
+          { path: "ui/login.css", status: "modified", diff: ["-.login-btn { color: #9ca3af; }", "+.login-btn { color: #ffffff; }"] }
+        ]
+      };
+
+      const mergedCommit = {
+        id: "p5",
+        name: "PR 머지 완료",
+        branch: "main",
+        branches: ["main"],
+        tags: ["merged"],
+        parents: ["p1", "p4"],
+        changes: [
+          { path: "ui/login.html", status: "modified", diff: ["-<h1>Login</h1>", "+<h1>Welcome Back</h1>"] },
+          { path: "ui/login.css", status: "modified", diff: ["-.field { margin-bottom: 8px; }", "+.field { margin-bottom: 14px; }"] },
+          { path: "ui/login.css", status: "modified", diff: ["-.login-btn { color: #9ca3af; }", "+.login-btn { color: #ffffff; }"] }
+        ]
+      };
+
+      const remoteBaseCommits = [
+        { id: "p0", name: "시작", branch: "main", branches: ["main"], parents: [] },
+        { id: "p1", name: "기본 화면", branch: "main", branches: ["main"], parents: ["p0"] },
+        {
+          id: "p3",
+          name: "입력창 정렬",
+          branch: "feature/login-ui",
+          branches: ["feature/login-ui"],
+          parents: ["p1"],
+          changes: [
+            { path: "ui/login.css", status: "modified", diff: ["-.field { margin-bottom: 8px; }", "+.field { margin-bottom: 14px; }"] }
+          ]
+        }
+      ];
+
+      graph5a.setData({
+        stageOptions: {
+          intervalMs: 1400,
+          loop: true
+        },
+        stages: [
+          {
+            label: "1) feature 작업 Push",
+            data: {
+              repositories: [
+                {
+                  id: "local",
+                  name: "내 local",
+                  head: "feature/login-ui",
+                  branches: prBranches,
+                  branchHeads: {
+                    "main": "p1",
+                    "origin/main": "p1",
+                    "feature/login-ui": "p3",
+                    "origin/feature/login-ui": "p3"
+                  },
+                  commits: localBaseCommits
+                },
+                {
+                  id: "remote",
+                  name: "GitHub remote",
+                  head: "main",
+                  branches: prBranches,
+                  branchHeads: {
+                    "main": "p1",
+                    "feature/login-ui": "p3"
+                  },
+                  commits: remoteBaseCommits
+                }
+              ],
+              relations: [
+                {
+                  from: { repo: "local", commit: "p3" },
+                  to: { repo: "remote", commit: "p3" },
+                  label: "Push",
+                  color: "#2563eb"
+                }
+              ]
+            }
+          },
+          {
+            label: "2) PR 열기",
+            data: {
+              repositories: [
+                {
+                  id: "local",
+                  name: "내 local",
+                  head: "feature/login-ui",
+                  branches: prBranches,
+                  branchHeads: {
+                    "main": "p1",
+                    "origin/main": "p1",
+                    "feature/login-ui": "p3",
+                    "origin/feature/login-ui": "p3"
+                  },
+                  commits: localBaseCommits
+                },
+                {
+                  id: "remote",
+                  name: "GitHub remote",
+                  head: "main",
+                  branches: prBranches,
+                  branchHeads: {
+                    "main": "p1",
+                    "feature/login-ui": "p3"
+                  },
+                  commits: remoteBaseCommits
+                }
+              ],
+              relations: [
+                {
+                  from: { repo: "local", commit: "p3" },
+                  to: { repo: "remote", commit: "p3" },
+                  label: "Push",
+                  color: "#2563eb"
+                },
+                {
+                  from: { repo: "remote", commit: "p3" },
+                  to: { repo: "remote", commit: "p1" },
+                  label: "PR 열기",
+                  color: "#7c3aed"
+                }
+              ]
+            }
+          },
+          {
+            label: "3) 리뷰 반영 후 PR 업데이트",
+            data: {
+              repositories: [
+                {
+                  id: "local",
+                  name: "내 local",
+                  head: "feature/login-ui",
+                  branches: prBranches,
+                  branchHeads: {
+                    "main": "p1",
+                    "origin/main": "p1",
+                    "feature/login-ui": "p4",
+                    "origin/feature/login-ui": "p4"
+                  },
+                  commits: localBaseCommits.concat([reviewedCommit])
+                },
+                {
+                  id: "remote",
+                  name: "GitHub remote",
+                  head: "main",
+                  branches: prBranches,
+                  branchHeads: {
+                    "main": "p1",
+                    "feature/login-ui": "p4"
+                  },
+                  commits: remoteBaseCommits.concat([reviewedCommit])
+                }
+              ],
+              relations: [
+                {
+                  from: { repo: "local", commit: "p4" },
+                  to: { repo: "remote", commit: "p4" },
+                  label: "Push",
+                  color: "#2563eb"
+                },
+                {
+                  from: { repo: "remote", commit: "p4" },
+                  to: { repo: "remote", commit: "p1" },
+                  label: "PR 업데이트",
+                  color: "#7c3aed"
+                }
+              ]
+            }
+          },
+          {
+            label: "4) 리뷰 승인 후 remote main 머지 완료",
+            data: {
+              repositories: [
+                {
+                  id: "local",
+                  name: "내 local",
+                  head: "feature/login-ui",
+                  branches: prBranches,
+                  branchHeads: {
+                    "main": "p1",
+                    "origin/main": "p1",
+                    "feature/login-ui": "p4",
+                    "origin/feature/login-ui": "p4"
+                  },
+                  commits: localBaseCommits.concat([reviewedCommit])
+                },
+                {
+                  id: "remote",
+                  name: "GitHub remote",
+                  head: "main",
+                  branches: prBranches,
+                  branchHeads: {
+                    "main": "p5",
+                    "feature/login-ui": "p4"
+                  },
+                  commits: remoteBaseCommits.concat([reviewedCommit, mergedCommit])
+                }
+              ],
+              relations: [
+                {
+                  from: { repo: "remote", commit: "p4" },
+                  to: { repo: "remote", commit: "p5" },
+                  label: "Merge",
+                  color: "#16a34a"
+                }
+              ]
+            }
+          },
+          {
+            label: "5) Fetch: origin/main 최신화",
+            data: {
+              repositories: [
+                {
+                  id: "local",
+                  name: "내 local",
+                  head: "feature/login-ui",
+                  branches: prBranches,
+                  branchHeads: {
+                    "main": "p1",
+                    "origin/main": "p5",
+                    "feature/login-ui": "p4",
+                    "origin/feature/login-ui": "p4"
+                  },
+                  commits: localBaseCommits.concat([reviewedCommit, mergedCommit])
+                },
+                {
+                  id: "remote",
+                  name: "GitHub remote",
+                  head: "main",
+                  branches: prBranches,
+                  branchHeads: {
+                    "main": "p5",
+                    "feature/login-ui": "p4"
+                  },
+                  commits: remoteBaseCommits.concat([reviewedCommit, mergedCommit])
+                }
+              ],
+              relations: [
+                {
+                  from: { repo: "remote", commit: "p5" },
+                  to: { repo: "local", commit: "p5" },
+                  label: "Fetch",
+                  color: "#0d9488"
+                }
+              ]
+            }
+          },
+          {
+            label: "6) Pull: local main 최신화",
+            data: {
+              repositories: [
+                {
+                  id: "local",
+                  name: "내 local",
+                  head: "main",
+                  branches: prBranches,
+                  branchHeads: {
+                    "main": "p5",
+                    "origin/main": "p5",
+                    "feature/login-ui": "p4",
+                    "origin/feature/login-ui": "p4"
+                  },
+                  commits: localBaseCommits.concat([reviewedCommit, mergedCommit])
+                },
+                {
+                  id: "remote",
+                  name: "GitHub remote",
+                  head: "main",
+                  branches: prBranches,
+                  branchHeads: {
+                    "main": "p5",
+                    "feature/login-ui": "p4"
+                  },
+                  commits: remoteBaseCommits.concat([reviewedCommit, mergedCommit])
+                }
+              ],
+              relations: [
+                {
+                  from: { repo: "remote", commit: "p5" },
+                  to: { repo: "local", commit: "p5" },
+                  label: "Pull",
+                  color: "#2563eb"
+                }
+              ]
+            }
+          }
+        ]
+      });
+
+      const graph5b = new GitGraphVisualizer("#graph-5b", {
+        columnGap: 146,
+        laneGap: 74,
+        showRepoTitles: true,
+        showBranchNames: true,
+        showCommitNames: true,
+        showHeadLabels: true,
+        showDiffInspector: false,
+        showTags: false,
+        showHoverTimeGuide: true,
+        padding: { top: 58, right: 44, bottom: 52, left: 170 },
+        multiRepoGap: 78,
+        stagePlayInterval: 1400
+      });
+
+      const cleanupBranchesBase = [
+        { name: "main", color: "#df5a4f" },
+        { name: "feature/login-ui", color: "#2f8dff" }
+      ];
+      const cleanupBranchesWithNext = cleanupBranchesBase.concat([
+        { name: "feature/next-task", color: "#1ea86b" }
+      ]);
+
+      const cleanupLocalBeforePullCommits = localBaseCommits.concat([reviewedCommit]);
+      const cleanupLocalAfterPullCommits = localBaseCommits.concat([reviewedCommit, mergedCommit]);
+      const cleanupRemoteCommits = remoteBaseCommits.concat([reviewedCommit, mergedCommit]);
+
+      graph5b.setData({
+        stageOptions: {
+          intervalMs: 1400,
+          loop: true
+        },
+        stages: [
+          {
+            label: "1) 머지 직후: 아직 feature 브렌치에 위치",
+            data: {
+              repositories: [
+                {
+                  id: "local",
+                  name: "내 local",
+                  head: "feature/login-ui",
+                  branches: cleanupBranchesBase,
+                  branchHeads: {
+                    "main": "p1",
+                    "origin/main": "p1",
+                    "feature/login-ui": "p4"
+                  },
+                  commits: cleanupLocalBeforePullCommits
+                },
+                {
+                  id: "remote",
+                  name: "GitHub remote",
+                  head: "main",
+                  branches: cleanupBranchesBase,
+                  branchHeads: {
+                    "main": "p5",
+                    "feature/login-ui": "p4"
+                  },
+                  commits: cleanupRemoteCommits
+                }
+              ]
+            }
+          },
+          {
+            label: "2) 리모트 feature 브렌치 삭제",
+            data: {
+              repositories: [
+                {
+                  id: "local",
+                  name: "내 local",
+                  head: "feature/login-ui",
+                  branches: cleanupBranchesBase,
+                  branchHeads: {
+                    "main": "p1",
+                    "origin/main": "p1",
+                    "feature/login-ui": "p4"
+                  },
+                  commits: cleanupLocalBeforePullCommits
+                },
+                {
+                  id: "remote",
+                  name: "GitHub remote",
+                  head: "main",
+                  branches: cleanupBranchesBase,
+                  branchHeads: {
+                    "main": "p5"
+                  },
+                  commits: cleanupRemoteCommits
+                }
+              ],
+              relations: [
+                {
+                  from: { repo: "local", commit: "p4" },
+                  to: { repo: "remote", commit: "p4" },
+                  label: "리모트 브렌치 삭제",
+                  color: "#dc2626"
+                }
+              ]
+            }
+          },
+          {
+            label: "3) main으로 checkout",
+            data: {
+              repositories: [
+                {
+                  id: "local",
+                  name: "내 local",
+                  head: "main",
+                  branches: cleanupBranchesBase,
+                  branchHeads: {
+                    "main": "p1",
+                    "origin/main": "p1",
+                    "feature/login-ui": "p4"
+                  },
+                  commits: cleanupLocalBeforePullCommits
+                },
+                {
+                  id: "remote",
+                  name: "GitHub remote",
+                  head: "main",
+                  branches: cleanupBranchesBase,
+                  branchHeads: {
+                    "main": "p5"
+                  },
+                  commits: cleanupRemoteCommits
+                }
+              ]
+            }
+          },
+          {
+            label: "4) Pull로 main 최신화",
+            data: {
+              repositories: [
+                {
+                  id: "local",
+                  name: "내 local",
+                  head: "main",
+                  branches: cleanupBranchesBase,
+                  branchHeads: {
+                    "main": "p5",
+                    "origin/main": "p5",
+                    "feature/login-ui": "p4"
+                  },
+                  commits: cleanupLocalAfterPullCommits
+                },
+                {
+                  id: "remote",
+                  name: "GitHub remote",
+                  head: "main",
+                  branches: cleanupBranchesBase,
+                  branchHeads: {
+                    "main": "p5"
+                  },
+                  commits: cleanupRemoteCommits
+                }
+              ],
+              relations: [
+                {
+                  from: { repo: "remote", commit: "p5" },
+                  to: { repo: "local", commit: "p5" },
+                  label: "Pull",
+                  color: "#2563eb"
+                }
+              ]
+            }
+          },
+          {
+            label: "5) 로컬 feature 브렌치 삭제",
+            data: {
+              repositories: [
+                {
+                  id: "local",
+                  name: "내 local",
+                  head: "main",
+                  branches: cleanupBranchesBase,
+                  branchHeads: {
+                    "main": "p5",
+                    "origin/main": "p5"
+                  },
+                  commits: cleanupLocalAfterPullCommits
+                },
+                {
+                  id: "remote",
+                  name: "GitHub remote",
+                  head: "main",
+                  branches: cleanupBranchesBase,
+                  branchHeads: {
+                    "main": "p5"
+                  },
+                  commits: cleanupRemoteCommits
+                }
+              ]
+            }
+          },
+          {
+            label: "6) 새 작업 브렌치 생성",
+            data: {
+              repositories: [
+                {
+                  id: "local",
+                  name: "내 local",
+                  head: "feature/next-task",
+                  branches: cleanupBranchesWithNext,
+                  branchHeads: {
+                    "main": "p5",
+                    "origin/main": "p5",
+                    "feature/next-task": "p5"
+                  },
+                  commits: cleanupLocalAfterPullCommits
+                },
+                {
+                  id: "remote",
+                  name: "GitHub remote",
+                  head: "main",
+                  branches: cleanupBranchesBase,
+                  branchHeads: {
+                    "main": "p5"
+                  },
+                  commits: cleanupRemoteCommits
+                }
+              ]
+            }
+          }
+        ]
+      });
+    </script>
+    <script src="../../scripts/language-preference.js"></script>
+    <script src="../scripts/glossary.js"></script>
+  </body>
+</html>
+
+

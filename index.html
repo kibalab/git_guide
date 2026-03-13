@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>고양이도 이해하는 Git 사용법 | Language</title>
+    <link rel="stylesheet" href="./styles/site-credit.css" />
+    <style>
+      :root {
+        --bg: #f4f6f8;
+        --surface: #ffffff;
+        --text: #14191f;
+        --muted: #5a6572;
+        --line: #d8dee6;
+        --link: #1d4ed8;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: "Pretendard", "Noto Sans KR", "Segoe UI", sans-serif;
+      }
+
+      .wrap {
+        width: min(980px, 92vw);
+        margin: 0 auto;
+      }
+
+      main {
+        padding: 56px 0 40px;
+      }
+
+      h1 {
+        margin: 0 0 14px;
+        font-size: clamp(2rem, 4vw, 2.8rem);
+        line-height: 1.2;
+      }
+
+      .lead {
+        margin: 0 0 10px;
+        color: var(--muted);
+        font-size: 1rem;
+        line-height: 1.7;
+      }
+
+      .lang-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+        margin-top: 28px;
+      }
+
+      .lang-card {
+        display: block;
+        padding: 22px 24px;
+        border: 1px solid var(--line);
+        background: var(--surface);
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .lang-card:hover {
+        border-color: #b9c7d8;
+        background: #f8fafc;
+      }
+
+      .lang-card.is-preferred {
+        border-color: #8fb0db;
+        background: #edf4ff;
+      }
+
+      .lang-label {
+        display: block;
+        color: var(--link);
+        font-size: 0.88rem;
+        font-weight: 800;
+      }
+
+      .lang-title {
+        display: block;
+        margin-top: 4px;
+        font-size: 1.35rem;
+        font-weight: 800;
+        line-height: 1.3;
+      }
+
+      .lang-desc {
+        display: block;
+        margin-top: 8px;
+        color: var(--muted);
+        line-height: 1.65;
+      }
+
+      @media (max-width: 720px) {
+        .lang-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <h1>고양이도 이해하는 Git 사용법</h1>
+      <p class="lead">원하는 언어를 선택해서 가이드를 열어 주세요.</p>
+      <p class="lead">Please choose a language to open the guide.</p>
+
+      <div class="lang-grid">
+        <a class="lang-card" data-language="ko" href="./guide/pages/index.html">
+          <span class="lang-label">한국어</span>
+          <span class="lang-title">고양이도 이해하는 Git 사용법</span>
+          <span class="lang-desc">아트 직군 입문자를 위한 Git 개념 가이드입니다.</span>
+        </a>
+
+        <a class="lang-card" data-language="ja" href="./guide/pages/ja/index.html">
+          <span class="lang-label">日本語</span>
+          <span class="lang-title">猫でもわかるGitの使い方</span>
+          <span class="lang-desc">アート職の入門者向けに整理した Git 概念ガイドです。</span>
+        </a>
+      </div>
+    </main>
+
+    <script src="./scripts/language-preference.js"></script>
+
+    <footer class="site-credit">
+      <span class="site-credit-text">만든사람: KIBA_</span>
+      <span class="site-credit-links">
+        <a class="site-credit-link" href="https://x.com/kjh030529" target="_blank" rel="noreferrer" aria-label="KIBA_ X">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18.244 2H21l-6.56 7.5L22.2 22h-6.078l-4.76-7.29L4.8 22H2.04l7.02-8.02L1.8 2h6.233l4.303 6.6L18.244 2Zm-1.067 18h1.528L6.922 3.894H5.283L17.177 20Z" />
+          </svg>
+        </a>
+        <a class="site-credit-link" href="mailto:kjh030529@gmail.com" aria-label="KIBA_ Gmail">
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4.5 7.5 12 13l7.5-5.5" />
+            <path d="M4.5 7.5v9a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1v-9" />
+            <path d="M4.5 16.5 9.75 11.75" />
+            <path d="M19.5 16.5 14.25 11.75" />
+          </svg>
+        </a>
+      </span>
+    </footer>
+  </body>
+</html>
