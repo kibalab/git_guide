@@ -23,6 +23,7 @@
       <div class="wrap topbar-inner">
         <a class="home-link" href="./index.html">猫でもわかるGitの使い方</a>
         <div class="topbar-tools">
+          <button id="command-toggle" class="command-toggle" type="button" aria-pressed="false" hidden>コマンド説明を表示</button>
           <nav class="lang-switch" aria-label="言語選択">
             <a lang="ko" hreflang="ko" href="../chapter-3.html">한국어</a>
             <a class="is-active" aria-current="page" lang="ja" hreflang="ja" href="./chapter-3.html">日本語</a>
@@ -48,6 +49,7 @@
           <span class="strong">HEAD</span> は「いま自分が立っている道の先端」を指す目印です。
           今どこで作業しているのかを知らせる矢印だと考えれば十分です。
         </p>
+        <aside class="command-guide" data-command-guide="head" hidden></aside>
 
         <h2>なぜブランチが必要なのか</h2>
         <ul>
@@ -63,6 +65,7 @@
             今の作業位置（HEAD）が feature/login-bg の上にあれば、新しいコミットもその道に積まれていきます。
           </p>
         </section>
+        <aside class="command-guide" data-command-guide="branch-create" hidden></aside>
 
         <section class="figure">
           <h3>図 3-2. 作業後に main へ戻った状態</h3>
@@ -71,6 +74,7 @@
             作業が終わったら main に戻して統合し、HEAD も main に置き直して次の作業を始めます。
           </p>
         </section>
+        <aside class="command-guide" data-command-guide="branch-return" hidden></aside>
 
         <h2>Checkout とは？</h2>
         <p>
@@ -81,6 +85,7 @@
           たとえば main から feature/login-bg に Checkout すると、その次からのコミットは feature/login-bg に積まれます。
           もう一度 main に Checkout すれば、main の続きとして作業します。
         </p>
+        <aside class="command-guide" data-command-guide="checkout" hidden></aside>
 
         <h2>おすすめのブランチ名ルール</h2>
         <ul>
@@ -131,6 +136,8 @@
 
     <script src="../../../scripts/language-preference.js"></script>
     <script src="../../scripts/glossary.js"></script>
+    <script src="../../scripts/command-data.js"></script>
+    <script src="../../scripts/command-guide.js"></script>
   </body>
 </html>
 

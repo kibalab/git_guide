@@ -23,6 +23,7 @@
       <div class="wrap topbar-inner">
         <a class="home-link" href="./index.html">고양이도 이해하는 Git 사용법</a>
         <div class="topbar-tools">
+          <button id="command-toggle" class="command-toggle" type="button" aria-pressed="false" hidden>명령어 설명 표시</button>
           <nav class="lang-switch" aria-label="언어 선택">
             <a class="is-active" aria-current="page" lang="ko" hreflang="ko" href="./extra-1.html">한국어</a>
             <a lang="ja" hreflang="ja" href="./ja/extra-1.html">日本語</a>
@@ -54,6 +55,7 @@
         <p>
           예: "버튼 그림자 강도 20% 낮춤", "튜토리얼 배경 이미지 교체"
         </p>
+        <aside class="command-guide" data-command-guide="message" hidden></aside>
 
         <section class="figure">
           <h3>그림 B1-1. 메시지만 읽어도 흐름이 보이게 만들기</h3>
@@ -101,6 +103,8 @@
 
     <script src="../../scripts/language-preference.js"></script>
     <script src="../scripts/glossary.js"></script>
+    <script src="../scripts/command-data.js"></script>
+    <script src="../scripts/command-guide.js"></script>
   </body>
 </html>
 

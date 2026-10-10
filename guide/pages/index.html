@@ -23,6 +23,7 @@
       <div class="wrap topbar-inner">
         <a class="home-link" href="./index.html">고양이도 이해하는 Git 사용법</a>
         <div class="topbar-tools">
+          <button id="command-toggle" class="command-toggle" type="button" aria-pressed="false" hidden>명령어 설명 표시</button>
           <nav class="lang-switch" aria-label="언어 선택">
             <a class="is-active" aria-current="page" lang="ko" hreflang="ko" href="./index.html">한국어</a>
             <a lang="ja" hreflang="ja" href="./ja/index.html">日本語</a>
@@ -53,7 +54,8 @@
         </p>
         <p>
           이 문서는 <span class="strong">Git의 개념과 원리</span>를 이해하는것이 목적이며,
-          특정 Git 클라이언트나 명령어를 직접 사용하는 방법은 다루지 않습니다.
+          기본 화면에서는 특정 Git 클라이언트나 명령어의 조작 방법을 다루지 않습니다.
+          상단의 "명령어 설명 표시"를 켜면 각 기능에 대응하는 명령어 예시를 함께 볼 수 있습니다.
         </p>
         <p>
           각 조직에서 쓰는 Git 환경 안에서 규칙을 더 쉽게 이해하고,
@@ -66,6 +68,7 @@
         <p>
           모두가 Git을 편하게 다룰수 있도록, 이 안내서가 작은 도움이 되길 바랍니다.
         </p>
+        <aside class="command-guide" data-command-guide="intro" hidden></aside>
 
         <section class="index-section" aria-labelledby="index-main">
           <h2 id="index-main">목차</h2>
@@ -197,6 +200,8 @@
 </footer>
     <script src="../../scripts/language-preference.js"></script>
     <script src="../scripts/glossary.js"></script>
+    <script src="../scripts/command-data.js"></script>
+    <script src="../scripts/command-guide.js"></script>
   </body>
 </html>
 

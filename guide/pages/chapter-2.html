@@ -31,6 +31,7 @@
       <div class="wrap topbar-inner">
         <a class="home-link" href="./index.html">고양이도 이해하는 Git 사용법</a>
         <div class="topbar-tools">
+          <button id="command-toggle" class="command-toggle" type="button" aria-pressed="false" hidden>명령어 설명 표시</button>
           <nav class="lang-switch" aria-label="언어 선택">
             <a class="is-active" aria-current="page" lang="ko" hreflang="ko" href="./chapter-2.html">한국어</a>
             <a lang="ja" hreflang="ja" href="./ja/chapter-2.html">日本語</a>
@@ -77,6 +78,7 @@
             커밋 원을 클릭하면 해당 커밋의 파일별 Diff를 바로 볼 수 있습니다.
           </p>
         </section>
+        <aside class="command-guide" data-command-guide="history" hidden></aside>
 
         <h2>줄 단위로 본다는 느낌</h2>
         <div class="code-sample">[Assets/Prefabs/UI/LoginButton.prefab - 변경 전]
@@ -93,6 +95,7 @@ m_AnchoredPosition: {x: 0, y: -96}
           위처럼 3번째 줄이 바뀌면, Git은 그 변화 지점을 중심으로 기록합니다.
           그래서 나중에 "누가, 언제, 어느 줄을 바꿨는지" 찾기 쉬워집니다.
         </p>
+        <aside class="command-guide" data-command-guide="diff" hidden></aside>
 
         <div class="bottom-nav">
           <a href="./chapter-1.html">1장으로</a>
@@ -125,6 +128,8 @@ m_AnchoredPosition: {x: 0, y: -96}
 
     <script src="../../scripts/language-preference.js"></script>
     <script src="../scripts/glossary.js"></script>
+    <script src="../scripts/command-data.js"></script>
+    <script src="../scripts/command-guide.js"></script>
   </body>
 </html>
 

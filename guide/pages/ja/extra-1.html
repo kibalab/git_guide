@@ -23,6 +23,7 @@
       <div class="wrap topbar-inner">
         <a class="home-link" href="./index.html">猫でもわかるGitの使い方</a>
         <div class="topbar-tools">
+          <button id="command-toggle" class="command-toggle" type="button" aria-pressed="false" hidden>コマンド説明を表示</button>
           <nav class="lang-switch" aria-label="言語選択">
             <a lang="ko" hreflang="ko" href="../extra-1.html">한국어</a>
             <a class="is-active" aria-current="page" lang="ja" hreflang="ja" href="./extra-1.html">日本語</a>
@@ -54,6 +55,7 @@
         <p>
           例: 「ボタンの影の強さを 20% 下げる」「チュートリアル背景画像を差し替え」
         </p>
+        <aside class="command-guide" data-command-guide="message" hidden></aside>
 
         <section class="figure">
           <h3>図 B1-1. メッセージだけでも流れが読めるようにする</h3>
@@ -101,6 +103,8 @@
 
     <script src="../../../scripts/language-preference.js"></script>
     <script src="../../scripts/glossary.js"></script>
+    <script src="../../scripts/command-data.js"></script>
+    <script src="../../scripts/command-guide.js"></script>
   </body>
 </html>
 

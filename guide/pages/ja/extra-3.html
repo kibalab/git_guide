@@ -23,6 +23,7 @@
       <div class="wrap topbar-inner">
         <a class="home-link" href="./index.html">猫でもわかるGitの使い方</a>
         <div class="topbar-tools">
+          <button id="command-toggle" class="command-toggle" type="button" aria-pressed="false" hidden>コマンド説明を表示</button>
           <nav class="lang-switch" aria-label="言語選択">
             <a lang="ko" hreflang="ko" href="../extra-3.html">한국어</a>
             <a class="is-active" aria-current="page" lang="ja" hreflang="ja" href="./extra-3.html">日本語</a>
@@ -51,6 +52,7 @@
             feature と main が同じ場所を別々に変えると、自動統合が難しくなることがあります。
           </p>
         </section>
+        <aside class="command-guide" data-command-guide="conflict-inspect" hidden></aside>
 
         <section class="figure">
           <h3>図 B3-2. 合意のあと解決 Commit を残した状態</h3>
@@ -59,6 +61,7 @@
             チームが選んだ結果を反映して解決 Commit を残しておくと、同じ問題をあとから追いやすくなります。
           </p>
         </section>
+        <aside class="command-guide" data-command-guide="conflict-finish" hidden></aside>
 
         <h2>実戦での解決手順</h2>
         <ol>
@@ -68,6 +71,7 @@
           <li>解決内容を短いコミットメッセージで残す。</li>
           <li>次の作業で同じ衝突が減るよう、ブランチを短く運用する。</li>
         </ol>
+        <aside class="command-guide" data-command-guide="conflict-choose" hidden></aside>
 
         <div class="bottom-nav">
           <a href="./extra-2.html">補足2へ</a>
@@ -101,6 +105,8 @@
 
     <script src="../../../scripts/language-preference.js"></script>
     <script src="../../scripts/glossary.js"></script>
+    <script src="../../scripts/command-data.js"></script>
+    <script src="../../scripts/command-guide.js"></script>
   </body>
 </html>
 

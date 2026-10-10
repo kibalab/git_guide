@@ -23,6 +23,7 @@
       <div class="wrap topbar-inner">
         <a class="home-link" href="./index.html">猫でもわかるGitの使い方</a>
         <div class="topbar-tools">
+          <button id="command-toggle" class="command-toggle" type="button" aria-pressed="false" hidden>コマンド説明を表示</button>
           <nav class="lang-switch" aria-label="言語選択">
             <a lang="ko" hreflang="ko" href="../index.html">한국어</a>
             <a class="is-active" aria-current="page" lang="ja" hreflang="ja" href="./index.html">日本語</a>
@@ -53,7 +54,8 @@
         </p>
         <p>
           目的は <span class="strong">Git の概念と仕組み</span>を理解することです。
-          特定の Git クライアントやコマンドの操作手順そのものは扱いません。
+          通常の表示では、特定の Git クライアントやコマンドの操作手順そのものは扱いません。
+          上部の「コマンド説明を表示」をオンにすると、各機能に対応するコマンド例も確認できます。
         </p>
         <p>
           それぞれの組織で使っている Git 環境のルールを理解しやすくし、
@@ -67,6 +69,7 @@
         <p>
           Gitを少しでも上手に扱えるようにする小さな助けになればと思います。
         </p>
+        <aside class="command-guide" data-command-guide="intro" hidden></aside>
 
         <section class="index-section" aria-labelledby="index-main">
           <h2 id="index-main">目次</h2>
@@ -197,6 +200,8 @@
   </span>
 </footer>
     <script src="../../scripts/glossary.js"></script>
+    <script src="../../scripts/command-data.js"></script>
+    <script src="../../scripts/command-guide.js"></script>
   </body>
 </html>
 

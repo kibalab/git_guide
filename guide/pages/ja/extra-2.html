@@ -23,6 +23,7 @@
       <div class="wrap topbar-inner">
         <a class="home-link" href="./index.html">猫でもわかるGitの使い方</a>
         <div class="topbar-tools">
+          <button id="command-toggle" class="command-toggle" type="button" aria-pressed="false" hidden>コマンド説明を表示</button>
           <nav class="lang-switch" aria-label="言語選択">
             <a lang="ko" hreflang="ko" href="../extra-2.html">한국어</a>
             <a class="is-active" aria-current="page" lang="ja" hreflang="ja" href="./extra-2.html">日本語</a>
@@ -72,6 +73,7 @@
             ブランチが長く開きっぱなしでなければ、衝突の危険は大きく下がります。
           </p>
         </section>
+        <aside class="command-guide" data-command-guide="short-branch" hidden></aside>
 
         <section class="figure">
           <h3>図 B2-2. 緊急修正ブランチの運用</h3>
@@ -80,6 +82,7 @@
             緊急修正は短く処理してまず main に反映し、そのあと必要な道へもう一度配り直します。
           </p>
         </section>
+        <aside class="command-guide" data-command-guide="hotfix" hidden></aside>
 
         <h2>代表的な戦略の比較</h2>
         <p>
@@ -121,6 +124,7 @@
                 feature は develop へ、release は配布準備用、hotfix は main 基準の緊急修正用として別々に動きます。
               </p>
             </section>
+            <aside class="command-guide" data-command-guide="gitflow" hidden></aside>
           </section>
 
           <section id="panel-githubflow" class="tab-panel" role="tabpanel" aria-labelledby="tab-githubflow" hidden>
@@ -141,6 +145,7 @@
               feature ブランチがレビューの 1 まとまりの間だけ生きていて、PR が終わると main に統合されるパターンです。
             </p>
           </section>
+            <aside class="command-guide" data-command-guide="githubflow" hidden></aside>
         </section>
 
           <section id="panel-gitlabflow" class="tab-panel" role="tabpanel" aria-labelledby="tab-gitlabflow" hidden>
@@ -161,6 +166,7 @@
               feature を main に集めたあと、staging で検収ビルドを作り、確認が終われば production に上げるパターンです。
             </p>
           </section>
+            <aside class="command-guide" data-command-guide="gitlabflow" hidden></aside>
         </section>
 
           <section id="panel-tbd" class="tab-panel" role="tabpanel" aria-labelledby="tab-tbd" hidden>
@@ -181,6 +187,7 @@
               1〜2 個の Commit ほどの短い作業が、数時間のうちに main へ戻ってくる流れです。
             </p>
           </section>
+            <aside class="command-guide" data-command-guide="tbd" hidden></aside>
         </section>
         </div>
 
@@ -216,6 +223,8 @@
 
     <script src="../../../scripts/language-preference.js"></script>
     <script src="../../scripts/glossary.js"></script>
+    <script src="../../scripts/command-data.js"></script>
+    <script src="../../scripts/command-guide.js"></script>
   </body>
 </html>
 

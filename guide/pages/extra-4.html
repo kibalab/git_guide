@@ -23,6 +23,7 @@
       <div class="wrap topbar-inner">
         <a class="home-link" href="./index.html">고양이도 이해하는 Git 사용법</a>
         <div class="topbar-tools">
+          <button id="command-toggle" class="command-toggle" type="button" aria-pressed="false" hidden>명령어 설명 표시</button>
           <nav class="lang-switch" aria-label="언어 선택">
             <a class="is-active" aria-current="page" lang="ko" hreflang="ko" href="./extra-4.html">한국어</a>
             <a lang="ja" hreflang="ja" href="./ja/extra-4.html">日本語</a>
@@ -44,6 +45,7 @@
           낯선 용어와 독특한 감각 때문에 "도대체 누가 이런 시스템을 만들었지?"라는 생각이 들 수 있는데,
           그 배경을 알면 Git의 성격도 조금 더 이해하기 쉬워집니다.
         </p>
+        <aside class="command-guide" data-command-guide="background" hidden></aside>
 
         <section class="profile-split">
           <figure class="profile-photo">
@@ -137,6 +139,8 @@
 </footer>
     <script src="../../scripts/language-preference.js"></script>
     <script src="../scripts/glossary.js"></script>
+    <script src="../scripts/command-data.js"></script>
+    <script src="../scripts/command-guide.js"></script>
   </body>
 </html>
 

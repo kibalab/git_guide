@@ -23,6 +23,7 @@
       <div class="wrap topbar-inner">
         <a class="home-link" href="./index.html">고양이도 이해하는 Git 사용법</a>
         <div class="topbar-tools">
+          <button id="command-toggle" class="command-toggle" type="button" aria-pressed="false" hidden>명령어 설명 표시</button>
           <nav class="lang-switch" aria-label="언어 선택">
             <a class="is-active" aria-current="page" lang="ko" hreflang="ko" href="./chapter-3.html">한국어</a>
             <a lang="ja" hreflang="ja" href="./ja/chapter-3.html">日本語</a>
@@ -48,6 +49,7 @@
           <span class="strong">HEAD</span>는 "지금 내가 서 있는 길의 끝"을 가리키는 표식입니다.
           즉, 현재 내가 어디서 작업 중인지 알려주는 화살표라고 생각하면 됩니다.
         </p>
+        <aside class="command-guide" data-command-guide="head" hidden></aside>
 
         <h2>브렌치가 왜 필요한가</h2>
         <ul>
@@ -63,6 +65,7 @@
             지금 작업 위치(HEAD)가 feature/login-bg 위에 있으면, 새 커밋도 그 길에 쌓입니다.
           </p>
         </section>
+        <aside class="command-guide" data-command-guide="branch-create" hidden></aside>
 
         <section class="figure">
           <h3>그림 3-2. 작업 후 main으로 돌아온 상태</h3>
@@ -71,6 +74,7 @@
             작업이 끝나면 합치고(main), 다시 HEAD를 main으로 두고 다음 작업을 시작합니다.
           </p>
         </section>
+        <aside class="command-guide" data-command-guide="branch-return" hidden></aside>
 
         <h2>Checkout이란?</h2>
         <p>
@@ -81,6 +85,7 @@
           예를 들어 main에서 feature/login-bg로 checkout하면, 그다음 커밋은 feature/login-bg에 쌓입니다.
           다시 main으로 checkout하면 main에서 이어서 작업합니다.
         </p>
+        <aside class="command-guide" data-command-guide="checkout" hidden></aside>
 
         <h2>브렌치 이름 추천 규칙</h2>
         <ul>
@@ -131,6 +136,8 @@
 
     <script src="../../scripts/language-preference.js"></script>
     <script src="../scripts/glossary.js"></script>
+    <script src="../scripts/command-data.js"></script>
+    <script src="../scripts/command-guide.js"></script>
   </body>
 </html>
 

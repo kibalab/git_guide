@@ -3,7 +3,7 @@ const path = require("node:path");
 const { JSDOM } = require("jsdom");
 const root = path.resolve(__dirname, "..");
 
-async function loadPage(file, { reducedMotion = false, glossary = true } = {}) {
+async function loadPage(file, { reducedMotion = false, glossary = true, commandsEnabled = false, storageUnavailable = false } = {}) {
   const dom = new JSDOM(fs.readFileSync(path.join(root, file), "utf8"), {
     url: "https://kibalab.github.io/git_guide/" + file,
     runScripts: "outside-only",
@@ -18,6 +18,8 @@ async function loadPage(file, { reducedMotion = false, glossary = true } = {}) {
     removeEventListener(type, fn) { motionListeners.delete(fn); }
   };
   window.matchMedia = () => motion;
+  if (commandsEnabled) window.localStorage.setItem("git-guide-command-explanations", "true");
+  if (storageUnavailable) Object.defineProperty(window, "localStorage", { get() { throw new Error("Storage unavailable"); } });
   const graphs = [];
   let implementation;
   Object.defineProperty(window, "GitGraphVisualizer", {
