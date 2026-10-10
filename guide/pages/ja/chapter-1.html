@@ -3,6 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="リポジトリ は、作業の記録を保管する 記録保存先 です。 記録保存先は、まず 2 種類に分けて考えるとわかりやすくなります。" />
+    <link rel="canonical" href="https://kibalab.github.io/git_guide/guide/pages/ja/chapter-1.html" />
+    <meta property="og:title" content="第1章. ローカル/リモートリポジトリの定義" />
+    <meta property="og:description" content="リポジトリ は、作業の記録を保管する 記録保存先 です。 記録保存先は、まず 2 種類に分けて考えるとわかりやすくなります。" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://kibalab.github.io/git_guide/guide/pages/ja/chapter-1.html" />
+    <meta property="og:image" content="https://kibalab.github.io/git_guide/guide/assets/images/thumb.jpg" />
+    <meta property="og:locale" content="ja_JP" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="alternate" hreflang="ko" href="https://kibalab.github.io/git_guide/guide/pages/chapter-1.html" />
+    <link rel="alternate" hreflang="ja" href="https://kibalab.github.io/git_guide/guide/pages/ja/chapter-1.html" />
+    <link rel="alternate" hreflang="x-default" href="https://kibalab.github.io/git_guide/guide/pages/chapter-1.html" />
     <title>第1章. ローカル/リモートリポジトリの定義</title>
     <link rel="stylesheet" href="../../styles/guide.css" />
     <style>
@@ -28,8 +40,8 @@
         <a class="home-link" href="./index.html">猫でもわかるGitの使い方</a>
         <div class="topbar-tools">
           <nav class="lang-switch" aria-label="言語選択">
-            <a href="../chapter-1.html">한국어</a>
-            <a class="is-active" href="./chapter-1.html">日本語</a>
+            <a lang="ko" hreflang="ko" href="../chapter-1.html">한국어</a>
+            <a class="is-active" aria-current="page" lang="ja" hreflang="ja" href="./chapter-1.html">日本語</a>
           </nav>
           <nav class="top-links">
             <a href="./index.html">目次</a>
@@ -116,77 +128,9 @@
   </span>
 </footer>
     <script src="../../../scripts/git-graph-visualizer.js"></script>
-    <script>
-      const common = {
-        columnGap: 150,
-        laneGap: 74,
-        showRepoTitles: true,
-        showBranchNames: true,
-        showCommitNames: true,
-        showHeadLabels: true,
-        showDiffInspector: false,
-        showTags: false,
-        showHoverTimeGuide: true,
-        padding: { top: 54, right: 44, bottom: 50, left: 160 }
-      };
+    <script src="../../scripts/graph-page.js"></script>
+    <script src="../../scripts/graphs/chapter-1.js"></script>
 
-      const graph1a = new GitGraphVisualizer("#graph-1a", {
-        ...common,
-        multiRepoGap: 82
-      });
-
-      graph1a.setData({
-        repositories: [
-          {
-            id: "local",
-            name: "自分のPC（ローカル）",
-            head: "main",
-            branches: [{ name: "main", color: "#df5a4f" }],
-            commits: [
-              { id: "c0", name: "はじめの状態", branch: "main", branches: ["main"], parents: [] },
-              { id: "c1", name: "基本画面", branch: "main", parents: ["c0"] },
-              { id: "s2", name: "保存: ボタン位置を調整", branch: "main", branches: ["main"], parents: ["c1"] }
-            ]
-          },
-          {
-            id: "remote",
-            name: "origin（リモート）",
-            head: "main",
-            branches: [{ name: "main", color: "#df5a4f" }],
-            commits: [
-              { id: "c0", name: "はじめの状態", branch: "main", branches: ["main"], parents: [] },
-              { id: "c1", name: "基本画面", branch: "main", parents: ["c0"] },
-              { id: "s2", name: "アップロード済みの保存", branch: "main", branches: ["main"], parents: ["c1"] }
-            ]
-          },
-          {
-            id: "teammate",
-            name: "別の人のPC（ローカル）",
-            head: "main",
-            branches: [{ name: "main", color: "#df5a4f" }],
-            commits: [
-              { id: "c0", name: "はじめの状態", branch: "main", branches: ["main"], parents: [] },
-              { id: "c1", name: "基本画面", branch: "main", parents: ["c0"] },
-              { id: "s2", name: "ダウンロード完了", branch: "main", branches: ["main"], parents: ["c1"] }
-            ]
-          }
-        ],
-        relations: [
-          {
-            from: { repo: "local", commit: "s2" },
-            to: { repo: "remote", commit: "s2" },
-            label: "アップロード",
-            color: "#2563eb"
-          },
-          {
-            from: { repo: "remote", commit: "s2" },
-            to: { repo: "teammate", commit: "s2" },
-            label: "ダウンロード",
-            color: "#0f766e"
-          }
-        ]
-      });
-    </script>
     <script src="../../../scripts/language-preference.js"></script>
     <script src="../../scripts/glossary.js"></script>
   </body>

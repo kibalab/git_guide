@@ -3,3 +3,5 @@ examples/
 tmp-*.png
 .DS_Store
 Thumbs.db
+
+node_modules/

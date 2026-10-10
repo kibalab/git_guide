@@ -3,6 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="커밋메시지는 나중의 나와 동료를 위한 메모입니다. 짧지만 정확해야 합니다." />
+    <link rel="canonical" href="https://kibalab.github.io/git_guide/guide/pages/extra-1.html" />
+    <meta property="og:title" content="번외 1. 커밋메시지 작성 전략" />
+    <meta property="og:description" content="커밋메시지는 나중의 나와 동료를 위한 메모입니다. 짧지만 정확해야 합니다." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://kibalab.github.io/git_guide/guide/pages/extra-1.html" />
+    <meta property="og:image" content="https://kibalab.github.io/git_guide/guide/assets/images/thumb.jpg" />
+    <meta property="og:locale" content="ko_KR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="alternate" hreflang="ko" href="https://kibalab.github.io/git_guide/guide/pages/extra-1.html" />
+    <link rel="alternate" hreflang="ja" href="https://kibalab.github.io/git_guide/guide/pages/ja/extra-1.html" />
+    <link rel="alternate" hreflang="x-default" href="https://kibalab.github.io/git_guide/guide/pages/extra-1.html" />
     <title>번외 1. 커밋메시지 작성 전략</title>
     <link rel="stylesheet" href="../styles/guide.css" />
   </head>
@@ -12,8 +24,8 @@
         <a class="home-link" href="./index.html">고양이도 이해하는 Git 사용법</a>
         <div class="topbar-tools">
           <nav class="lang-switch" aria-label="언어 선택">
-            <a class="is-active" href="./extra-1.html">한국어</a>
-            <a href="./ja/extra-1.html">日本語</a>
+            <a class="is-active" aria-current="page" lang="ko" hreflang="ko" href="./extra-1.html">한국어</a>
+            <a lang="ja" hreflang="ja" href="./ja/extra-1.html">日本語</a>
           </nav>
           <nav class="top-links">
           <a href="./chapter-6.html">이전</a>
@@ -84,31 +96,9 @@
   </span>
 </footer>
     <script src="../../scripts/git-graph-visualizer.js"></script>
-    <script>
-      const graphE1 = new GitGraphVisualizer("#graph-e1", {
-        columnGap: 162,
-        laneGap: 84,
-        routeSpacing: 20,
-        showBranchNames: true,
-        showCommitNames: true,
-        showHeadLabels: true,
-        showDiffInspector: false,
-        showTags: false,
-        showHoverTimeGuide: true,
-        padding: { top: 72, right: 50, bottom: 56, left: 176 }
-      });
+    <script src="../scripts/graph-page.js"></script>
+    <script src="../scripts/graphs/extra-1.js"></script>
 
-      graphE1.setData({
-        head: "main",
-        branches: [{ name: "main", color: "#df5a4f" }],
-        commits: [
-          { id: "s0", name: "기본 UI 파일 배치", branch: "main", branches: ["main"], parents: [] },
-          { id: "s1", name: "로그인 버튼 간격 12px 조정", branch: "main", parents: ["s0"] },
-          { id: "s2", name: "튜토리얼 배경 이미지 교체", branch: "main", parents: ["s1"] },
-          { id: "s3", name: "오탈자 2건 수정", branch: "main", branches: ["main"], parents: ["s2"] }
-        ]
-      });
-    </script>
     <script src="../../scripts/language-preference.js"></script>
     <script src="../scripts/glossary.js"></script>
   </body>

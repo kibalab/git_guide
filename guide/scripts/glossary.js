@@ -12,7 +12,7 @@
     "extra-1.html": 7,
     "extra-2.html": 8,
     "extra-3.html": 9,
-    "practice-conflict.html": 10
+    "extra-4.html": 10
   };
 
   function currentLanguage() {
@@ -202,7 +202,7 @@
         title: "行",
         summary: "テキストファイルで Git が差分を見るときによく使う、1行単位の区切りです。",
         linkText: "第2章で詳しく見る",
-        aliases: ["行", "ライン"]
+        aliases: ["行単位", "ライン"]
       },
       {
         id: "head",
@@ -315,6 +315,7 @@
   var tooltipViewportMargin = 12;
   var tooltipCloseDelay = 180;
   var closeTimer = null;
+  var termCounter = 0;
 
   function currentPageName() {
     var path = window.location.pathname || "";
@@ -368,21 +369,30 @@
   function buildTermRef(alias, entry) {
     var wrapper = document.createElement("span");
     wrapper.className = "term-ref";
-    wrapper.tabIndex = 0;
-    wrapper.setAttribute("aria-label", entry.title + localeText.tooltipAriaSuffix);
 
     var label = document.createElement("span");
     label.className = "term-label";
     label.textContent = alias;
+    label.tabIndex = 0;
+    label.setAttribute("role", "button");
+    label.setAttribute("aria-expanded", "false");
+    label.setAttribute("aria-label", entry.title + localeText.tooltipAriaSuffix);
 
     var tooltip = document.createElement("span");
     tooltip.className = "term-tooltip";
+    tooltip.id = "term-popup-" + (++termCounter);
+    tooltip.hidden = true;
+    tooltip.setAttribute("role", "region");
+    tooltip.setAttribute("aria-label", entry.title);
+    label.setAttribute("aria-controls", tooltip.id);
 
     var title = document.createElement("strong");
     title.textContent = entry.title;
 
     var body = document.createElement("span");
     body.textContent = entry.summary;
+    body.id = tooltip.id + "-description";
+    label.setAttribute("aria-describedby", body.id);
 
     var link = document.createElement("a");
     link.href = entry.href;
@@ -467,10 +477,11 @@
       tooltipViewportMargin,
       window.innerWidth - width - tooltipViewportMargin
     );
-    var top =
-      placement === "bottom"
-        ? triggerRect.bottom + tooltipGap
-        : triggerRect.top - height - tooltipGap;
+    var top = clamp(
+      placement === "bottom" ? triggerRect.bottom + tooltipGap : triggerRect.top - height - tooltipGap,
+      tooltipViewportMargin,
+      Math.max(tooltipViewportMargin, window.innerHeight - height - tooltipViewportMargin)
+    );
     var arrowLeft = clamp(
       triggerRect.left + triggerRect.width / 2 - left,
       16,
@@ -499,8 +510,10 @@
   function clearTooltipState(wrapper) {
     if (!wrapper) return;
     wrapper.classList.remove("is-open");
+    wrapper.querySelector(".term-label").setAttribute("aria-expanded", "false");
     var tooltip = wrapper.querySelector(".term-tooltip");
     if (!tooltip) return;
+    tooltip.hidden = true;
     tooltip.style.left = "";
     tooltip.style.top = "";
     tooltip.style.removeProperty("--tooltip-arrow-left");
@@ -526,6 +539,8 @@
     if (!tooltip) return;
 
     wrapper.classList.add("is-open");
+    wrapper.querySelector(".term-label").setAttribute("aria-expanded", "true");
+    tooltip.hidden = false;
     tooltip.style.visibility = "hidden";
 
     activeTooltipState = {
@@ -610,6 +625,7 @@
   }
 
   function handleWrapperPointerEnter(event) {
+    if (event.pointerType && event.pointerType !== "mouse") return;
     openTooltip(event.currentTarget);
   }
 
@@ -652,8 +668,30 @@
       wrapper.addEventListener("pointerleave", handleWrapperPointerLeave);
       wrapper.addEventListener("focusin", handleFocusIn);
       wrapper.addEventListener("focusout", handleFocusOut);
+      wrapper.addEventListener("click", function (event) {
+        if (event.target.closest("a")) return;
+        openTooltip(wrapper);
+      });
+      wrapper.addEventListener("keydown", function (event) {
+        if (event.target !== wrapper.querySelector(".term-label") || (event.key !== "Enter" && event.key !== " ")) return;
+        event.preventDefault();
+        if (activeTooltipState && activeTooltipState.wrapper === wrapper) closeActiveTooltip();
+        else openTooltip(wrapper);
+      });
     });
 
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && activeTooltipState) {
+        var wrapper = activeTooltipState.wrapper;
+        var focusInside = wrapper.contains(document.activeElement);
+        closeActiveTooltip();
+        var trigger = wrapper.querySelector(".term-label");
+        if (focusInside && document.activeElement !== trigger) {
+          trigger.focus({ preventScroll: true });
+          closeActiveTooltip();
+        }
+      }
+    });
     document.addEventListener("pointermove", handlePointerMove);
     document.addEventListener("pointerdown", function (event) {
       if (!activeTooltipState) return;
@@ -705,6 +743,11 @@
       var alias = match[0];
       var index = match.index;
       var entry = aliasMap[alias];
+
+      var before = index ? text.charAt(index - 1) : "";
+      var after = text.charAt(index + alias.length);
+      var latinAlias = /^[A-Za-z]+(?: [A-Za-z]+)*$/.test(alias);
+      if (latinAlias && (/[A-Za-z0-9_]/.test(before) || /[A-Za-z0-9_]/.test(after))) continue;
 
       if (usedEntries[entry.id]) {
         continue;
