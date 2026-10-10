@@ -3,6 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="컨플릭트는 실패가 아니라, &quot;같은 부분을 둘 다 바꿨다&quot;는 신호입니다. 중요한 것은 빠르게 진정하고, 기준에 맞게 하나로 정리하는 것입니다." />
+    <link rel="canonical" href="https://kibalab.github.io/git_guide/guide/pages/extra-3.html" />
+    <meta property="og:title" content="번외 3. 컨플릭트 해결 전략" />
+    <meta property="og:description" content="컨플릭트는 실패가 아니라, &quot;같은 부분을 둘 다 바꿨다&quot;는 신호입니다. 중요한 것은 빠르게 진정하고, 기준에 맞게 하나로 정리하는 것입니다." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://kibalab.github.io/git_guide/guide/pages/extra-3.html" />
+    <meta property="og:image" content="https://kibalab.github.io/git_guide/guide/assets/images/thumb.jpg" />
+    <meta property="og:locale" content="ko_KR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="alternate" hreflang="ko" href="https://kibalab.github.io/git_guide/guide/pages/extra-3.html" />
+    <link rel="alternate" hreflang="ja" href="https://kibalab.github.io/git_guide/guide/pages/ja/extra-3.html" />
+    <link rel="alternate" hreflang="x-default" href="https://kibalab.github.io/git_guide/guide/pages/extra-3.html" />
     <title>번외 3. 컨플릭트 해결 전략</title>
     <link rel="stylesheet" href="../styles/guide.css" />
   </head>
@@ -12,8 +24,8 @@
         <a class="home-link" href="./index.html">고양이도 이해하는 Git 사용법</a>
         <div class="topbar-tools">
           <nav class="lang-switch" aria-label="언어 선택">
-            <a class="is-active" href="./extra-3.html">한국어</a>
-            <a href="./ja/extra-3.html">日本語</a>
+            <a class="is-active" aria-current="page" lang="ko" hreflang="ko" href="./extra-3.html">한국어</a>
+            <a lang="ja" hreflang="ja" href="./ja/extra-3.html">日本語</a>
           </nav>
           <nav class="top-links">
           <a href="./extra-2.html">이전</a>
@@ -84,62 +96,9 @@
   </span>
 </footer>
     <script src="../../scripts/git-graph-visualizer.js"></script>
-    <script>
-      const graphE3a = new GitGraphVisualizer("#graph-e3a", {
-        columnGap: 160,
-        laneGap: 84,
-        routeSpacing: 21,
-        showBranchNames: true,
-        showCommitNames: true,
-        showHeadLabels: true,
-        showDiffInspector: false,
-        showTags: false,
-        showHoverTimeGuide: true,
-        padding: { top: 76, right: 52, bottom: 58, left: 180 }
-      });
+    <script src="../scripts/graph-page.js"></script>
+    <script src="../scripts/graphs/extra-3.js"></script>
 
-      graphE3a.setData({
-        head: "main",
-        branches: [
-          { name: "main", color: "#df5a4f" },
-          { name: "feature/title-copy", color: "#2f8dff" }
-        ],
-        commits: [
-          { id: "q0", name: "원본 타이틀", branch: "main", branches: ["main"], parents: [] },
-          { id: "q1", name: "기준 문구", branch: "main", parents: ["q0"] },
-          { id: "q2", name: "main 문구 수정", branch: "main", branches: ["main"], parents: ["q1"] },
-          { id: "f2", name: "feature 문구 수정", branch: "feature/title-copy", branches: ["feature/title-copy"], parents: ["q1"] }
-        ]
-      });
-
-      const graphE3b = new GitGraphVisualizer("#graph-e3b", {
-        columnGap: 160,
-        laneGap: 84,
-        routeSpacing: 21,
-        showBranchNames: true,
-        showCommitNames: true,
-        showHeadLabels: true,
-        showDiffInspector: false,
-        showTags: true,
-        showHoverTimeGuide: true,
-        padding: { top: 76, right: 52, bottom: 62, left: 180 }
-      });
-
-      graphE3b.setData({
-        head: "main",
-        branches: [
-          { name: "main", color: "#df5a4f" },
-          { name: "feature/title-copy", color: "#2f8dff" }
-        ],
-        commits: [
-          { id: "r0", name: "원본 타이틀", branch: "main", branches: ["main"], parents: [] },
-          { id: "r1", name: "기준 문구", branch: "main", parents: ["r0"] },
-          { id: "r2", name: "main 문구 수정", branch: "main", parents: ["r1"] },
-          { id: "r3", name: "feature 문구 수정", branch: "feature/title-copy", branches: ["feature/title-copy"], parents: ["r1"] },
-          { id: "r4", name: "컨플릭트 해결 문구 반영", branch: "main", branches: ["main"], tags: ["resolved"], parents: ["r2", "r3"] }
-        ]
-      });
-    </script>
     <script src="../../scripts/language-preference.js"></script>
     <script src="../scripts/glossary.js"></script>
   </body>

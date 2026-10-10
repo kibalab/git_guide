@@ -3,6 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Commit は「作業のまとまり 1 つ」を保存する動きです。 大きくまとめすぎず、意味のある単位で区切って保存するほうが扱いやすくなります。" />
+    <link rel="canonical" href="https://kibalab.github.io/git_guide/guide/pages/ja/chapter-4.html" />
+    <meta property="og:title" content="第4章. Commit、Push、Fetch の定義" />
+    <meta property="og:description" content="Commit は「作業のまとまり 1 つ」を保存する動きです。 大きくまとめすぎず、意味のある単位で区切って保存するほうが扱いやすくなります。" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://kibalab.github.io/git_guide/guide/pages/ja/chapter-4.html" />
+    <meta property="og:image" content="https://kibalab.github.io/git_guide/guide/assets/images/thumb.jpg" />
+    <meta property="og:locale" content="ja_JP" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="alternate" hreflang="ko" href="https://kibalab.github.io/git_guide/guide/pages/chapter-4.html" />
+    <link rel="alternate" hreflang="ja" href="https://kibalab.github.io/git_guide/guide/pages/ja/chapter-4.html" />
+    <link rel="alternate" hreflang="x-default" href="https://kibalab.github.io/git_guide/guide/pages/chapter-4.html" />
     <title>第4章. Commit、Push、Fetch の定義</title>
     <link rel="stylesheet" href="../../styles/guide.css" />
   </head>
@@ -12,8 +24,8 @@
         <a class="home-link" href="./index.html">猫でもわかるGitの使い方</a>
         <div class="topbar-tools">
           <nav class="lang-switch" aria-label="言語選択">
-            <a href="../chapter-4.html">한국어</a>
-            <a class="is-active" href="./chapter-4.html">日本語</a>
+            <a lang="ko" hreflang="ko" href="../chapter-4.html">한국어</a>
+            <a class="is-active" aria-current="page" lang="ja" hreflang="ja" href="./chapter-4.html">日本語</a>
           </nav>
           <nav class="top-links">
             <a href="./chapter-3.html">前の章</a>
@@ -57,7 +69,7 @@
           <h3>図 4-1. Commit は小さな作業単位で積み上げる</h3>
           <div class="graph-frame"><div id="graph-4a"></div></div>
           <p class="caption">
-            1 つの Commit に 1 つの目的だけを入れると、あとで確認や巻き戻しがしやすくなります。</br>
+            1 つの Commit に 1 つの目的だけを入れると、あとで確認や巻き戻しがしやすくなります。<br />
             Commit をクリックして Diff を見ると、「1 まとまりの範囲」がはっきり見えてきます。
           </p>
         </section>
@@ -66,9 +78,9 @@
           <h3>図 4-2. 同僚にコミットを共有する流れ (2)</h3>
           <div class="graph-frame"><div id="graph-4b"></div></div>
           <p class="caption">
-            1〜2段階（まだ Fetch 前）では、担当者B の <span class="strong">main</span> と <span class="strong">origin/main</span> は同じ Commit を指しています。</br>
-            担当者A local は Push の段階で <span class="strong">origin/main</span> も最新化される様子を一緒に見せます。</br>
-            3段階目の Fetch はリモート HEAD の Commit から始まります。</br>
+            1〜2段階（まだ Fetch 前）では、担当者B の <span class="strong">main</span> と <span class="strong">origin/main</span> は同じ Commit を指しています。<br />
+            担当者A local は Push の段階で <span class="strong">origin/main</span> も最新化される様子を一緒に見せます。<br />
+            3段階目の Fetch はリモート HEAD の Commit から始まります。<br />
             担当者B は <span class="strong">main</span>（現在の作業位置）と <span class="strong">origin/main</span>（リモート追跡位置）だけで説明し、Fetch のあとも HEAD は main にそのまま残ります。
           </p>
         </section>
@@ -99,368 +111,9 @@
   </span>
 </footer>
     <script src="../../../scripts/git-graph-visualizer.js"></script>
-    <script>
-      const graph4a = new GitGraphVisualizer("#graph-4a", {
-        columnGap: 158,
-        laneGap: 82,
-        routeSpacing: 20,
-        showBranchNames: true,
-        showCommitNames: true,
-        showHeadLabels: true,
-        showTags: false,
-        showHoverTimeGuide: true,
-        padding: { top: 72, right: 50, bottom: 56, left: 172 }
-      });
+    <script src="../../scripts/graph-page.js"></script>
+    <script src="../../scripts/graphs/chapter-4.js"></script>
 
-      graph4a.setData({
-        head: "main",
-        branches: [{ name: "main", color: "#df5a4f" }],
-        commits: [
-          {
-            id: "u0",
-            name: "コミット: LoginScene の基本構成",
-            branch: "main",
-            branches: ["main"],
-            parents: [],
-            changes: [
-              {
-                path: "Assets/Scenes/LoginScene.unity",
-                status: "added",
-                diff: [
-                  "+--- !u!1 &510001",
-                  "+GameObject:",
-                  "+  m_Name: LoginCanvas",
-                  "+  m_Component:",
-                  "+  - component: {fileID: 224510001}",
-                  "+--- !u!224 &224510001",
-                  "+RectTransform:",
-                  "+  m_AnchoredPosition: {x: 0, y: 0}"
-                ]
-              }
-            ]
-          },
-          {
-            id: "u1",
-            name: "コミット: LoginPanel プレハブ配置調整",
-            branch: "main",
-            parents: ["u0"],
-            changes: [
-              {
-                path: "Assets/Prefabs/UI/LoginPanel.prefab",
-                status: "modified",
-                diff: [
-                  " m_Name: LoginPanel",
-                  "-m_AnchoredPosition: {x: 0, y: -40}",
-                  "+m_AnchoredPosition: {x: 0, y: -24}",
-                  " m_SizeDelta: {x: 820, y: 420}"
-                ]
-              }
-            ]
-          },
-          {
-            id: "u2",
-            name: "コミット: LoginView の入力検証を追加",
-            branch: "main",
-            parents: ["u1"],
-            changes: [
-              {
-                path: "Assets/Scripts/UI/LoginView.cs",
-                status: "modified",
-                diff: [
-                  " public bool ValidateInput(string id, string pw)",
-                  " {",
-                  "-    return true;",
-                  "+    return !string.IsNullOrWhiteSpace(id) && !string.IsNullOrWhiteSpace(pw);",
-                  " }"
-                ]
-              }
-            ]
-          },
-          {
-            id: "u3",
-            name: "コミット: Addressables にログイン背景を登録",
-            branch: "main",
-            branches: ["main"],
-            parents: ["u2"],
-            changes: [
-              {
-                path: "Assets/AddressableAssetsData/AssetGroups/UI.asset",
-                status: "modified",
-                diff: [
-                  " m_Entries:",
-                  "+- m_Address: login_bg_main",
-                  "+  m_GUID: 8f0f4a8a7d534eb1b95be617d112aa7d",
-                  "+  m_ReadOnly: 0"
-                ]
-              }
-            ]
-          }
-        ]
-      });
-
-      const graph4b = new GitGraphVisualizer("#graph-4b", {
-        columnGap: 146,
-        laneGap: 72,
-        showRepoTitles: true,
-        showBranchNames: true,
-        showCommitNames: true,
-        showHeadLabels: true,
-        showTags: false,
-        showHoverTimeGuide: true,
-        padding: { top: 56, right: 40, bottom: 50, left: 170 },
-        multiRepoGap: 80,
-        stagePlayInterval: 1400
-      });
-
-      const mainOnly = [{ name: "main", color: "#df5a4f" }];
-      const startCommitChanges = [
-        {
-          path: "Assets/Scenes/Login.unity",
-          status: "added",
-          diff: [
-            "+--- !u!1 &410000",
-            "+GameObject:",
-            "+  m_Name: LoginRoot",
-            "+--- !u!224 &410001",
-            "+RectTransform:",
-            "+  m_AnchorMin: {x: 0, y: 0}",
-            "+  m_AnchorMax: {x: 1, y: 1}",
-            "+  m_SizeDelta: {x: 0, y: 0}"
-          ]
-        },
-        {
-          path: "Assets/Scripts/UI/LoginBootstrap.cs",
-          status: "added",
-          diff: [
-            "+using UnityEngine;",
-            "+public sealed class LoginBootstrap : MonoBehaviour",
-            "+{",
-            "+    [SerializeField] private Canvas rootCanvas;",
-            "+    private void Awake() => rootCanvas.worldCamera = Camera.main;",
-            "+}"
-          ]
-        }
-      ];
-
-      const commonUiBaseChanges = [
-        {
-          path: "Assets/Prefabs/UI/LoginPanel.prefab",
-          status: "added",
-          diff: [
-            "+--- !u!1 &731000",
-            "+GameObject:",
-            "+  m_Name: LoginPanel",
-            "+--- !u!224 &731001",
-            "+RectTransform:",
-            "+  m_AnchorMin: {x: 0.5, y: 0.5}",
-            "+  m_AnchorMax: {x: 0.5, y: 0.5}",
-            "+  m_SizeDelta: {x: 620, y: 380}"
-          ]
-        },
-        {
-          path: "Assets/UI/UXML/LoginView.uxml",
-          status: "added",
-          diff: [
-            "+<ui:UXML xmlns:ui=\"UnityEngine.UIElements\">",
-            "+  <ui:VisualElement name=\"login-root\">",
-            "+    <ui:TextField name=\"id-input\" label=\"ID\" />",
-            "+    <ui:TextField name=\"pw-input\" label=\"PW\" is-password-field=\"true\" />",
-            "+    <ui:Button name=\"login-btn\" text=\"ログイン\" />",
-            "+  </ui:VisualElement>",
-            "+</ui:UXML>"
-          ]
-        },
-        {
-          path: "Assets/UI/USS/LoginView.uss",
-          status: "added",
-          diff: [
-            "+#login-root { width: 620px; padding: 32px; }",
-            "+#id-input { margin-bottom: 12px; }",
-            "+#pw-input { margin-bottom: 20px; }",
-            "+#login-btn { height: 48px; unity-font-style: bold; }"
-          ]
-        }
-      ];
-
-      const loginPanelAlignChanges = [
-        {
-          path: "Assets/Prefabs/UI/LoginPanel.prefab",
-          status: "modified",
-          diff: [
-            " m_Name: LoginPanel",
-            "-m_AnchoredPosition: {x: 0, y: -40}",
-            "+m_AnchoredPosition: {x: 0, y: -24}",
-            "-m_SizeDelta: {x: 620, y: 380}",
-            "+m_SizeDelta: {x: 640, y: 400}"
-          ]
-        },
-        {
-          path: "Assets/UI/USS/LoginView.uss",
-          status: "modified",
-          diff: [
-            "-#login-root { width: 620px; padding: 32px; }",
-            "+#login-root { width: 640px; padding: 36px 40px; }",
-            "-#pw-input { margin-bottom: 20px; }",
-            "+#pw-input { margin-bottom: 24px; }",
-            "-#login-btn { height: 48px; unity-font-style: bold; }",
-            "+#login-btn { height: 52px; unity-font-style: bold; }"
-          ]
-        },
-        {
-          path: "Assets/Scripts/UI/LoginView.cs",
-          status: "modified",
-          diff: [
-            " private void ApplyLayout()",
-            " {",
-            "-    panelRect.anchoredPosition = new Vector2(0f, -40f);",
-            "+    panelRect.anchoredPosition = new Vector2(0f, -24f);",
-            "-    panelRect.sizeDelta = new Vector2(620f, 380f);",
-            "+    panelRect.sizeDelta = new Vector2(640f, 400f);",
-            " }"
-          ]
-        }
-      ];
-
-      const baseCommits = [
-        { id: "c0", name: "開始", branch: "main", branches: ["main"], parents: [], changes: startCommitChanges },
-        { id: "c1", name: "共通UI基盤", branch: "main", branches: ["main"], parents: ["c0"], changes: commonUiBaseChanges }
-      ];
-
-      const workerABranches = [
-        { name: "main", color: "#df5a4f" },
-        { name: "origin/main", color: "#2f8dff" }
-      ];
-
-      const workerABaseCommits = [
-        { id: "c0", name: "開始", branch: "main", branches: ["main"], parents: [], changes: startCommitChanges },
-        {
-          id: "c1",
-          name: "共通UI基盤",
-          branch: "main",
-          branches: ["main", "origin/main"],
-          parents: ["c0"],
-          changes: commonUiBaseChanges
-        }
-      ];
-
-      const commitA2 = {
-        id: "a2",
-        name: "ログインパネルの整列調整",
-        branch: "main",
-        branches: ["main"],
-        parents: ["c1"],
-        changes: loginPanelAlignChanges
-      };
-
-      const commitA2WithTracked = {
-        id: "a2",
-        name: "ログインパネルの整列調整",
-        branch: "main",
-        branches: ["main", "origin/main"],
-        parents: ["c1"],
-        changes: loginPanelAlignChanges
-      };
-
-      const remoteA2 = {
-        id: "a2",
-        name: "ログインパネルの整列調整",
-        branch: "main",
-        branches: ["main"],
-        parents: ["c1"],
-        changes: loginPanelAlignChanges
-      };
-
-      const workerBBranches = [
-        { name: "main", color: "#df5a4f" },
-        { name: "origin/main", color: "#2f8dff" }
-      ];
-
-      const workerBBaseCommits = [
-        { id: "c0", name: "開始", branch: "main", branches: ["main"], parents: [], changes: startCommitChanges },
-        {
-          id: "c1",
-          name: "共通UI基盤",
-          branch: "main",
-          branches: ["main", "origin/main"],
-          parents: ["c0"],
-          changes: commonUiBaseChanges
-        }
-      ];
-
-      const workerBFetchedMain = {
-        id: "a2",
-        name: "ログインパネルの整列調整",
-        branch: "origin/main",
-        branches: ["origin/main"],
-        parents: ["c1"],
-        changes: loginPanelAlignChanges
-      };
-
-      const workerBFetchedCommits = workerBBaseCommits.concat([workerBFetchedMain]);
-
-      graph4b.setData({
-        stageOptions: {
-          intervalMs: 1400,
-          loop: true
-        },
-        stages: [
-          {
-            label: "1) コミット",
-            data: {
-              repositories: [
-                { id: "worker-a", name: "作業者A ローカル", head: "main", branches: workerABranches, commits: workerABaseCommits.concat([commitA2]) },
-                { id: "origin", name: "GitHub リモート", head: "main", branches: mainOnly, commits: baseCommits },
-                { id: "worker-b", name: "作業者B ローカル", head: "main", branches: workerBBranches, commits: workerBBaseCommits }
-              ],
-              relations: [
-                {
-                  from: { repo: "worker-a", commit: "c1" },
-                  to: { repo: "worker-a", commit: "a2" },
-                  label: "コミット",
-                  color: "#f59e0b"
-                }
-              ]
-            }
-          },
-          {
-            label: "2) プッシュ（担当者A の origin/main を更新）",
-            data: {
-              repositories: [
-                { id: "worker-a", name: "作業者A ローカル", head: "main", branches: workerABranches, commits: workerABaseCommits.concat([commitA2WithTracked]) },
-                { id: "origin", name: "GitHub リモート", head: "main", branches: mainOnly, commits: baseCommits.concat([remoteA2]) },
-                { id: "worker-b", name: "作業者B ローカル", head: "main", branches: workerBBranches, commits: workerBBaseCommits }
-              ],
-              relations: [
-                {
-                  from: { repo: "worker-a", commit: "a2" },
-                  to: { repo: "origin", commit: "a2" },
-                  label: "プッシュ",
-                  color: "#2563eb"
-                }
-              ]
-            }
-          },
-          {
-            label: "3) フェッチ完了（HEAD はそのまま）",
-            data: {
-              repositories: [
-                { id: "worker-a", name: "作業者A ローカル", head: "main", branches: workerABranches, commits: workerABaseCommits.concat([commitA2WithTracked]) },
-                { id: "origin", name: "GitHub リモート", head: "main", branches: mainOnly, commits: baseCommits.concat([remoteA2]) },
-                { id: "worker-b", name: "作業者B ローカル", head: "main", branches: workerBBranches, commits: workerBFetchedCommits }
-              ],
-              relations: [
-                {
-                  from: { repo: "origin", commit: "a2" },
-                  to: { repo: "worker-b", commit: "a2" },
-                  label: "フェッチ",
-                  color: "#0f766e"
-                }
-              ]
-            }
-          }
-        ]
-      });
-    </script>
     <script src="../../../scripts/language-preference.js"></script>
     <script src="../../scripts/glossary.js"></script>
   </body>

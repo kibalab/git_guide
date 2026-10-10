@@ -195,7 +195,7 @@ body {
 }
 
 .graph-frame > div {
-  min-width: 760px;
+  min-width: 0;
 }
 
 .graph-frame svg {
@@ -274,6 +274,11 @@ body {
   outline: none;
 }
 
+.term-label:focus-visible {
+  outline: 2px solid var(--link);
+  outline-offset: 3px;
+}
+
 .term-label {
   min-width: 0;
   border-bottom: 1px dotted #9bb8ff;
@@ -282,7 +287,7 @@ body {
 }
 
 .term-ref:hover .term-label,
-.term-ref:focus-visible .term-label {
+.term-ref:focus-within .term-label {
   color: var(--link);
   border-bottom-color: var(--link);
 }
@@ -292,7 +297,9 @@ body {
   left: 0;
   top: 0;
   display: none;
-  width: min(260px, 72vw);
+  width: min(260px, calc(100vw - 24px));
+  max-height: calc(100dvh - 24px);
+  overflow-y: auto;
   padding: 10px 12px;
   border: 1px solid var(--line);
   background: var(--surface);
@@ -327,7 +334,7 @@ body {
   border-bottom: 1px solid var(--line);
 }
 
-.term-ref.is-open .term-tooltip {
+.term-ref.is-open .term-tooltip:not([hidden]) {
   display: block;
 }
 
@@ -580,7 +587,11 @@ body {
 .site-credit-link:hover,
 .site-credit-link:focus-visible {
   color: var(--link);
-  outline: none;
+}
+
+.site-credit-link:focus-visible {
+  outline: 2px solid var(--link);
+  outline-offset: 2px;
 }
 
 .site-credit-link svg {

@@ -3,6 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="ブランチ は、作業の道筋を分けるための印です。 大きな道（main）から新しい道（feature）を一時的に分けて作業できるようにしてくれます。" />
+    <link rel="canonical" href="https://kibalab.github.io/git_guide/guide/pages/ja/chapter-3.html" />
+    <meta property="og:title" content="第3章. HEAD とブランチ" />
+    <meta property="og:description" content="ブランチ は、作業の道筋を分けるための印です。 大きな道（main）から新しい道（feature）を一時的に分けて作業できるようにしてくれます。" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://kibalab.github.io/git_guide/guide/pages/ja/chapter-3.html" />
+    <meta property="og:image" content="https://kibalab.github.io/git_guide/guide/assets/images/thumb.jpg" />
+    <meta property="og:locale" content="ja_JP" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="alternate" hreflang="ko" href="https://kibalab.github.io/git_guide/guide/pages/chapter-3.html" />
+    <link rel="alternate" hreflang="ja" href="https://kibalab.github.io/git_guide/guide/pages/ja/chapter-3.html" />
+    <link rel="alternate" hreflang="x-default" href="https://kibalab.github.io/git_guide/guide/pages/chapter-3.html" />
     <title>第3章. HEAD とブランチ</title>
     <link rel="stylesheet" href="../../styles/guide.css" />
   </head>
@@ -12,8 +24,8 @@
         <a class="home-link" href="./index.html">猫でもわかるGitの使い方</a>
         <div class="topbar-tools">
           <nav class="lang-switch" aria-label="言語選択">
-            <a href="../chapter-3.html">한국어</a>
-            <a class="is-active" href="./chapter-3.html">日本語</a>
+            <a lang="ko" hreflang="ko" href="../chapter-3.html">한국어</a>
+            <a class="is-active" aria-current="page" lang="ja" hreflang="ja" href="./chapter-3.html">日本語</a>
           </nav>
           <nav class="top-links">
             <a href="./chapter-2.html">前の章</a>
@@ -114,52 +126,9 @@
   </span>
 </footer>
     <script src="../../../scripts/git-graph-visualizer.js"></script>
-    <script>
-      const baseOpt = {
-        columnGap: 158,
-        laneGap: 86,
-        routeSpacing: 20,
-        showBranchNames: true,
-        showCommitNames: true,
-        showHeadLabels: true,
-        showDiffInspector: false,
-        showTags: false,
-        showHoverTimeGuide: true,
-        padding: { top: 74, right: 52, bottom: 58, left: 178 }
-      };
+    <script src="../../scripts/graph-page.js"></script>
+    <script src="../../scripts/graphs/chapter-3.js"></script>
 
-      const graph3a = new GitGraphVisualizer("#graph-3a", baseOpt);
-      graph3a.setData({
-        head: "feature/login-bg",
-        branches: [
-          { name: "main", color: "#df5a4f" },
-          { name: "feature/login-bg", color: "#2f8dff" }
-        ],
-        commits: [
-          { id: "b0", name: "プロジェクト開始", branch: "main", branches: ["main"], parents: [] },
-          { id: "b1", name: "基本画面", branch: "main", parents: ["b0"] },
-          { id: "b2", name: "背景案", branch: "feature/login-bg", branches: ["feature/login-bg"], parents: ["b1"] },
-          { id: "b3", name: "明るさ調整", branch: "feature/login-bg", branches: ["feature/login-bg"], parents: ["b2"] },
-          { id: "b4", name: "緊急文言", branch: "main", branches: ["main"], parents: ["b1"] }
-        ]
-      });
-
-      const graph3b = new GitGraphVisualizer("#graph-3b", baseOpt);
-      graph3b.setData({
-        head: "main",
-        branches: [
-          { name: "main", color: "#df5a4f" },
-          { name: "feature/login-bg", color: "#2f8dff" }
-        ],
-        commits: [
-          { id: "m0", name: "プロジェクト開始", branch: "main", branches: ["main"], parents: [] },
-          { id: "m1", name: "基本画面", branch: "main", parents: ["m0"] },
-          { id: "m2", name: "背景ラフ", branch: "feature/login-bg", branches: ["feature/login-bg"], parents: ["m1"] },
-          { id: "m3", name: "明るさ調整", branch: "feature/login-bg", branches: ["feature/login-bg"], parents: ["m2"] },
-          { id: "m4", name: "main に統合", branch: "main", branches: ["main"], parents: ["m1", "m3"] }
-        ]
-      });
-    </script>
     <script src="../../../scripts/language-preference.js"></script>
     <script src="../../scripts/glossary.js"></script>
   </body>

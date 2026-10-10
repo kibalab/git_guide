@@ -3,6 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="히스토리 는 작업이 어떻게 바뀌어 왔는지의 시간표입니다. &quot;무엇이 바뀌었는지&quot;를 나중에 다시 볼 수 있게 해줍니다." />
+    <link rel="canonical" href="https://kibalab.github.io/git_guide/guide/pages/chapter-2.html" />
+    <meta property="og:title" content="2장. 히스토리, 추적단위(파일/라인) 정의" />
+    <meta property="og:description" content="히스토리 는 작업이 어떻게 바뀌어 왔는지의 시간표입니다. &quot;무엇이 바뀌었는지&quot;를 나중에 다시 볼 수 있게 해줍니다." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://kibalab.github.io/git_guide/guide/pages/chapter-2.html" />
+    <meta property="og:image" content="https://kibalab.github.io/git_guide/guide/assets/images/thumb.jpg" />
+    <meta property="og:locale" content="ko_KR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="alternate" hreflang="ko" href="https://kibalab.github.io/git_guide/guide/pages/chapter-2.html" />
+    <link rel="alternate" hreflang="ja" href="https://kibalab.github.io/git_guide/guide/pages/ja/chapter-2.html" />
+    <link rel="alternate" hreflang="x-default" href="https://kibalab.github.io/git_guide/guide/pages/chapter-2.html" />
     <title>2장. 히스토리, 추적단위(파일/라인) 정의</title>
     <link rel="stylesheet" href="../styles/guide.css" />
     <style>
@@ -20,8 +32,8 @@
         <a class="home-link" href="./index.html">고양이도 이해하는 Git 사용법</a>
         <div class="topbar-tools">
           <nav class="lang-switch" aria-label="언어 선택">
-            <a class="is-active" href="./chapter-2.html">한국어</a>
-            <a href="./ja/chapter-2.html">日本語</a>
+            <a class="is-active" aria-current="page" lang="ko" hreflang="ko" href="./chapter-2.html">한국어</a>
+            <a lang="ja" hreflang="ja" href="./ja/chapter-2.html">日本語</a>
           </nav>
           <nav class="top-links">
           <a href="./chapter-1.html">이전 장</a>
@@ -108,105 +120,9 @@ m_AnchoredPosition: {x: 0, y: -96}
   </span>
 </footer>
     <script src="../../scripts/git-graph-visualizer.js"></script>
-    <script>
-      const graph2a = new GitGraphVisualizer("#graph-2a", {
-        columnGap: 160,
-        laneGap: 80,
-        routeSpacing: 20,
-        showBranchNames: true,
-        showCommitNames: true,
-        showHeadLabels: true,
-        showTags: false,
-        showHoverTimeGuide: true,
-        padding: { top: 70, right: 50, bottom: 52, left: 170 }
-      });
+    <script src="../scripts/graph-page.js"></script>
+    <script src="../scripts/graphs/chapter-2.js"></script>
 
-      graph2a.setData({
-        head: "main",
-        branches: [{ name: "main", color: "#df5a4f" }],
-        commits: [
-          {
-            id: "h0",
-            name: "Unity LoginScene 초안 저장",
-            branch: "main",
-            branches: ["main"],
-            parents: [],
-            changes: [
-              {
-                path: "Assets/Scenes/LoginScene.unity",
-                status: "added",
-                diff: [
-                  "+--- !u!1 &100100",
-                  "+GameObject:",
-                  "+  m_Name: LoginCanvas",
-                  "+  m_Component:",
-                  "+  - component: {fileID: 22400011}",
-                  "+--- !u!224 &22400011",
-                  "+RectTransform:",
-                  "+  m_AnchoredPosition: {x: 0, y: 0}"
-                ]
-              }
-            ]
-          },
-          {
-            id: "h1",
-            name: "LoginButton 위치 조정",
-            branch: "main",
-            parents: ["h0"],
-            changes: [
-              {
-                path: "Assets/Prefabs/UI/LoginButton.prefab",
-                status: "modified",
-                diff: [
-                  " m_Name: LoginButton",
-                  "-m_AnchoredPosition: {x: 0, y: -120}",
-                  "+m_AnchoredPosition: {x: 0, y: -96}",
-                  " m_Text: Start"
-                ]
-              }
-            ]
-          },
-          {
-            id: "h2",
-            name: "로그인 문구 스크립트 수정",
-            branch: "main",
-            parents: ["h1"],
-            changes: [
-              {
-                path: "Assets/Scripts/UI/LoginView.cs",
-                status: "modified",
-                diff: [
-                  " public void Bind()",
-                  " {",
-                  "-    title.text = \"LOGIN\";",
-                  "+    title.text = \"WELCOME\";",
-                  " }"
-                ]
-              }
-            ]
-          },
-          {
-            id: "h3",
-            name: "버튼 텍스트를 Enter Game으로 변경",
-            branch: "main",
-            branches: ["main"],
-            parents: ["h2"],
-            changes: [
-              {
-                path: "Assets/Prefabs/UI/LoginButton.prefab",
-                status: "modified",
-                diff: [
-                  " m_Name: LoginButton",
-                  " m_AnchoredPosition: {x: 0, y: -96}",
-                  "-m_Text: Start",
-                  "+m_Text: Enter Game"
-                ]
-              }
-            ]
-          }
-        ]
-      });
-    </script>
     <script src="../../scripts/language-preference.js"></script>
     <script src="../scripts/glossary.js"></script>
   </body>

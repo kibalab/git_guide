@@ -3,6 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="ブランチ戦略の核心は難しくありません。 作業を小さく分け、早く統合すること です。" />
+    <link rel="canonical" href="https://kibalab.github.io/git_guide/guide/pages/ja/extra-2.html" />
+    <meta property="og:title" content="補足 2. ブランチ運用戦略" />
+    <meta property="og:description" content="ブランチ戦略の核心は難しくありません。 作業を小さく分け、早く統合すること です。" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://kibalab.github.io/git_guide/guide/pages/ja/extra-2.html" />
+    <meta property="og:image" content="https://kibalab.github.io/git_guide/guide/assets/images/thumb.jpg" />
+    <meta property="og:locale" content="ja_JP" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="alternate" hreflang="ko" href="https://kibalab.github.io/git_guide/guide/pages/extra-2.html" />
+    <link rel="alternate" hreflang="ja" href="https://kibalab.github.io/git_guide/guide/pages/ja/extra-2.html" />
+    <link rel="alternate" hreflang="x-default" href="https://kibalab.github.io/git_guide/guide/pages/extra-2.html" />
     <title>補足 2. ブランチ運用戦略</title>
     <link rel="stylesheet" href="../../styles/guide.css" />
   </head>
@@ -12,8 +24,8 @@
         <a class="home-link" href="./index.html">猫でもわかるGitの使い方</a>
         <div class="topbar-tools">
           <nav class="lang-switch" aria-label="言語選択">
-            <a href="../extra-2.html">한국어</a>
-            <a class="is-active" href="./extra-2.html">日本語</a>
+            <a lang="ko" hreflang="ko" href="../extra-2.html">한국어</a>
+            <a class="is-active" aria-current="page" lang="ja" hreflang="ja" href="./extra-2.html">日本語</a>
           </nav>
           <nav class="top-links">
             <a href="./extra-1.html">前へ</a>
@@ -199,257 +211,9 @@
   </span>
 </footer>
     <script src="../../../scripts/git-graph-visualizer.js"></script>
-    <script>
-      const sharedGraphOptions = {
-        columnGap: 154,
-        laneGap: 82,
-        routeSpacing: 20,
-        showBranchNames: true,
-        showCommitNames: true,
-        showHeadLabels: true,
-        showDiffInspector: false,
-        showHoverTimeGuide: true,
-        padding: { top: 76, right: 52, bottom: 56, left: 186 }
-      };
+    <script src="../../scripts/graph-page.js"></script>
+    <script src="../../scripts/graphs/extra-2.js"></script>
 
-      const graphE2a = new GitGraphVisualizer("#graph-e2a", {
-        ...sharedGraphOptions,
-        showTags: false
-      });
-
-      graphE2a.setData({
-        head: "main",
-        branches: [
-          { name: "main", color: "#df5a4f" },
-          { name: "feature/ui-banner", color: "#2f8dff" },
-          { name: "feature/sound", color: "#1ea86b" }
-        ],
-        commits: [
-          { id: "t0", name: "基準点", branch: "main", branches: ["main"], parents: [] },
-          { id: "t1", name: "基本シーン", branch: "main", parents: ["t0"] },
-          { id: "u2", name: "バナーラフ", branch: "feature/ui-banner", branches: ["feature/ui-banner"], parents: ["t1"] },
-          { id: "u3", name: "バナーを統合", branch: "main", parents: ["t1", "u2"] },
-          { id: "s2", name: "効果音調整", branch: "feature/sound", branches: ["feature/sound"], parents: ["u3"] },
-          { id: "s3", name: "効果音を統合", branch: "main", branches: ["main"], parents: ["u3", "s2"] }
-        ]
-      });
-
-      const graphE2b = new GitGraphVisualizer("#graph-e2b", {
-        ...sharedGraphOptions,
-        showTags: true,
-        padding: { top: 76, right: 52, bottom: 60, left: 186 }
-      });
-
-      graphE2b.setData({
-        head: "main",
-        branches: [
-          { name: "main", color: "#df5a4f" },
-          { name: "hotfix/ui-block", color: "#ea9a14" }
-        ],
-        commits: [
-          { id: "h0", name: "基準点", branch: "main", branches: ["main"], parents: [] },
-          { id: "h1", name: "通常作業", branch: "main", parents: ["h0"] },
-          { id: "h2", name: "緊急修正", branch: "hotfix/ui-block", branches: ["hotfix/ui-block"], parents: ["h1"] },
-          { id: "h3", name: "緊急修正を main に反映", branch: "main", branches: ["main"], tags: ["urgent"], parents: ["h1", "h2"] }
-        ]
-      });
-
-      const strategyGraphFactories = {
-        gitflow() {
-          const graph = new GitGraphVisualizer("#graph-e2c", {
-            columnGap: 122,
-            laneGap: 76,
-            routeSpacing: 18,
-            showBranchNames: true,
-            showCommitNames: true,
-            showHeadLabels: true,
-            showDiffInspector: false,
-            showTags: true,
-            showHoverTimeGuide: true,
-            padding: { top: 78, right: 64, bottom: 62, left: 208 }
-          });
-
-          graph.setData({
-            head: "develop",
-            branches: [
-              { name: "main", color: "#df5a4f" },
-              { name: "develop", color: "#1ea86b" },
-              { name: "feature/login-panel", color: "#2f8dff" },
-              { name: "release/1.2", color: "#ea9a14" },
-              { name: "hotfix/login-safe-area", color: "#8b5cf6" }
-            ],
-            commits: [
-              { id: "gf0", name: "1.1 UI 出荷基準", branch: "main", branches: ["main"], parents: [] },
-              { id: "gf1", name: "次のビルドのアート基準", branch: "develop", branches: ["develop"], parents: ["gf0"] },
-              { id: "gf2", name: "ロビーバナーのラフ開始", branch: "feature/login-panel", branches: ["feature/login-panel"], parents: ["gf1"] },
-              { id: "gf3", name: "バナーモック整理", branch: "feature/login-panel", parents: ["gf2"] },
-              { id: "gf4", name: "バナーラフを develop に反映", branch: "develop", branches: ["develop"], parents: ["gf1", "gf3"] },
-              { id: "gf5", name: "イベントビルド用 release 分岐", branch: "release/1.2", branches: ["release/1.2"], parents: ["gf4"] },
-              { id: "gf6", name: "QA 用アイコン/整列修正", branch: "release/1.2", parents: ["gf5"] },
-              { id: "gf7", name: "イベント UI 1.2 配布", branch: "main", branches: ["main"], tags: ["v1.2"], parents: ["gf0", "gf6"] },
-              { id: "gf8", name: "release 修正を develop に反映", branch: "develop", branches: ["develop"], parents: ["gf4", "gf6"] },
-              { id: "gf9", name: "ログイン欠け hotfix 分岐", branch: "hotfix/login-safe-area", branches: ["hotfix/login-safe-area"], parents: ["gf7"] },
-              { id: "gf10", name: "ノッチ余白の緊急修正", branch: "hotfix/login-safe-area", parents: ["gf9"] },
-              { id: "gf11", name: "緊急修正を配布", branch: "main", branches: ["main"], tags: ["hotfix"], parents: ["gf7", "gf10"] },
-              { id: "gf12", name: "hotfix を develop に反映", branch: "develop", branches: ["develop"], parents: ["gf8", "gf10"] }
-            ]
-          });
-        },
-        githubflow() {
-          const graph = new GitGraphVisualizer("#graph-e2d", {
-            columnGap: 126,
-            laneGap: 78,
-            routeSpacing: 18,
-            showBranchNames: true,
-            showCommitNames: true,
-            showHeadLabels: true,
-            showDiffInspector: false,
-            showTags: false,
-            showHoverTimeGuide: true,
-            padding: { top: 76, right: 56, bottom: 58, left: 194 }
-          });
-
-          graph.setData({
-            head: "main",
-            branches: [
-              { name: "main", color: "#df5a4f" },
-              { name: "feature/login-panel", color: "#2f8dff" },
-              { name: "feature/banner-copy", color: "#1ea86b" }
-            ],
-            commits: [
-              { id: "gh0", name: "配布可能な UI 基準", branch: "main", branches: ["main"], parents: [] },
-              { id: "gh1", name: "共通ログインプレハブ整理", branch: "main", parents: ["gh0"] },
-              { id: "gh2", name: "ログインパネルのラフ", branch: "feature/login-panel", branches: ["feature/login-panel"], parents: ["gh1"] },
-              { id: "gh3", name: "レビューコメント反映", branch: "feature/login-panel", parents: ["gh2"] },
-              { id: "gh4", name: "アイコン整理", branch: "feature/login-panel", parents: ["gh3"] },
-              { id: "gh5", name: "ログインパネルをマージ", branch: "main", branches: ["main"], parents: ["gh1", "gh4"] },
-              { id: "gh6", name: "イベントバナー文言修正", branch: "feature/banner-copy", branches: ["feature/banner-copy"], parents: ["gh5"] },
-              { id: "gh7", name: "確認コメント反映", branch: "feature/banner-copy", parents: ["gh6"] },
-              { id: "gh8", name: "バナー文言をマージ", branch: "main", branches: ["main"], parents: ["gh5", "gh7"] }
-            ]
-          });
-        },
-        gitlabflow() {
-          const graph = new GitGraphVisualizer("#graph-e2f", {
-            columnGap: 124,
-            laneGap: 74,
-            routeSpacing: 18,
-            showBranchNames: true,
-            showCommitNames: true,
-            showHeadLabels: true,
-            showDiffInspector: false,
-            showTags: true,
-            showHoverTimeGuide: true,
-            padding: { top: 78, right: 64, bottom: 60, left: 206 }
-          });
-
-          graph.setData({
-            head: "main",
-            branches: [
-              { name: "production", color: "#df5a4f" },
-              { name: "staging", color: "#1ea86b" },
-              { name: "main", color: "#2f8dff" },
-              { name: "feature/event-lobby", color: "#ea9a14" }
-            ],
-            commits: [
-              { id: "gl0", name: "現在運用中の UI", branch: "production", branches: ["production"], tags: ["live"], parents: [] },
-              { id: "gl1", name: "main 統合基準", branch: "main", branches: ["main"], parents: ["gl0"] },
-              { id: "gl2", name: "検収サーバー基準", branch: "staging", branches: ["staging"], parents: ["gl1"] },
-              { id: "gl3", name: "イベントロビーのラフ", branch: "feature/event-lobby", branches: ["feature/event-lobby"], parents: ["gl1"] },
-              { id: "gl4", name: "バナー/アイコン整理", branch: "feature/event-lobby", parents: ["gl3"] },
-              { id: "gl5", name: "イベントラフを main に反映", branch: "main", branches: ["main"], parents: ["gl1", "gl4"] },
-              { id: "gl6", name: "検収ビルド更新", branch: "staging", branches: ["staging"], tags: ["qa"], parents: ["gl2", "gl5"] },
-              { id: "gl7", name: "運用反映", branch: "production", branches: ["production"], tags: ["prod"], parents: ["gl0", "gl6"] }
-            ]
-          });
-        },
-        tbd() {
-          const graph = new GitGraphVisualizer("#graph-e2e", {
-            columnGap: 134,
-            laneGap: 76,
-            routeSpacing: 18,
-            showBranchNames: true,
-            showCommitNames: true,
-            showHeadLabels: true,
-            showDiffInspector: false,
-            showTags: false,
-            showHoverTimeGuide: true,
-            padding: { top: 76, right: 56, bottom: 58, left: 194 }
-          });
-
-          graph.setData({
-            head: "main",
-            branches: [
-              { name: "main", color: "#df5a4f" },
-              { name: "task/login-copy", color: "#2f8dff" },
-              { name: "task/safe-area", color: "#1ea86b" },
-              { name: "task/button-tint", color: "#ea9a14" }
-            ],
-            commits: [
-              { id: "tb0", name: "今日の作業基準", branch: "main", branches: ["main"], parents: [] },
-              { id: "tb1", name: "共通アンカー整理", branch: "main", parents: ["tb0"] },
-              { id: "tb2", name: "ボタン文言を1行修正", branch: "task/login-copy", branches: ["task/login-copy"], parents: ["tb1"] },
-              { id: "tb3", name: "午前にすぐ統合", branch: "main", branches: ["main"], parents: ["tb1", "tb2"] },
-              { id: "tb4", name: "セーフエリアを1行補正", branch: "task/safe-area", branches: ["task/safe-area"], parents: ["tb3"] },
-              { id: "tb5", name: "午後にすぐ統合", branch: "main", branches: ["main"], parents: ["tb3", "tb4"] },
-              { id: "tb6", name: "ボタンのティントを1段階調整", branch: "task/button-tint", branches: ["task/button-tint"], parents: ["tb5"] },
-              { id: "tb7", name: "当日最後の統合", branch: "main", branches: ["main"], parents: ["tb5", "tb6"] }
-            ]
-          });
-        }
-      };
-
-      const renderedStrategyGraphs = {};
-      const strategyTabs = Array.from(document.querySelectorAll("[data-strategy]"));
-      const strategyPanels = Array.from(document.querySelectorAll(".tab-panel"));
-
-      function renderStrategyGraph(strategy) {
-        if (renderedStrategyGraphs[strategy]) return;
-        strategyGraphFactories[strategy]();
-        renderedStrategyGraphs[strategy] = true;
-      }
-
-      function activateStrategyTab(strategy) {
-        strategyTabs.forEach((tab) => {
-          const isActive = tab.dataset.strategy === strategy;
-          tab.setAttribute("aria-selected", isActive ? "true" : "false");
-          tab.tabIndex = isActive ? 0 : -1;
-        });
-
-        strategyPanels.forEach((panel) => {
-          const isActive = panel.id === `panel-${strategy}`;
-          panel.hidden = !isActive;
-          panel.classList.toggle("is-active", isActive);
-        });
-
-        renderStrategyGraph(strategy);
-      }
-
-      strategyTabs.forEach((tab, index) => {
-        tab.addEventListener("click", () => {
-          activateStrategyTab(tab.dataset.strategy);
-          tab.focus();
-        });
-
-        tab.addEventListener("keydown", (event) => {
-          const key = event.key;
-          if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(key)) return;
-          event.preventDefault();
-
-          let nextIndex = index;
-          if (key === "ArrowRight") nextIndex = (index + 1) % strategyTabs.length;
-          if (key === "ArrowLeft") nextIndex = (index - 1 + strategyTabs.length) % strategyTabs.length;
-          if (key === "Home") nextIndex = 0;
-          if (key === "End") nextIndex = strategyTabs.length - 1;
-
-          const nextTab = strategyTabs[nextIndex];
-          activateStrategyTab(nextTab.dataset.strategy);
-          nextTab.focus();
-        });
-      });
-
-      activateStrategyTab("gitflow");
-    </script>
     <script src="../../../scripts/language-preference.js"></script>
     <script src="../../scripts/glossary.js"></script>
   </body>

@@ -107,6 +107,16 @@
     return Math.max(48, 16 + text.length * 7);
   }
 
+  function branchLaneLabelWidth(model) {
+    var widths = new Map();
+    model.branches.forEach(function (branch) {
+      if (!Object.prototype.hasOwnProperty.call(model.branchHeads, branch.name)) return;
+      var current = widths.get(branch.laneIndex) || 0;
+      widths.set(branch.laneIndex, current + branchBadgeWidth(branch.name) + (current ? 8 : 0));
+    });
+    return Math.max.apply(null, [0].concat(Array.from(widths.values())));
+  }
+
   function parseRemoteTrackingBranch(name, options) {
     if (typeof name !== "string" || !name.length) return null;
     var prefixes = Array.isArray(options && options.remoteBranchPrefixes) && options.remoteBranchPrefixes.length
@@ -535,7 +545,9 @@
     );
 
     var derivedHeads = computeBranchHeads(branches, positionedCommits);
-    var branchHeads = assign(derivedHeads, rawData.branchHeads || {});
+    var branchHeads = Object.prototype.hasOwnProperty.call(rawData, "branchHeads")
+      ? assign({}, rawData.branchHeads || {})
+      : derivedHeads;
 
     var currentCommit = rawData.currentCommit || null;
     if (!currentCommit && rawData.head && branchHeads[rawData.head]) {
@@ -624,6 +636,14 @@
       noChangedFiles: "변경 파일 정보가 없습니다.",
       missingChangesData: "changes 데이터를 커밋에 넣으면 diff를 볼 수 있습니다.",
       noDiffLines: "diff 라인이 없습니다.",
+      graphLabel: "커밋 이력 그래프",
+      previousStage: "이전 단계",
+      nextStage: "다음 단계",
+      play: "재생",
+      pause: "일시정지",
+      noCommits: "표시할 커밋이 없습니다.",
+      noRepositories: "표시할 저장소가 없습니다.",
+      commitLabel: "커밋 변경 내용 보기",
       commitMeta: function (commitId, fileCount) {
         return "commit " + shortHash(commitId) + " · files " + fileCount;
       }
@@ -636,6 +656,14 @@
       noChangedFiles: "変更ファイル情報がありません。",
       missingChangesData: "コミットに changes データを入れると diff を確認できます。",
       noDiffLines: "diff 行がありません。",
+      graphLabel: "コミット履歴グラフ",
+      previousStage: "前の段階",
+      nextStage: "次の段階",
+      play: "再生",
+      pause: "一時停止",
+      noCommits: "表示するコミットはありません。",
+      noRepositories: "表示するリポジトリはありません。",
+      commitLabel: "コミットの変更を確認",
       commitMeta: function (commitId, fileCount) {
         return "commit " + shortHash(commitId) + " · ファイル " + fileCount + " 件";
       }
@@ -676,7 +704,22 @@
     this.currentTrackedNodes = new Map();
     this.activeRepoContext = null;
     this.uiRefs = null;
+    this.savedGraphScroll = null;
+    this.restoreCommitFocus = null;
+    this.motionQuery = global.matchMedia ? global.matchMedia("(prefers-reduced-motion: reduce)") : null;
+    this.motionChangeHandler = function () {
+      this.clearStageMotionTimers();
+      this.animateNextRender = false;
+      this.render();
+    }.bind(this);
+    if (this.motionQuery && this.motionQuery.addEventListener) {
+      this.motionQuery.addEventListener("change", this.motionChangeHandler);
+    }
   }
+
+  GitGraphVisualizer.prototype.prefersReducedMotion = function () {
+    return !!(this.motionQuery && this.motionQuery.matches);
+  };
 
   GitGraphVisualizer.prototype.isInspectorEnabled = function () {
     return this.options.enableCommitInspector !== false && this.options.showDiffInspector !== false;
@@ -713,6 +756,11 @@
       ".ggv-diff-line.ctx{color:#334155;}",
       ".ggv-empty{padding:10px;color:#64748b;font-size:12px;}",
       ".ggv-commit-hit{cursor:pointer;}",
+      ".ggv-commit-hit:focus-visible{outline:none;stroke:#111827;stroke-width:3;}",
+      ".ggv-stage button:focus-visible,.ggv-file-item:focus-visible{outline:2px solid #1d4ed8;outline-offset:2px;}",
+      ".ggv-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0;}",
+      ".ggv-reduced-motion .ggv-relation-flow{animation:none;}",
+      "@media(prefers-reduced-motion:reduce){.ggv-relation-flow{animation:none!important;}}",
       "@keyframes ggv-relation-dash-flow{from{stroke-dashoffset:0;}to{stroke-dashoffset:var(--ggv-rel-flow-offset,-12);}}",
       ".ggv-relation-flow{animation:ggv-relation-dash-flow var(--ggv-rel-flow-duration,900ms) linear infinite;will-change:stroke-dashoffset;}"
     ].join("");
@@ -739,15 +787,21 @@
       document.getAnimations().forEach(function (anim) {
         var effect = anim.effect;
         var target = effect && effect.target;
-        if (!target || !target.hasAttribute) return;
+        if (!target || !target.hasAttribute || !this.container.contains(target)) return;
         if (target.hasAttribute("data-ggv-anim-key")) {
           // Keep the perpetual dashed-flow animation alive.
           if (typeof anim.animationName === "string" && anim.animationName === "ggv-relation-dash-flow") {
             return;
           }
+          if (target.style) {
+            target.style.opacity = "";
+            target.style.transform = "";
+            target.style.strokeDasharray = "";
+            target.style.strokeDashoffset = "";
+          }
           anim.cancel();
         }
-      });
+      }, this);
     }
   };
 
@@ -1059,8 +1113,12 @@
       name.textContent = this.stageItems[this.stageIndex].label;
     }
     if (playBtn) {
-      playBtn.textContent = this.stageTimer ? "Pause" : "Play";
-      playBtn.setAttribute("aria-label", this.stageTimer ? "pause stage playback" : "play stage playback");
+      playBtn.textContent = this.stageTimer ? this.messages.pause : this.messages.play;
+      playBtn.setAttribute("aria-label", this.stageTimer ? this.messages.pause : this.messages.play);
+      playBtn.setAttribute("aria-pressed", this.stageTimer ? "true" : "false");
+    }
+    if (this.uiRefs.stage.status) {
+      this.uiRefs.stage.status.textContent = label.textContent + " · " + name.textContent;
     }
     if (prevBtn && !this.stageOptions.loop) prevBtn.disabled = this.stageIndex <= 0;
     if (nextBtn && !this.stageOptions.loop) nextBtn.disabled = this.stageIndex >= this.stageItems.length - 1;
@@ -1068,9 +1126,21 @@
 
   GitGraphVisualizer.prototype.buildUiShell = function () {
     this.ensureUiStyles();
+    var hasStages = !!(this.stageItems && this.stageItems.length);
+    var hasInspector = this.isInspectorEnabled();
+    if (this.uiRefs && this.container.contains(this.uiRefs.root) &&
+        !!this.uiRefs.stage === hasStages && !!this.uiRefs.inspector === hasInspector) {
+      this.uiRefs.root.classList.toggle("ggv-reduced-motion", this.prefersReducedMotion());
+      this.uiRefs.graphHost.style.height = this.stageFixedHeight ? this.stageFixedHeight + "px" : "";
+      this.uiRefs.graphHost.style.minHeight = this.stageFixedHeight ? this.stageFixedHeight + "px" : "";
+      this.updateStageControls();
+      return;
+    }
+    this.container.replaceChildren();
 
     var root = document.createElement("div");
     root.className = "ggv-root";
+    root.classList.toggle("ggv-reduced-motion", this.prefersReducedMotion());
     var stageRefs = null;
 
     if (this.stageItems && this.stageItems.length) {
@@ -1080,16 +1150,18 @@
       var prevBtn = document.createElement("button");
       prevBtn.type = "button";
       prevBtn.textContent = "←";
+      prevBtn.setAttribute("aria-label", this.messages.previousStage);
       prevBtn.addEventListener("click", function () { this.stepStage(-1); }.bind(this));
 
       var playBtn = document.createElement("button");
       playBtn.type = "button";
-      playBtn.textContent = "Play";
+      playBtn.textContent = this.messages.play;
       playBtn.addEventListener("click", function () { this.toggleStagePlayback(); }.bind(this));
 
       var nextBtn = document.createElement("button");
       nextBtn.type = "button";
       nextBtn.textContent = "→";
+      nextBtn.setAttribute("aria-label", this.messages.nextStage);
       nextBtn.addEventListener("click", function () { this.stepStage(1); }.bind(this));
 
       var label = document.createElement("span");
@@ -1099,6 +1171,12 @@
       var name = document.createElement("span");
       name.className = "ggv-stage-name";
 
+      var status = document.createElement("span");
+      status.className = "ggv-sr-only";
+      status.setAttribute("role", "status");
+      status.setAttribute("aria-live", "polite");
+      status.setAttribute("aria-atomic", "true");
+      bar.appendChild(status);
       bar.appendChild(prevBtn);
       bar.appendChild(playBtn);
       bar.appendChild(nextBtn);
@@ -1106,11 +1184,14 @@
       bar.appendChild(name);
       root.appendChild(bar);
 
-      stageRefs = { bar: bar, prevBtn: prevBtn, playBtn: playBtn, nextBtn: nextBtn, label: label, name: name };
+      stageRefs = { bar: bar, prevBtn: prevBtn, playBtn: playBtn, nextBtn: nextBtn, label: label, name: name, status: status };
     }
 
     var graphHost = document.createElement("div");
     graphHost.className = "ggv-graph";
+    graphHost.tabIndex = 0;
+    graphHost.setAttribute("role", "region");
+    graphHost.setAttribute("aria-label", this.messages.graphLabel);
     if (Number.isFinite(this.stageFixedHeight) && this.stageFixedHeight > 0) {
       graphHost.style.height = this.stageFixedHeight + "px";
       graphHost.style.minHeight = this.stageFixedHeight + "px";
@@ -1142,6 +1223,8 @@
 
     var title = document.createElement("div");
     title.className = "ggv-inspector-title";
+    title.setAttribute("role", "status");
+    title.setAttribute("aria-live", "polite");
     title.textContent = this.messages.inspectorTitle;
 
     var sub = document.createElement("div");
@@ -1171,7 +1254,18 @@
   GitGraphVisualizer.prototype.mountSvg = function (svg) {
     this.buildUiShell();
     this.uiRefs.graphHost.appendChild(svg);
-    if (this.animateNextRender && this.options.stageMotion) {
+    if (this.savedGraphScroll) {
+      this.uiRefs.graphHost.scrollLeft = this.savedGraphScroll.left;
+      this.uiRefs.graphHost.scrollTop = this.savedGraphScroll.top;
+      this.savedGraphScroll = null;
+    }
+    if (this.restoreCommitFocus) {
+      var focusNode = this.commitNodeByKey.get(this.restoreCommitFocus);
+      var hit = focusNode && focusNode.querySelector(".ggv-commit-hit");
+      if (hit) hit.focus({ preventScroll: true });
+      this.restoreCommitFocus = null;
+    }
+    if (this.animateNextRender && this.options.stageMotion && !this.prefersReducedMotion()) {
       this.applyStageTransitionMotion(svg);
       this.applyTrackedPositionMotion();
     }
@@ -1209,7 +1303,7 @@
   };
 
   GitGraphVisualizer.prototype.applyTrackedPositionMotion = function () {
-    if (!this.animateNextRender || !this.options.stageMotion) return;
+    if (!this.animateNextRender || !this.options.stageMotion || this.prefersReducedMotion()) return;
     if (!this.prevTrackedPositions || !this.prevTrackedPositions.size) return;
     if (!this.currentTrackedPositions || !this.currentTrackedPositions.size) return;
 
@@ -1516,7 +1610,17 @@
 
   GitGraphVisualizer.prototype.clear = function () {
     this.clearStageMotionTimers();
-    this.container.innerHTML = "";
+    var focused = document.activeElement;
+    if (focused && this.container.contains(focused) && focused.classList.contains("ggv-commit-hit")) {
+      this.restoreCommitFocus = focused.getAttribute("data-selection-key");
+    }
+    if (this.uiRefs) {
+      this.savedGraphScroll = {
+        left: this.uiRefs.graphHost.scrollLeft,
+        top: this.uiRefs.graphHost.scrollTop
+      };
+      this.uiRefs.graphHost.replaceChildren();
+    }
     this.layoutPadding = null;
     this.commitShiftMap = null;
     this.multiLayout = null;
@@ -1524,7 +1628,6 @@
     this.commitNodeByKey = new Map();
     this.currentTrackedPositions = new Map();
     this.currentTrackedNodes = new Map();
-    this.uiRefs = null;
     this.activeRepoContext = null;
   };
 
@@ -1790,8 +1893,8 @@
         width: 420,
         height: 120,
         viewBox: "0 0 420 120",
-        role: "img",
-        "aria-label": "repository graph",
+        role: this.isInspectorEnabled() ? "group" : "img",
+        "aria-label": this.messages.graphLabel,
         style: "font-family: " + this.options.fontFamily + ";"
       });
       emptySvg.appendChild(
@@ -1801,7 +1904,7 @@
           fill: this.options.mutedTextColor,
           "font-size": 12,
           "font-weight": 600
-        }, "No commits to display")
+        }, this.messages.noCommits)
       );
       this.mountSvg(emptySvg);
       return;
@@ -1830,9 +1933,7 @@
 
     var leftPadding = this.options.padding.left;
     if (this.options.showBranchNames && branches.length) {
-      var maxBranchLabelWidth = branches.reduce(function (maxWidth, branch) {
-        return Math.max(maxWidth, branchBadgeWidth(branch.name));
-      }, 0);
+      var maxBranchLabelWidth = branchLaneLabelWidth(this.model);
       var minLeftForLabels = Math.max(this.options.padding.left + 28, maxBranchLabelWidth + 64);
       if (minLeftForLabels > leftPadding) leftPadding = minLeftForLabels;
     }
@@ -1859,8 +1960,8 @@
       width: width,
       height: height,
       viewBox: "0 0 " + width + " " + height,
-      role: "img",
-      "aria-label": "repository graph",
+      role: this.isInspectorEnabled() ? "group" : "img",
+      "aria-label": this.messages.graphLabel,
       style: "font-family: " + this.options.fontFamily + ";"
     });
 
@@ -1907,8 +2008,8 @@
         width: 420,
         height: 120,
         viewBox: "0 0 420 120",
-        role: "img",
-        "aria-label": "multi repository graph",
+        role: this.isInspectorEnabled() ? "group" : "img",
+        "aria-label": this.messages.graphLabel,
         style: "font-family: " + this.options.fontFamily + ";"
       });
       emptySvg.appendChild(
@@ -1918,7 +2019,7 @@
           fill: this.options.mutedTextColor,
           "font-size": 12,
           "font-weight": 600
-        }, "No repositories to display")
+        }, this.messages.noRepositories)
       );
       this.mountSvg(emptySvg);
       return;
@@ -1929,9 +2030,7 @@
       var maxBranchLabelWidth = repos.reduce(function (maxWidth, repo) {
         return Math.max(
           maxWidth,
-          (repo.model.branches || []).reduce(function (innerMax, branch) {
-            return Math.max(innerMax, branchBadgeWidth(branch.name));
-          }, 0)
+          branchLaneLabelWidth(repo.model)
         );
       }, 0);
       var minLeftForLabels = Math.max(this.options.padding.left + 28, maxBranchLabelWidth + 64);
@@ -2024,8 +2123,8 @@
       width: width,
       height: height,
       viewBox: "0 0 " + width + " " + height,
-      role: "img",
-      "aria-label": "multi repository graph",
+      role: this.isInspectorEnabled() ? "group" : "img",
+      "aria-label": this.messages.graphLabel,
       style: "font-family: " + this.options.fontFamily + ";"
     });
 
@@ -2140,7 +2239,7 @@
     var group = svgNode("g");
     var svgWidth = Number(svg.getAttribute("width")) || Number(svg.viewBox && svg.viewBox.baseVal && svg.viewBox.baseVal.width) || 0;
     var svgHeight = Number(svg.getAttribute("height")) || Number(svg.viewBox && svg.viewBox.baseVal && svg.viewBox.baseVal.height) || 0;
-    var relationFlowEnabled = this.options.relationFlow !== false;
+    var relationFlowEnabled = this.options.relationFlow !== false && !this.prefersReducedMotion();
     var flowDurationMs = Math.max(220, Number(this.options.relationFlowDurationMs) || 900);
     var flowCycle = dashCycleLength(this.options.relationDash);
     var flowDir = String(this.options.relationFlowDirection || "forward").toLowerCase();
@@ -2624,7 +2723,17 @@
           r: this.options.nodeRadius + 12,
           fill: "transparent",
           "pointer-events": "all",
-          class: "ggv-commit-hit"
+          class: "ggv-commit-hit",
+          tabindex: 0,
+          role: "button",
+          "aria-label": this.messages.commitLabel + ": " + (commit.name || commit.id),
+          "aria-pressed": selected ? "true" : "false",
+          "data-selection-key": key
+        });
+        hit.addEventListener("keydown", function (event) {
+          if (event.key !== "Enter" && event.key !== " ") return;
+          event.preventDefault();
+          event.currentTarget.dispatchEvent(new global.MouseEvent("click", { bubbles: true }));
         });
         hit.addEventListener("click", function (selectionKey, event) {
           event.stopPropagation();
@@ -2651,10 +2760,11 @@
     var remoteTextOpacity = Math.max(0.55, Math.min(0.98, Number(this.options.remoteBranchOpacity) || 0.82));
     var byLane = new Map();
     this.model.branches.forEach(function (branch) {
+      if (!Object.prototype.hasOwnProperty.call(this.model.branchHeads, branch.name)) return;
       var laneKey = String(branch.laneIndex);
       if (!byLane.has(laneKey)) byLane.set(laneKey, []);
       byLane.get(laneKey).push(branch);
-    });
+    }, this);
 
     byLane.forEach(function (laneBranches, laneKey) {
       laneBranches.sort(function (a, b) {
@@ -2965,6 +3075,17 @@
     svg.addEventListener("mouseleave", function () {
       line.setAttribute("visibility", "hidden");
     });
+  };
+
+  GitGraphVisualizer.prototype.destroy = function () {
+    this.clearStageMode();
+    if (this.motionQuery && this.motionQuery.removeEventListener) {
+      this.motionQuery.removeEventListener("change", this.motionChangeHandler);
+    }
+    this.container.replaceChildren();
+    this.uiRefs = null;
+    this.model = null;
+    this.multiModel = null;
   };
 
   global.GitGraphVisualizer = GitGraphVisualizer;
