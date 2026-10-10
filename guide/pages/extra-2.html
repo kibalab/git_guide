@@ -23,6 +23,7 @@
       <div class="wrap topbar-inner">
         <a class="home-link" href="./index.html">고양이도 이해하는 Git 사용법</a>
         <div class="topbar-tools">
+          <button id="command-toggle" class="command-toggle" type="button" aria-pressed="false" hidden>명령어 설명 표시</button>
           <nav class="lang-switch" aria-label="언어 선택">
             <a class="is-active" aria-current="page" lang="ko" hreflang="ko" href="./extra-2.html">한국어</a>
             <a lang="ja" hreflang="ja" href="./ja/extra-2.html">日本語</a>
@@ -72,6 +73,7 @@
             브렌치가 오래 열려 있지 않으면 충돌 위험이 크게 줄어듭니다.
           </p>
         </section>
+        <aside class="command-guide" data-command-guide="short-branch" hidden></aside>
 
         <section class="figure">
           <h3>그림 B2-2. 긴급 수정 브렌치 운영</h3>
@@ -80,6 +82,7 @@
             긴급 수정은 짧게 처리하고 main으로 먼저 반영한 뒤, 필요한 길에 다시 나눠 보냅니다.
           </p>
         </section>
+        <aside class="command-guide" data-command-guide="hotfix" hidden></aside>
 
         <h2>대표 전략 비교</h2>
         <p>
@@ -121,6 +124,7 @@
                 feature는 develop으로, release는 배포 준비용으로, hotfix는 main 기준 긴급 수정용으로 따로 움직입니다.
               </p>
             </section>
+            <aside class="command-guide" data-command-guide="gitflow" hidden></aside>
           </section>
 
           <section id="panel-githubflow" class="tab-panel" role="tabpanel" aria-labelledby="tab-githubflow" hidden>
@@ -141,6 +145,7 @@
               feature 브렌치가 리뷰 한 묶음 동안 살아 있다가, PR이 끝나면 main으로 합쳐지는 패턴입니다.
             </p>
           </section>
+            <aside class="command-guide" data-command-guide="githubflow" hidden></aside>
         </section>
 
           <section id="panel-gitlabflow" class="tab-panel" role="tabpanel" aria-labelledby="tab-gitlabflow" hidden>
@@ -161,6 +166,7 @@
               feature를 main에 모은 뒤, staging으로 검수 빌드를 만들고, 확인이 끝나면 production으로 올리는 패턴입니다.
             </p>
           </section>
+            <aside class="command-guide" data-command-guide="gitlabflow" hidden></aside>
         </section>
 
           <section id="panel-tbd" class="tab-panel" role="tabpanel" aria-labelledby="tab-tbd" hidden>
@@ -181,6 +187,7 @@
               한두 개 커밋 단위의 아주 짧은 작업이 몇 시간 안에 main으로 돌아오는 흐름입니다.
             </p>
           </section>
+            <aside class="command-guide" data-command-guide="tbd" hidden></aside>
         </section>
         </div>
 
@@ -216,6 +223,8 @@
 
     <script src="../../scripts/language-preference.js"></script>
     <script src="../scripts/glossary.js"></script>
+    <script src="../scripts/command-data.js"></script>
+    <script src="../scripts/command-guide.js"></script>
   </body>
 </html>
 

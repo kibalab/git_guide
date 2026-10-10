@@ -632,3 +632,77 @@ body {
     max-width: min(100%, 220px);
   }
 }
+
+.command-toggle {
+  flex-shrink: 0;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  background: #f8fafc;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.86rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.command-toggle[aria-pressed="true"] {
+  border-color: var(--link);
+  background: #e8eef8;
+  color: var(--link);
+  box-shadow: inset 0 -3px var(--link);
+}
+
+.command-toggle:focus-visible,
+.command-guide pre:focus-visible,
+.command-guide-source:focus-visible {
+  outline: 2px solid var(--link);
+  outline-offset: 3px;
+}
+
+.command-toggle[hidden],
+.command-guide[hidden] {
+  display: none !important;
+}
+
+.command-guide {
+  margin: 18px 0 26px;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--link);
+  background: var(--surface);
+  overflow-wrap: anywhere;
+}
+
+.command-guide h3 {
+  margin: 0 0 8px;
+  font-size: 1rem;
+}
+
+.command-guide .command-guide-note {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.command-guide ol {
+  margin-bottom: 0;
+}
+
+.command-guide li + li {
+  margin-top: 16px;
+}
+
+.command-guide pre {
+  margin: 6px 0 2px;
+  padding: 10px 12px;
+  overflow-x: auto;
+  background: #f4f6f8;
+  border: 1px solid var(--line);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  white-space: pre;
+  overflow-wrap: normal;
+}
+
+.command-guide-source {
+  font-size: 0.78rem;
+}

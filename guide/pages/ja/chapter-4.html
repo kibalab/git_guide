@@ -23,6 +23,7 @@
       <div class="wrap topbar-inner">
         <a class="home-link" href="./index.html">猫でもわかるGitの使い方</a>
         <div class="topbar-tools">
+          <button id="command-toggle" class="command-toggle" type="button" aria-pressed="false" hidden>コマンド説明を表示</button>
           <nav class="lang-switch" aria-label="言語選択">
             <a lang="ko" hreflang="ko" href="../chapter-4.html">한국어</a>
             <a class="is-active" aria-current="page" lang="ja" hreflang="ja" href="./chapter-4.html">日本語</a>
@@ -55,15 +56,19 @@
           ただし <span class="strong">ブランチを Merge するときには機能が完成している状態</span>であるほうがチーム作業は安全です。
         </p>
 
+        <aside class="command-guide" data-command-guide="commit" hidden></aside>
+
         <p>
           <span class="strong">Push</span> は、ローカルリポジトリの Commit をリモートリポジトリへ送る動きです。
         </p>
+        <aside class="command-guide" data-command-guide="push" hidden></aside>
 
         <p>
           <span class="strong">Fetch</span> は、リモートの最新記録をローカル側の
           <span class="strong">origin/main</span> のような追跡ブランチへ取り込む動きです。
           このとき現在の作業位置（HEAD）はすぐには変わりません。
         </p>
+        <aside class="command-guide" data-command-guide="fetch" hidden></aside>
 
         <section class="figure">
           <h3>図 4-1. Commit は小さな作業単位で積み上げる</h3>
@@ -116,6 +121,8 @@
 
     <script src="../../../scripts/language-preference.js"></script>
     <script src="../../scripts/glossary.js"></script>
+    <script src="../../scripts/command-data.js"></script>
+    <script src="../../scripts/command-guide.js"></script>
   </body>
 </html>
 

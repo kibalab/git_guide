@@ -23,6 +23,7 @@
       <div class="wrap topbar-inner">
         <a class="home-link" href="./index.html">고양이도 이해하는 Git 사용법</a>
         <div class="topbar-tools">
+          <button id="command-toggle" class="command-toggle" type="button" aria-pressed="false" hidden>명령어 설명 표시</button>
           <nav class="lang-switch" aria-label="언어 선택">
             <a class="is-active" aria-current="page" lang="ko" hreflang="ko" href="./chapter-5.html">한국어</a>
             <a lang="ja" hreflang="ja" href="./ja/chapter-5.html">日本語</a>
@@ -62,6 +63,7 @@
           그다음 단계가 Merge입니다. 즉 <span class="strong">main</span>에 <span class="strong">origin/main</span>을 합칩니다.
           이 Merge 단계에서 같은 줄을 다르게 고쳤다면 컨플릭트가 발생할 수 있습니다.
         </p>
+        <aside class="command-guide" data-command-guide="fetch-merge" hidden></aside>
 
         <section class="figure">
           <h3>그림 5-1. 브렌치 머지</h3>
@@ -70,6 +72,7 @@
             feature에서 작업한 내용을 main으로 합치면 머지 커밋이 생깁니다.
           </p>
         </section>
+        <aside class="command-guide" data-command-guide="merge" hidden></aside>
 
         <section class="figure">
           <h3>그림 5-2. Pull 시나리오 A: 내 로컬 변경이 없는 경우</h3>
@@ -79,6 +82,7 @@
             이 경우에는 별도 Merge 커밋이 생기지 않습니다. (이걸 "fast-forward" 라고 불러요)
           </p>
         </section>
+        <aside class="command-guide" data-command-guide="pull-ff" hidden></aside>
 
         <section class="figure">
           <h3>그림 5-3. Pull 시나리오 B: 내 로컬 변경이 있는 경우</h3>
@@ -89,6 +93,7 @@
             같은 줄을 다르게 고쳤다면 컨플릭트를 해결한 뒤 Merge 커밋으로 마무리됩니다.
           </p>
         </section>
+        <aside class="command-guide" data-command-guide="pull-merge" hidden></aside>
 
         <h2>컨플릭트가 났을 때 기본 순서</h2>
         <ol>
@@ -97,6 +102,7 @@
           <li>고른 내용으로 정리한 뒤 다시 커밋한다.</li>
           <li>작업자가 이해할 수 있는 짧은 설명을 남긴다.</li>
         </ol>
+        <aside class="command-guide" data-command-guide="conflict" hidden></aside>
         <p>
           여기까지 이해했다면, 다음 장에서 "이 머지 과정을 팀 검토 절차(PR)로 운영하면 어떻게 되는지"를 이어서 볼 수 있습니다.
         </p>
@@ -132,6 +138,8 @@
 
     <script src="../../scripts/language-preference.js"></script>
     <script src="../scripts/glossary.js"></script>
+    <script src="../scripts/command-data.js"></script>
+    <script src="../scripts/command-guide.js"></script>
   </body>
 </html>
 

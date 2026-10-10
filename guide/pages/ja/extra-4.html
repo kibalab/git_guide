@@ -23,6 +23,7 @@
       <div class="wrap topbar-inner">
         <a class="home-link" href="./index.html">猫でもわかるGitの使い方</a>
         <div class="topbar-tools">
+          <button id="command-toggle" class="command-toggle" type="button" aria-pressed="false" hidden>コマンド説明を表示</button>
           <nav class="lang-switch" aria-label="言語選択">
             <a lang="ko" hreflang="ko" href="../extra-4.html">한국어</a>
             <a class="is-active" aria-current="page" lang="ja" hreflang="ja" href="./extra-4.html">日本語</a>
@@ -44,6 +45,7 @@
           聞き慣れない用語や独特な感覚のせいで「いったい誰がこんな仕組みを作ったんだ」と思うかもしれませんが、
           その背景を知ると Git の性格も少し理解しやすくなります。
         </p>
+        <aside class="command-guide" data-command-guide="background" hidden></aside>
 
         <section class="profile-split">
           <figure class="profile-photo">
@@ -137,6 +139,8 @@
 </footer>
     <script src="../../../scripts/language-preference.js"></script>
     <script src="../../scripts/glossary.js"></script>
+    <script src="../../scripts/command-data.js"></script>
+    <script src="../../scripts/command-guide.js"></script>
   </body>
 </html>
 

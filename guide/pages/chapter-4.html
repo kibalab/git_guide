@@ -23,6 +23,7 @@
       <div class="wrap topbar-inner">
         <a class="home-link" href="./index.html">고양이도 이해하는 Git 사용법</a>
         <div class="topbar-tools">
+          <button id="command-toggle" class="command-toggle" type="button" aria-pressed="false" hidden>명령어 설명 표시</button>
           <nav class="lang-switch" aria-label="언어 선택">
             <a class="is-active" aria-current="page" lang="ko" hreflang="ko" href="./chapter-4.html">한국어</a>
             <a lang="ja" hreflang="ja" href="./ja/chapter-4.html">日本語</a>
@@ -55,16 +56,20 @@
           대신 <span class="strong">브렌치를 머지할 때는 기능이 완성된 상태</span>여야 팀 작업이 안전합니다.
         </p>
 
+        <aside class="command-guide" data-command-guide="commit" hidden></aside>
+
         <p>
           <span class="strong">푸쉬(Push)</span>는 로컬 레포지토리의 커밋을
           리모트 레포지토리로 보내는 행동입니다.
         </p>
+        <aside class="command-guide" data-command-guide="push" hidden></aside>
 
         <p>
           <span class="strong">페치(Fetch)</span>는 리모트의 최신 기록을 내 로컬의
           <span class="strong">origin/main</span> 같은 추적 브렌치로 가져오는 행동입니다.
           이때 현재 작업 위치(HEAD)는 바로 바뀌지 않습니다.
         </p>
+        <aside class="command-guide" data-command-guide="fetch" hidden></aside>
 
         <section class="figure">
           <h3>그림 4-1. 커밋은 작은 작업 묶음으로 쌓기</h3>
@@ -117,6 +122,8 @@
 
     <script src="../../scripts/language-preference.js"></script>
     <script src="../scripts/glossary.js"></script>
+    <script src="../scripts/command-data.js"></script>
+    <script src="../scripts/command-guide.js"></script>
   </body>
 </html>
 

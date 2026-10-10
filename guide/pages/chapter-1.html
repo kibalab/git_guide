@@ -39,6 +39,7 @@
       <div class="wrap topbar-inner">
         <a class="home-link" href="./index.html">고양이도 이해하는 Git 사용법</a>
         <div class="topbar-tools">
+          <button id="command-toggle" class="command-toggle" type="button" aria-pressed="false" hidden>명령어 설명 표시</button>
           <nav class="lang-switch" aria-label="언어 선택">
             <a class="is-active" aria-current="page" lang="ko" hreflang="ko" href="./chapter-1.html">한국어</a>
             <a lang="ja" hreflang="ja" href="./ja/chapter-1.html">日本語</a>
@@ -92,6 +93,7 @@
           <div>  ui/</div>
           <div>  README.md</div>
         </div>
+        <aside class="command-guide" data-command-guide="repository" hidden></aside>
 
         <section class="figure">
           <h3>그림 1-1. 동료에게 커밋을 공유하는 과정 (1)</h3>
@@ -101,6 +103,7 @@
             화살표와 점선 흐름 방향으로 데이터가 이동하는 길을 바로 읽을 수 있습니다.
           </p>
         </section>
+        <aside class="command-guide" data-command-guide="sharing" hidden></aside>
 
         <div class="bottom-nav">
           <a href="./index.html">목차로</a>
@@ -133,6 +136,8 @@
 
     <script src="../../scripts/language-preference.js"></script>
     <script src="../scripts/glossary.js"></script>
+    <script src="../scripts/command-data.js"></script>
+    <script src="../scripts/command-guide.js"></script>
   </body>
 </html>
 

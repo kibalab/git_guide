@@ -23,6 +23,7 @@
       <div class="wrap topbar-inner">
         <a class="home-link" href="./index.html">猫でもわかるGitの使い方</a>
         <div class="topbar-tools">
+          <button id="command-toggle" class="command-toggle" type="button" aria-pressed="false" hidden>コマンド説明を表示</button>
           <nav class="lang-switch" aria-label="言語選択">
             <a lang="ko" hreflang="ko" href="../chapter-6.html">한국어</a>
             <a class="is-active" aria-current="page" lang="ja" hreflang="ja" href="./chapter-6.html">日本語</a>
@@ -79,6 +80,7 @@
             自分の local 側にあるリモート基準点で、最後の段階で Fetch と Pull の違いも確認できます。
           </p>
         </section>
+        <aside class="command-guide" data-command-guide="pr" hidden></aside>
 
         <h2>PR Merge 後の整理ルーティン（推奨）</h2>
         <p>
@@ -100,6 +102,7 @@
           <li>ローカル作業ブランチを削除する。</li>
           <li>次の作業は新しいブランチで始める。</li>
         </ol>
+        <aside class="command-guide" data-command-guide="cleanup" hidden></aside>
 
         <section class="tip">
           <h3>なぜこうするのか</h3>
@@ -143,6 +146,8 @@
 
     <script src="../../../scripts/language-preference.js"></script>
     <script src="../../scripts/glossary.js"></script>
+    <script src="../../scripts/command-data.js"></script>
+    <script src="../../scripts/command-guide.js"></script>
   </body>
 </html>
 

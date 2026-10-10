@@ -23,6 +23,7 @@
       <div class="wrap topbar-inner">
         <a class="home-link" href="./index.html">猫でもわかるGitの使い方</a>
         <div class="topbar-tools">
+          <button id="command-toggle" class="command-toggle" type="button" aria-pressed="false" hidden>コマンド説明を表示</button>
           <nav class="lang-switch" aria-label="言語選択">
             <a lang="ko" hreflang="ko" href="../chapter-5.html">한국어</a>
             <a class="is-active" aria-current="page" lang="ja" hreflang="ja" href="./chapter-5.html">日本語</a>
@@ -61,6 +62,7 @@
           その次の段階が Merge です。つまり <span class="strong">main</span> に <span class="strong">origin/main</span> を取り込みます。
           この Merge の段階で同じ行を別々に直していた場合、コンフリクトが起こることがあります。
         </p>
+        <aside class="command-guide" data-command-guide="fetch-merge" hidden></aside>
 
         <section class="figure">
           <h3>図 5-1. ブランチ Merge</h3>
@@ -69,6 +71,7 @@
             feature で作業した内容を main にまとめると、Merge Commit が生まれます。
           </p>
         </section>
+        <aside class="command-guide" data-command-guide="merge" hidden></aside>
 
         <section class="figure">
           <h3>図 5-2. Pull シナリオ A: 自分のローカル変更がない場合</h3>
@@ -78,6 +81,7 @@
             この場合は別の Merge Commit はできません。（これを "fast-forward" と呼びます）
           </p>
         </section>
+        <aside class="command-guide" data-command-guide="pull-ff" hidden></aside>
 
         <section class="figure">
           <h3>図 5-3. Pull シナリオ B: 自分のローカル変更がある場合</h3>
@@ -88,6 +92,7 @@
             同じ行を別々に直していれば、コンフリクトを解決したあと Merge Commit で締めます。
           </p>
         </section>
+        <aside class="command-guide" data-command-guide="pull-merge" hidden></aside>
 
         <h2>コンフリクトが起きたときの基本手順</h2>
         <ol>
@@ -96,6 +101,7 @@
           <li>選んだ内容で整理してからもう一度 Commit する。</li>
           <li>作業者が理解できる短い説明を残す。</li>
         </ol>
+        <aside class="command-guide" data-command-guide="conflict" hidden></aside>
         <p>
           ここまで理解できたら、次の章では「この Merge の流れをチームのレビュー手順（PR）として運用するとどうなるか」を続けて見ていけます。
         </p>
@@ -131,6 +137,8 @@
 
     <script src="../../../scripts/language-preference.js"></script>
     <script src="../../scripts/glossary.js"></script>
+    <script src="../../scripts/command-data.js"></script>
+    <script src="../../scripts/command-guide.js"></script>
   </body>
 </html>
 
